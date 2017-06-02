@@ -9,6 +9,7 @@ from widgets.create_discrete_widget import CreateDiscreteWidget
 from widgets.create_char_widget import CreateCharWidget
 from widgets.create_energy_scan_widget import CreateEnergyScanWidget
 from widgets.create_xrf_spectrum_widget import CreateXRFSpectrumWidget
+from widgets.create_gphl_workflow_widget import CreateGphlWorkflowWidget
 from widgets.create_workflow_widget import CreateWorkflowWidget
 from queue_model_enumerables_v1 import EXPERIMENT_TYPE
 
@@ -44,6 +45,8 @@ class TaskToolBoxWidget(qt.QWidget):
         self.helical_page.setBackgroundMode(qt.QWidget.PaletteBackground)
         self.energy_scan_page = CreateEnergyScanWidget(self.tool_box, "energy_scan")
         self.xrf_spectrum_page = CreateXRFSpectrumWidget(self.tool_box, "xrf_spectrum")
+        self.gphl_page = CreateGphlWorkflowWidget(self.tool_box, "GPhL_workflow")
+        self.gphl_page.setBackgroundMode(qt.QWidget.PaletteBackground)
         self.workflow_page = CreateWorkflowWidget(self.tool_box, 'workflow')
         
         self.tool_box.addItem(self.discrete_page, "Standard Collection")
@@ -51,6 +54,7 @@ class TaskToolBoxWidget(qt.QWidget):
         self.tool_box.addItem(self.helical_page, "Helical Collection")
         self.tool_box.addItem(self.energy_scan_page, "Energy Scan")
         self.tool_box.addItem(self.xrf_spectrum_page, "XRF Spectrum")
+        self.tool_box.addItem(self.gphl_page, "GPhL Workflow")
         self.tool_box.addItem(self.workflow_page, "Advanced")
 
         self.add_pixmap = Icons.load("add_row.png")
@@ -91,9 +95,10 @@ class TaskToolBoxWidget(qt.QWidget):
 
         self.shape_history = beamline_setup_hwobj.shape_history_hwobj
         self.workflow_page.set_workflow(beamline_setup_hwobj.workflow_hwobj)
+        self.gphl_workflow_page.set_workflow(beamline_setup_hwobj.gphl_workflow_hwobj)
         self.workflow_page.set_shape_history(beamline_setup_hwobj.shape_history_hwobj)
 
-        # Remove energy scan page from non tunable wavelentgh beamlines
+        # Remove energy scan page from non tunable wavelength beamlines
         if not beamline_setup_hwobj.tunable_wavelength():
             self.tool_box.removeItem(self.energy_scan_page)
             self.energy_scan_page.hide()
@@ -165,6 +170,9 @@ class TaskToolBoxWidget(qt.QWidget):
                 self.tool_box.setCurrentItem(self.energy_scan_page)
             elif isinstance(items[0], queue_item.XRFSpectrumQueueItem):
                 self.tool_box.setCurrentItem(self.xrf_spectrum_page)
+                self.tool_box.setCurrentItem(self.char_page)
+            elif isinstance(items[0], queue_item.GphlWorkflowQueueItem):
+                self.tool_box.setCurrentItem(self.gphl_page)
             elif isinstance(items[0], queue_item.GenericWorkflowQueueItem):
                 self.tool_box.setCurrentItem(self.workflow_page)
 
@@ -199,7 +207,7 @@ class TaskToolBoxWidget(qt.QWidget):
                                 for shape in shapes:
                                     self.create_task(child_task_model, shape)
                             else:
-                                self.create_task(child_task_model) 
+                                self.create_task(child_task_model)
                     else:
                         if len(shapes):
                             for shape in shapes:
