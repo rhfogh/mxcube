@@ -356,10 +356,15 @@ class GUISupervisor(QWidget):
                                        "No slot '%s' " % connection["slot"] + \
                                        "in receiver %s" % _receiver)
                                 else:
-                                    getattr(sender, connection["signal"]).connect(slot)
-                                    #sender.connect(sender,
-                                    #    QtCore.SIGNAL(connection["signal"]),
-                                    #    slot)
+                                    try:
+                                        getattr(sender, connection["signal"]).connect(slot)
+                                        #sender.connect(sender,
+                                        #    QtCore.SIGNAL(connection["signal"]),
+                                        #    slot)
+                                    except AttributeError:
+                                        logging.getLogger().error( \
+                                            "No slot '%s' " % connection["signal"] + \
+                                            "in sender %s" % sender)
                     make_connections(item["children"])
 
             self.splash_screen.set_message("Connecting bricks...")
