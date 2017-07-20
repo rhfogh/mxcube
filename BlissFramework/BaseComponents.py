@@ -829,7 +829,7 @@ class BlissWidget(QWidget, Connectable.Connectable):
                     
     
     def _propertyChanged(self, propertyName, oldValue, newValue):
-        #import time; t0=time.time()    
+        #import time; t0=time.time()
         if propertyName == 'fontSize':
             try:
                 s = int(newValue)

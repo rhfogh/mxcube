@@ -7,7 +7,7 @@ import types
 import logging
 import os
 from qt import *
-from lxml import etree
+from xml import etree
 from BlissFramework.BaseComponents import BlissWidget
 #from XSDataMXv1 import XSDataCharacterisation
 from XSDataMXCuBEv1_3 import XSDataResultMXCuBE

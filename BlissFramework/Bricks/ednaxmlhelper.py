@@ -1,4 +1,4 @@
-from lxml import etree
+from xml import etree
 import types
 
 FIELD_PROPERTIES = [

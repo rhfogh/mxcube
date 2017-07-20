@@ -1,5 +1,5 @@
 import qt
-from lxml import etree
+from xml import etree
 import os.path
 import logging
 import sys
