@@ -11,7 +11,6 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         CreateTaskBase.__init__(self, parent, name, fl, 'GphlWorkflow')
 
         # Data attributes
-        self.workflow_hwobj = None
         self.workflows = {}
         
         self.init_models()
@@ -100,11 +99,14 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         path_template = self._create_path_template(sample, self._path_template)
         path_template.num_files = 0
 
-        wf = queue_model_objects.GphlWorkflow()
-        wf.path_template = path_template
-        wf.set_name("Workflow task")
         wf_type = str(self._workflow_cbox.currentText())
-        wf.set_type(wf_type)
+        wf = queue_model_objects.GphlWorkflow()
+        workflow_hwobj = self._beamline_setup_hwobj.getObjectByRole(
+            'gphl_workflow')
+        wf.init_from_workflow_hwobj(wf_type, workflow_hwobj)
+        wf.set_name(wf_type)
+        # TODO rethink path template, and other data
+        wf.path_template = path_template
         
         tasks.append(wf)
 
