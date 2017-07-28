@@ -116,7 +116,7 @@ class tabBar(qt.QTabBar):
                         break
         if warn_mode:
             p.setBackgroundMode(qt.Qt.OpaqueMode)
-            p.set_background_color(qt.Qt.yellow)
+            p.setBackgroundolor(qt.Qt.yellow)
         else:
             p.setBackgroundMode(qt.Qt.TransparentMode)
         qt.QTabBar.paintLabel(self,p,br,t,has_focus)
