@@ -412,10 +412,12 @@ class HutchMenuBrick(BlissWidget):
           self.insideDataCollection = False
           self.emit(PYSIGNAL("centringAccepted"), (state,centring_status))
 
-        beam_info = self.beamInfo.get_beam_info()        
+        beam_info = self.beamInfo
         if beam_info is not None:
-            beam_info['size_x'] = beam_info['size_x'] * self.pixels_per_mm[0]
-            beam_info['size_y'] = beam_info['size_y'] * self.pixels_per_mm[1]
+            dd = beam_info.get_beam_info()
+            if dd:
+                dd['size_x'] *= self.pixels_per_mm[0]
+                dd['size_y'] *= self.pixels_per_mm[1]
         self.emit(PYSIGNAL("newCentredPos"), (state, centring_status, beam_info))
 
         if self.queue_hwobj.is_executing():
