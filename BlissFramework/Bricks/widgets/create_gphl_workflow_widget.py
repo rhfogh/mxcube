@@ -101,12 +101,12 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
         wf_type = str(self._workflow_cbox.currentText())
         wf = queue_model_objects.GphlWorkflow()
-        workflow_hwobj = self._beamline_setup_hwobj.getObjectByRole(
-            'gphl_workflow')
-        wf.init_from_workflow_hwobj(wf_type, workflow_hwobj)
-        wf.set_name(wf_type)
         # TODO rethink path template, and other data
         wf.path_template = path_template
+        workflow_hwobj = self._beamline_setup_hwobj.getObjectByRole(
+            'gphl_workflow')
+        wf.init_from_hwobj(wf_type, workflow_hwobj)
+        wf.set_name(wf_type)
         
         tasks.append(wf)
 
