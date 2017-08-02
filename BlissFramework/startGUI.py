@@ -240,7 +240,8 @@ def run(GUIConfigFile=None):
             lockfile.close()
             os.unlink(filename)
         except:
-            logging.getLogger().error("Problem removing the lock file")
+            logging.getLogger().error("Problem removing the lock file: %s"
+                                      % filename)
 
     if log_lockfile is not None:
         filename = log_lockfile.name
