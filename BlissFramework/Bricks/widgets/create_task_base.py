@@ -534,6 +534,10 @@ class CreateTaskBase(qt.QWidget):
         free_pin_mode = sample.free_pin_mode
         temp_tasks = self._create_task(sample, shape)
 
+        print('@~@~ create_task', self.__class__.__name__, fully_automatic,
+              sample_is_mounted, free_pin_mode,
+              temp_tasks[0].requires_centring(), shape, temp_tasks[0],)
+
         if (not fully_automatic):
             if ((not free_pin_mode) and (not sample_is_mounted) or (not shape)):
                 # No centred positions selected, or selected sample not
@@ -555,7 +559,9 @@ class CreateTaskBase(qt.QWidget):
                         kappa_phi = temp_tasks[0].reference_image_collection.acquisitions[0].acquisition_parameters.kappa_phi
                         if kappa and kappa_phi:
                             task_label = 'sample-centring (kappa: %0.2f, phi: %0.2f)' %(kappa, kappa_phi)
-                    sc = queue_model_objects.SampleCentring(task_label, kappa, kappa_phi)
+                    # sc = queue_model_objects.SampleCentring(task_label, kappa, kappa_phi)
+                    sc = queue_model_objects.SampleCentring(task_label,
+                        motor_positions={'kappa':kappa, 'kappa_phi':kappa_phi})
                     tasks.append(sc)
 
 

@@ -54,7 +54,7 @@ class TaskToolBoxWidget(qt.QWidget):
         self.tool_box.addItem(self.helical_page, "Helical Collection")
         self.tool_box.addItem(self.energy_scan_page, "Energy Scan")
         self.tool_box.addItem(self.xrf_spectrum_page, "XRF Spectrum")
-        self.tool_box.addItem(self.gphl_page, "GPhL Workflow")
+        self.tool_box.addItem(self.gphl_page, "Workflows")
         self.tool_box.addItem(self.workflow_page, "Advanced")
 
         self.add_pixmap = Icons.load("add_row.png")
