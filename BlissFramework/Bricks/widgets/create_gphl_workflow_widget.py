@@ -70,7 +70,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         CreateTaskBase.single_item_selection(self, tree_item)
         wf_model = tree_item.get_model()
 
-        if isinstance(tree_item, queue_item.GenericWorkflowQueueItem):
+        if isinstance(tree_item, queue_item.GphlWorkflowQueueItem):
             if tree_item.get_model().is_executed():
                 self.setDisabled(True)
             else:
@@ -106,7 +106,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         workflow_hwobj = self._beamline_setup_hwobj.getObjectByRole(
             'gphl_workflow')
         wf.init_from_hwobj(wf_type, workflow_hwobj)
-        wf.set_name(wf_type)
+        wf.set_name(wf.path_template.get_prefix())
+        wf.set_number(wf.path_template.run_number)
         
         tasks.append(wf)
 
