@@ -197,5 +197,5 @@ class DataPathWidget(qt.QWidget):
                 setPaletteBackgroundColor(widget_colors.WHITE)
 
         self.path_conflict_state = conflict
-            
+
 

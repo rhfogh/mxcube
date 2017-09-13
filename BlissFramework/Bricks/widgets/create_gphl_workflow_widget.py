@@ -5,6 +5,7 @@ import itertools
 
 from create_task_base import CreateTaskBase
 from widgets.data_path_widget import DataPathWidget
+from widgets.processing_widget import ProcessingWidget
 
 class CreateGphlWorkflowWidget(CreateTaskBase):
     def __init__(self, parent = None, name = None, fl = 0):
@@ -25,15 +26,31 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
         self._data_path_gbox = qt.QVGroupBox('Data location', self,
                                              'data_path_gbox')
-        self._data_path_widget = DataPathWidget(self._data_path_gbox, 
+        self._data_path_widget = DataPathWidget(self._data_path_gbox,
                                                 data_model = self._path_template,
                                                 layout = 'vertical')
 
-        self._data_path_widget.data_path_widget_layout.child('file_name_label').setText('')
-        self._data_path_widget.data_path_widget_layout.child('file_name_value_label').hide()
+
+        data_path_layout = self._data_path_widget.data_path_widget_layout
+        # NBNB TODO change layout to remove invisible but space-using widgets
+        data_path_layout.child('file_name_label').setText('')
+        data_path_layout.child('file_name_value_label').hide()
+        data_path_layout.child('run_number_label').setText('')
+        data_path_layout.child('run_number_ledit').hide()
+
+        self._processing_gbox = qt.QVGroupBox('Crystal data', self,
+                                              'processing_gbox')
+
+        self._processing_widget = ProcessingWidget(
+            self._processing_gbox, data_model=self._processing_parameters
+        )
+        processing_layout = self._processing_widget.layout_widget
+        processing_layout.child('num_residues_label').hide()
+        processing_layout.child('num_residues_ledit').hide()
 
         v_layout.addWidget(self._workflow_type_gbox)
         v_layout.addWidget(self._data_path_gbox)
+        v_layout.addWidget(self._processing_gbox)
         v_layout.addStretch()
 
         self.connect(self._data_path_widget.data_path_widget_layout.child('prefix_ledit'), 
@@ -90,6 +107,13 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
     # def approve_creation(self):
     #     return CreateTaskBase.approve_creation(self)
 
+    def init_models(self):
+        CreateTaskBase.init_models(self)
+        self._init_models()
+
+    def _init_models(self):
+        self._processing_parameters = queue_model_objects.ProcessingParameters()
+
 
     # Called by the owning widget (task_toolbox_widget) to create
     # a collection. When a data collection group is selected.
@@ -103,6 +127,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         wf = queue_model_objects.GphlWorkflow()
         # TODO rethink path template, and other data
         wf.path_template = path_template
+        wf.processing_parameters = self._processing_parameters
         workflow_hwobj = self._beamline_setup_hwobj.getObjectByRole(
             'gphl_workflow')
         wf.init_from_hwobj(wf_type, workflow_hwobj)

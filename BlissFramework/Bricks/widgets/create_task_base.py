@@ -534,10 +534,6 @@ class CreateTaskBase(qt.QWidget):
         free_pin_mode = sample.free_pin_mode
         temp_tasks = self._create_task(sample, shape)
 
-        print('@~@~ create_task', self.__class__.__name__, fully_automatic,
-              sample_is_mounted, free_pin_mode,
-              temp_tasks[0].requires_centring(), shape, temp_tasks[0],)
-
         if (not fully_automatic):
             if ((not free_pin_mode) and (not sample_is_mounted) or (not shape)):
                 # No centred positions selected, or selected sample not
