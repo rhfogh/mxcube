@@ -87,21 +87,30 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         CreateTaskBase.single_item_selection(self, tree_item)
         wf_model = tree_item.get_model()
 
-        if isinstance(tree_item, queue_item.GphlWorkflowQueueItem):
-            if tree_item.get_model().is_executed():
-                self.setDisabled(True)
-            else:
-                self.setDisabled(False)
-            
-            if wf_model.get_path_template():
-                self._path_template = wf_model.get_path_template()
+        if isinstance(tree_item, queue_item.SampleQueueItem):
+            sample_model = tree_item.get_model()
+            self._processing_parameters = sample_model.processing_parameters
+            #self._processing_parameters = copy.deepcopy(self._processing_parameters)
+            self._processing_widget.update_data_model(self._processing_parameters)
+        else:
 
-            self._data_path_widget.update_data_model(self._path_template)
-        elif isinstance(tree_item, queue_item.BasketQueueItem):
-            self.setDisabled(False)            
-        elif not(isinstance(tree_item, queue_item.SampleQueueItem) or \
-                 isinstance(tree_item, queue_item.DataCollectionGroupQueueItem)):
-            self.setDisabled(True)
+            if isinstance(tree_item, queue_item.GphlWorkflowQueueItem):
+                if tree_item.get_model().is_executed():
+                    self.setDisabled(True)
+                else:
+                    self.setDisabled(False)
+
+                if wf_model.get_path_template():
+                    self._path_template = wf_model.get_path_template()
+
+                self._data_path_widget.update_data_model(self._path_template)
+
+            elif isinstance(tree_item, queue_item.BasketQueueItem):
+                self.setDisabled(False)
+            elif not isinstance(tree_item, queue_item.DataCollectionGroupQueueItem):
+                self.setDisabled(True)
+
+        self._processing_widget.update_data_model(self._processing_parameters)
 
 
     # def approve_creation(self):
