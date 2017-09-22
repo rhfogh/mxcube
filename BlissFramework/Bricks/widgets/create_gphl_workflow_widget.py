@@ -1,11 +1,12 @@
 import qt
 import queue_item
 import queue_model_objects_v1 as queue_model_objects
-import itertools
 
+import General
 from create_task_base import CreateTaskBase
 from widgets.data_path_widget import DataPathWidget
 from widgets.processing_widget import ProcessingWidget
+from widgets.gphl_acquisition_widget import GphlAcquisitionWidget
 
 class CreateGphlWorkflowWidget(CreateTaskBase):
     def __init__(self, parent = None, name = None, fl = 0):
@@ -48,9 +49,16 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         processing_layout.child('num_residues_label').hide()
         processing_layout.child('num_residues_ledit').hide()
 
+        self._acquisition_gbox = qt.QVGroupBox('Acquisition', self,
+                                               'acquisition_gbox')
+        self._gphl_acquisition_widget = GphlAcquisitionWidget(
+            self._acquisition_gbox
+        )
+
         v_layout.addWidget(self._workflow_type_gbox)
         v_layout.addWidget(self._data_path_gbox)
         v_layout.addWidget(self._processing_gbox)
+        v_layout.addWidget(self._acquisition_gbox)
         v_layout.addStretch()
 
         self.connect(self._data_path_widget.data_path_widget_layout.child('prefix_ledit'), 
@@ -142,6 +150,17 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         wf.init_from_hwobj(wf_type, workflow_hwobj)
         wf.set_name(wf.path_template.get_prefix())
         wf.set_number(wf.path_template.run_number)
+
+        acq_widget = self._gphl_acquisition_widget
+        txt = acq_widget.get_parameter_value('resolution')
+        wf.set_resolution(float(txt) if txt else None)
+
+        dd = {}
+        for tag in ('mad_1_energy', 'mad_2_energy', 'mad_3_energy'):
+            is_on, label, value = acq_widget.get_parameter_value(tag)
+            if is_on and label and value:
+                dd[label] = General.h_over_e/float(value)
+        wf.set_wavelengths(dd)
         
         tasks.append(wf)
 

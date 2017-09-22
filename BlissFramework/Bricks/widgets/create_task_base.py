@@ -32,7 +32,7 @@ class CreateTaskBase(qt.QWidget):
          self._tree_brick = None
          self._task_node_name = task_node_name
 
-         # Centred positons that currently are selected in the parent
+         # Centred positions that currently are selected in the parent
          # widget, position_history_brick.
          self._selected_positions = []
 
