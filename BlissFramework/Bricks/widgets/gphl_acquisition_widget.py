@@ -20,9 +20,10 @@ class GphlAcquisitionWidget(QWidget):
         "mad_2_energy":("", 4, 0, 1, CheckBoxInput, (), None, None, ()),
         "mad_3_energy":("", 5, 0, 1, CheckBoxInput, (), None, None, ()),
     }
+    _energy_tags = ('mad_1_energy', 'mad_2_energy', 'mad_3_energy',)
 
-    def __init__(self, parent):
-        QWidget.__init__(self, parent)
+    def __init__(self,parent = None,name = None,fl = 0):
+        QWidget.__init__(self,parent,name,fl)
 
         self._parameter_box = QWidget(parent)
         QGridLayout(self._parameter_box, 6, 3)
@@ -32,26 +33,17 @@ class GphlAcquisitionWidget(QWidget):
         self._parameter_dict = {}
 
         self.setup_parameter_widget('resolution', self.PARAMETERS['resolution'])
-        # resolution_spacer = QSpacerItem(1,20,QSizePolicy.Expanding,QSizePolicy.Maximum)
-        # spacer1 = HorizontalSpacer(self._parameter_box)
-        # self._parameter_box.layout().addItem(resolution_spacer,0,1)
-        # label = QLabel("Beam energies (keV) :", self._parameter_box)
-        # self._parameter_box.layout().addWidget(label,1,0)
-        # spacer2 = HorizontalSpacer(self._parameter_box)
-        # # self._parameter_box.layout().addMultiCellWidget(label,1,1, 0, 1)
         self._parameter_box.layout().addMultiCellWidget(QLabel("", self._parameter_box), 1, 1, 0, 3)
         self._parameter_box.layout().addMultiCellWidget(QLabel("Beam energies (keV) :", self._parameter_box), 2, 2, 0, 3)
         # self._parameter_box.layout().addWidget(spacer2,1,0)
         self._parameter_box.layout().addWidget(QLabel("", self._parameter_box), 0, 2)
-        for tag in ('mad_1_energy', 'mad_2_energy', 'mad_3_energy', ):
+        for tag in self._energy_tags:
             tt = self.PARAMETERS[tag]
             widget = self.setup_parameter_widget(tag, tt)
             # A bit backwards to make a readOnly widget and then make it editable
             #  But it is quicker than making a new widget
             widget.label.setReadOnly(False)
             widget.label.setAlignment(QWidget.AlignLeft)
-
-        self.set_default_values()
 
     def setup_parameter_widget(self, param_id, values):
         param_label=values[0]
@@ -127,6 +119,11 @@ class GphlAcquisitionWidget(QWidget):
         except KeyError:
             return None
         return param.text()
+
+    def setEnabled(self, value):
+        super(GphlAcquisitionWidget, self).setEnabled(value)
+        for widget in self._parameter_dict.values():
+            widget.setEnabled(value)
 
     def set_default_values(self):
 

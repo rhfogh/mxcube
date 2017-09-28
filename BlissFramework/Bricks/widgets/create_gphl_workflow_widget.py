@@ -13,9 +13,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         CreateTaskBase.__init__(self, parent, name, fl, 'GphlWorkflow')
 
         # Data attributes
-        self.workflows = {}
-        
-        self.init_models()
+        self._workflow_hwobj = None
 
         #Layout
         v_layout = qt.QVBoxLayout(self, 2, 5, "main_v_layout")
@@ -24,6 +22,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                                                  'workflow_rtype')
 
         self._workflow_cbox = qt.QComboBox(self._workflow_type_gbox)
+
+        self.init_models()
 
         self._data_path_gbox = qt.QVGroupBox('Data location', self,
                                              'data_path_gbox')
@@ -73,15 +73,56 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                      qt.PYSIGNAL("path_template_changed"),
                      self.handle_path_conflict)
 
-    def set_workflow(self, workflow_hwobj):
+        self.connect(self._workflow_cbox,
+                     # qt.SIGNAL("textChanged(const QString &)"),
+                     qt.SIGNAL('activated ( const QString &)'),
+                     self.workflow_selected)
+
+    def initialise_workflows(self, workflow_hwobj):
+        print('@~@~ GPhL initialise_workflows', workflow_hwobj)
         self._workflow_hwobj = workflow_hwobj
-        self.workflows.clear()
         self._workflow_cbox.clear()
 
         if self._workflow_hwobj is not None:
-            for workflow in self._workflow_hwobj.get_available_workflows():
-                self._workflow_cbox.insertItem(workflow['name'])
-                self.workflows[workflow['name']] = workflow
+            workflow_dict = workflow_hwobj.get_available_workflows()
+            first_name = list(workflow_dict)[0]
+            for workflow_name in list(workflow_dict):
+                self._workflow_cbox.insertItem(workflow_name)
+            self._workflow_cbox.setCurrentItem(0)
+            self.workflow_selected(first_name)
+
+    def workflow_selected(self, name):
+        # necessary as this comes in as a QString object
+        name = str(name)
+        print('@~@~ workflow_selected', name,
+              name == self.workflow_model.get_type())
+        if name != self.workflow_model.get_type():
+            parameters = self._workflow_hwobj.get_available_workflows()[name]
+            value = parameters.get('collect_data') != 'false'
+            self._processing_widget.setEnabled(value)
+            self._gphl_acquisition_widget.setEnabled(value)
+            self.set_wavelengths(parameters.get('wavelengths', {}))
+            prefix = parameters.get('prefix')
+            if prefix is not None:
+                self.workflow_model.get_path_template().base_prefix = prefix
+            self.workflow_model.set_type(name)
+
+    def set_wavelengths(self, wavelength_dict):
+        wavelength_tags = self._gphl_acquisition_widget._energy_tags
+        ll = list(wavelength_dict.items())
+        for ii, tag in enumerate(wavelength_tags):
+            if ii < len(ll):
+                role, wavelength = ll[ii]
+                energy = General.h_over_e / wavelength
+                print ('@~@~ ii', True, role, str(energy))
+                self._gphl_acquisition_widget.set_param_value(
+                    tag, (True, role, str(energy))
+                )
+            else:
+                self._gphl_acquisition_widget.set_param_value(
+                    tag, (False, '', '')
+                )
+
 
 
     def set_shape_history(self, shape_history_hwobj):
@@ -130,6 +171,9 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
     def _init_models(self):
         self._processing_parameters = queue_model_objects.ProcessingParameters()
+        self.workflow_model = queue_model_objects.GphlWorkflow()
+        self.workflow_model.workflow_hwobj = self._workflow_hwobj
+        self.workflow_selected(self._workflow_cbox.currentText())
 
 
     # Called by the owning widget (task_toolbox_widget) to create
@@ -140,14 +184,10 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         path_template = self._create_path_template(sample, self._path_template)
         path_template.num_files = 0
 
-        wf_type = str(self._workflow_cbox.currentText())
-        wf = queue_model_objects.GphlWorkflow()
+        wf = self.workflow_model
         # TODO rethink path template, and other data
         wf.path_template = path_template
         wf.processing_parameters = self._processing_parameters
-        workflow_hwobj = self._beamline_setup_hwobj.getObjectByRole(
-            'gphl_workflow')
-        wf.init_from_hwobj(wf_type, workflow_hwobj)
         wf.set_name(wf.path_template.get_prefix())
         wf.set_number(wf.path_template.run_number)
 
