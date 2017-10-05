@@ -128,6 +128,22 @@ class LineEdit(qt.QLineEdit):
     def get_value(self):
         return str(self.text())
 
+class TextEdit(qt.QTextEdit):
+    def __init__(self, parent, options):
+        qt.QTextEdit.__init__(self, parent)
+        self.setAlignment(qt.Qt.AlignLeft)
+        self.__name = options['variableName']
+        if options.has_key('defaultValue'):
+            self.setText(options['defaultValue'])
+        self.setAlignment(qt.Qt.AlignRight)
+        self.setReadOnly(True)
+    def set_value(self, value):
+        self.setText(value)
+    def get_name(self):
+        return self.__name
+    def get_value(self):
+        return str(self.text())
+
 class Combo(qt.QComboBox):
     def __init__(self, parent, options):
         qt.QComboBox.__init__(self, parent)
@@ -247,6 +263,8 @@ WIDGET_CLASSES = {
     'text': LineEdit,
     'file': File,
     'message': Message,
+
+    'textblock':TextEdit
 }
 
 def make_widget(parent, options):
@@ -284,8 +302,12 @@ class FieldsWidget(qt.QWidget):
                 logging.debug('creating widget with options: %s', field)
                 w = make_widget(self, field)
                 # Temporary (like this brick ...) hack to get a nicer UI
-                w.setSizePolicy(qt.QSizePolicy.Fixed,
-                                qt.QSizePolicy.Fixed)
+                if isinstance(w, TextEdit):
+                    w.setSizePolicy(qt.QSizePolicy.MinimumExpanding,
+                                    qt.QSizePolicy.Minimum)
+                else:
+                    w.setSizePolicy(qt.QSizePolicy.Fixed,
+                                    qt.QSizePolicy.Fixed)
                 self.field_widgets.append(w)
                 self.layout().addWidget(label, current_row, 0, qt.Qt.AlignLeft)
                 self.layout().addWidget(w, current_row, 1, qt.Qt.AlignLeft)

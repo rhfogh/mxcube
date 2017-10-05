@@ -7,6 +7,7 @@ from create_task_base import CreateTaskBase
 from widgets.data_path_widget import DataPathWidget
 from widgets.processing_widget import ProcessingWidget
 from widgets.gphl_acquisition_widget import GphlAcquisitionWidget
+from GphlParameters import GphlParameters
 
 class CreateGphlWorkflowWidget(CreateTaskBase):
     def __init__(self, parent = None, name = None, fl = 0):
@@ -55,10 +56,17 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             self._acquisition_gbox
         )
 
+        self._parameters_gbox = qt.QVGroupBox('Workflow parameters', self,
+                                              'parameters_gbox')
+        self._gphl_parameters_widget = GphlParameters(
+            self._parameters_gbox
+        )
+
         v_layout.addWidget(self._workflow_type_gbox)
         v_layout.addWidget(self._data_path_gbox)
         v_layout.addWidget(self._processing_gbox)
         v_layout.addWidget(self._acquisition_gbox)
+        v_layout.addWidget(self._parameters_gbox)
         v_layout.addStretch()
 
         self.connect(self._data_path_widget.data_path_widget_layout.child('prefix_ledit'), 
@@ -79,9 +87,9 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                      self.workflow_selected)
 
     def initialise_workflows(self, workflow_hwobj):
-        print('@~@~ GPhL initialise_workflows', workflow_hwobj)
         self._workflow_hwobj = workflow_hwobj
         self._workflow_cbox.clear()
+        self._gphl_parameters_widget.set_workflow(workflow_hwobj)
 
         if self._workflow_hwobj is not None:
             workflow_dict = workflow_hwobj.get_available_workflows()
@@ -94,7 +102,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
     def workflow_selected(self, name):
         # necessary as this comes in as a QString object
         name = str(name)
-        print('@~@~ workflow_selected', name,
+        print('@~@~ GPhL workflow_selected', name,
               name == self.workflow_model.get_type())
         if name != self.workflow_model.get_type():
             parameters = self._workflow_hwobj.get_available_workflows()[name]
@@ -114,7 +122,6 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             if ii < len(ll):
                 role, wavelength = ll[ii]
                 energy = General.h_over_e / wavelength
-                print ('@~@~ ii', True, role, str(energy))
                 self._gphl_acquisition_widget.set_param_value(
                     tag, (True, role, str(energy))
                 )
