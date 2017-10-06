@@ -1,5 +1,7 @@
 import qt
-from xml import etree
+# TODO clarify usage and lxml v. xml
+# from lxml import etree
+from xml.etree import ElementTree as ET
 import os.path
 import logging
 import sys
@@ -335,21 +337,21 @@ class FieldsWidget(qt.QWidget):
         print self.get_xml(True)
 
     def get_xml(self, olof=False):
-        root = etree.Element('parameters')
+        root = ET.Element('parameters')
         for w in self.field_widgets:
             name = w.get_name()
             value = w.get_value()
             if not olof:
-                param = etree.SubElement(root, w.get_name())
+                param = ET.SubElement(root, w.get_name())
                 param.text = w.get_value()
             else:
-                param = etree.SubElement(root, 'parameter')
-                name_tag = etree.SubElement(param, 'name')
-                value_tag = etree.SubElement(param, 'value')
+                param = ET.SubElement(root, 'parameter')
+                name_tag = ET.SubElement(param, 'name')
+                value_tag = ET.SubElement(param, 'value')
                 name_tag.text = name
                 value_tag.text = value
 
-        return etree.tostring(root, pretty_print=True)
+        return ET.tostring(root, pretty_print=True)
 
     def get_parameters_map(self):
         return dict((w.get_name(), w.get_value()) for w in self.field_widgets)

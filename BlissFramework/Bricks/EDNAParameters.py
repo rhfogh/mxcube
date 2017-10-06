@@ -7,7 +7,9 @@ import types
 import logging
 import os
 from qt import *
-from xml import etree
+# TODO clarify usage and lxml v. xml
+# from lxml import etree
+from xml.etree import ElementTree as ET
 from BlissFramework.BaseComponents import BlissWidget
 #from XSDataMXv1 import XSDataCharacterisation
 from XSDataMXCuBEv1_3 import XSDataResultMXCuBE
@@ -117,7 +119,7 @@ class EDNAParameters(BlissWidget):
         # Edited by Olof 2013/04/16: Temporary fix for handling messages containing
         # XML markup
         #xml_root = etree.fromstring(xml)
-        xml_root = etree.fromstring(xml, parser=etree.XMLParser(recover=True))
+        xml_root = ET.fromstring(xml, parser=ET.XMLParser(recover=True))
 
         # Special case until Olof implements the saner XML format on the server side
         if xml_root.tag == 'message':
