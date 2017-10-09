@@ -138,7 +138,7 @@ class QueueItem(qt.QCheckListItem):
         if self.listView():
             self.listView().triggerUpdate()
 
-    def set_background_color(self, color):
+    def setBackgroundColor(self, color):
         self.previous_bg_brush = self.bg_brush
         self.bg_brush = qt.QBrush(color)
 
@@ -149,7 +149,7 @@ class QueueItem(qt.QCheckListItem):
         self._font_is_bold = state
 
     def reset_style(self):
-        self.set_background_color(widget_colors.WHITE)
+        self.setBackgroundColor(widget_colors.WHITE)
         self.setFontBold(False)
         self.setHighlighted(False)
 
@@ -214,14 +214,14 @@ class SampleQueueItem(QueueItem):
 
         if state:
             self.setPixmap(0, PIN_PIXMAP)
-            self.set_background_color(widget_colors.SKY_BLUE)
+            self.setBackgroundColor(widget_colors.SKY_BLUE)
             self.setSelected(True)
             self.setFontBold(True)
         else:
             self.setPixmap(0, qt.QPixmap())
 
             if clear_background:
-               self.set_background_color(widget_colors.WHITE)
+               self.setBackgroundColor(widget_colors.WHITE)
             else:
                 queue_entry = self.get_queue_entry()
 

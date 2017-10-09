@@ -22,12 +22,12 @@ class LogBarWidget(qt.QWidget):
 
     def _toggle_background_color(self):
         for i in range(0, 3):
-            self.set_background_color(widget_colors.LIGHT_RED)
+            self.setBackgroundColor(widget_colors.LIGHT_RED)
             time.sleep(0.1)
-            self.set_background_color(widget_colors.WHITE)
+            self.setBackgroundColor(widget_colors.WHITE)
             time.sleep(0.1)
 
-    def set_background_color(self, qt_color):
+    def setBackgroundColor(self, qt_color):
         brush = self.text_edit.paper()
         brush.setColor(qt_color)
         self.text_edit.setPaper(brush)

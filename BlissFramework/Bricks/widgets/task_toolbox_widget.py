@@ -172,7 +172,6 @@ class TaskToolBoxWidget(qt.QWidget):
                 self.tool_box.setCurrentItem(self.energy_scan_page)
             elif isinstance(items[0], queue_item.XRFSpectrumQueueItem):
                 self.tool_box.setCurrentItem(self.xrf_spectrum_page)
-                self.tool_box.setCurrentItem(self.char_page)
             elif isinstance(items[0], queue_item.GphlWorkflowQueueItem):
                 self.tool_box.setCurrentItem(self.gphl_page)
             elif isinstance(items[0], queue_item.GenericWorkflowQueueItem):
