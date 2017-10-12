@@ -555,9 +555,9 @@ class CreateTaskBase(qt.QWidget):
                         kappa_phi = temp_tasks[0].reference_image_collection.acquisitions[0].acquisition_parameters.kappa_phi
                         if kappa and kappa_phi:
                             task_label = 'sample-centring (kappa: %0.2f, phi: %0.2f)' %(kappa, kappa_phi)
-                    # sc = queue_model_objects.SampleCentring(task_label, kappa, kappa_phi)
                     sc = queue_model_objects.SampleCentring(task_label,
-                        motor_positions={'kappa':kappa, 'kappa_phi':kappa_phi})
+                                                            kappa=kappa,
+                                                            kappa_phi=kappa_phi)
                     tasks.append(sc)
 
 
