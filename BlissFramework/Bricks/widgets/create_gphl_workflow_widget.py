@@ -99,6 +99,13 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             self._workflow_cbox.setCurrentItem(0)
             self.workflow_selected(first_name)
 
+        # Set hardwired and default values
+        self._gphl_acquisition_widget.set_param_value('char_energy',
+            workflow_hwobj.getProperty('characterisation_energy')
+        )
+        # Placeholder. Must be set to match hardwired detector distance
+        self._gphl_acquisition_widget.set_param_value('detector_resolution', -1)
+
     def workflow_selected(self, name):
         # necessary as this comes in as a QString object
         name = str(name)
@@ -106,30 +113,38 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
               name == self.workflow_model.get_type())
         if name != self.workflow_model.get_type():
             parameters = self._workflow_hwobj.get_available_workflows()[name]
-            value = parameters.get('collect_data') != 'false'
-            self._processing_widget.setEnabled(value)
-            self._gphl_acquisition_widget.setEnabled(value)
-            self.set_wavelengths(parameters.get('wavelengths', {}))
+            beam_energies = parameters.get('beam_energies', {})
+            if bool(beam_energies):
+                self._data_path_gbox.show()
+                self._processing_gbox.show()
+                self._acquisition_gbox.show()
+                self._parameters_gbox.show()
+                self._gphl_acquisition_widget.display_energy_widgets(
+                    list(beam_energies)
+                )
+                self.set_beam_energies(beam_energies)
+                # These parameters are hardwired - for now
+                self._gphl_acquisition_widget.set_parameter_enabled('detector_resolution', False)
+                self._gphl_acquisition_widget.set_parameter_enabled('char_energy', False)
+            else:
+                self._gphl_acquisition_widget.display_energy_widgets([])
+                self._data_path_gbox.hide()
+                self._processing_gbox.hide()
+                self._acquisition_gbox.hide()
+                self._parameters_gbox.hide()
             prefix = parameters.get('prefix')
             if prefix is not None:
                 self.workflow_model.get_path_template().base_prefix = prefix
             self.workflow_model.set_type(name)
 
-    def set_wavelengths(self, wavelength_dict):
-        wavelength_tags = self._gphl_acquisition_widget._energy_tags
-        ll = list(wavelength_dict.items())
-        for ii, tag in enumerate(wavelength_tags):
-            if ii < len(ll):
-                role, wavelength = ll[ii]
-                energy = General.h_over_e / wavelength
-                self._gphl_acquisition_widget.set_param_value(
-                    tag, (True, role, str(energy))
-                )
+    def set_beam_energies(self, beam_energy_dict):
+        parameter_dict = self._gphl_acquisition_widget.get_parameter_dict()
+        for tag, energy in beam_energy_dict.items():
+            if tag in parameter_dict:
+                self._gphl_acquisition_widget.set_param_value(tag, energy)
             else:
-                self._gphl_acquisition_widget.set_param_value(
-                    tag, (False, '', '')
-                )
-
+                raise ValueError("GPhL: No active beam energy named %s"
+                                 % tag)
 
 
     def set_shape_history(self, shape_history_hwobj):
@@ -178,6 +193,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
     def _init_models(self):
         self._processing_parameters = queue_model_objects.ProcessingParameters()
+        self._processing_parameters.num_residues = 0
+        self._processing_parameters.process_data = False
         self.workflow_model = queue_model_objects.GphlWorkflow()
         self.workflow_model.workflow_hwobj = self._workflow_hwobj
         self.workflow_selected(self._workflow_cbox.currentText())
@@ -199,15 +216,19 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         wf.set_number(wf.path_template.run_number)
 
         acq_widget = self._gphl_acquisition_widget
-        txt = acq_widget.get_parameter_value('resolution')
-        wf.set_resolution(float(txt) if txt else None)
+        txt = acq_widget.get_parameter_value('expected_resolution')
+        wf.set_expected_resolution(float(txt) if txt else None)
+        txt = acq_widget.get_parameter_value('detector_resolution')
+        wf.set_detector_resolution(float(txt) if txt else None)
+        txt = acq_widget.get_parameter_value('char_energy')
+        wf.set_characterisation_energy(float(txt) if txt else None)
 
         dd = {}
-        for tag in ('mad_1_energy', 'mad_2_energy', 'mad_3_energy'):
-            is_on, label, value = acq_widget.get_parameter_value(tag)
-            if is_on and label and value:
-                dd[label] = General.h_over_e/float(value)
-        wf.set_wavelengths(dd)
+        for tag in self._gphl_acquisition_widget._energy_tags:
+            value = acq_widget.get_parameter_value(tag)
+            if value:
+                dd[tag] = float(value)
+        wf.set_beam_energies(dd)
         
         tasks.append(wf)
 

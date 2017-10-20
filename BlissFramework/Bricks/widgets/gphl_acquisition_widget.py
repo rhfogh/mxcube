@@ -13,37 +13,44 @@ import logging
 
 class GphlAcquisitionWidget(QWidget):
 
-    PARAMETERS = {
+    _energy_tags = ('pk', 'ip', 'rm1', 'rm2',)
 
-        "resolution":("Resolution (A) ", 0, 0, 0, LineEditInput, (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
-        "mad_1_energy":("", 3, 0, 1, CheckBoxInput, (), None, None, ()),
-        "mad_2_energy":("", 4, 0, 1, CheckBoxInput, (), None, None, ()),
-        "mad_3_energy":("", 5, 0, 1, CheckBoxInput, (), None, None, ()),
+    PARAMETERS = {
+        "detector_resolution":("Detector resolution (A) ", 0, 0, 0, LineEditInput,
+                             (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "expected_resolution":("Expected resolution (A) ", 1, 0, 0, LineEditInput,
+                             (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "char_energy":("Characterisation ", 3, 0, 0, LineEditInput,(),
+                       QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "pk":("Peak (pk) ", 4, 0, 0, LineEditInput, (),
+              QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "ip":("Inflection (ip) ", 5, 0, 0, LineEditInput, (),
+              QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "rm1":("First remote (rm1) ", 6, 0, 0, LineEditInput, (),
+               QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "rm2":("Second remote (rm2) ", 7, 0, 0, LineEditInput, (),
+               QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
     }
-    _energy_tags = ('mad_1_energy', 'mad_2_energy', 'mad_3_energy',)
 
     def __init__(self,parent = None,name = None,fl = 0):
         QWidget.__init__(self,parent,name,fl)
 
         self._parameter_box = QWidget(parent)
-        QGridLayout(self._parameter_box, 6, 3)
+        QGridLayout(self._parameter_box, 8, 3)
         self._parameter_box.layout().setColStretch(2, 1)
 
         self._label_dict = {}
         self._parameter_dict = {}
-
-        self.setup_parameter_widget('resolution', self.PARAMETERS['resolution'])
-        self._parameter_box.layout().addMultiCellWidget(QLabel("", self._parameter_box), 1, 1, 0, 3)
-        self._parameter_box.layout().addMultiCellWidget(QLabel("Beam energies (keV) :", self._parameter_box), 2, 2, 0, 3)
-        # self._parameter_box.layout().addWidget(spacer2,1,0)
-        self._parameter_box.layout().addWidget(QLabel("", self._parameter_box), 0, 2)
+        self.setup_parameter_widget('detector_resolution',
+                                    self.PARAMETERS['detector_resolution'])
+        self.setup_parameter_widget('expected_resolution',
+                                    self.PARAMETERS['expected_resolution'])
+        self._parameter_box.layout().addWidget(
+            QLabel("Beam energies (keV):", self._parameter_box), 2, 0,)
+        self.setup_parameter_widget('char_energy',
+                                    self.PARAMETERS['char_energy'])
         for tag in self._energy_tags:
-            tt = self.PARAMETERS[tag]
-            widget = self.setup_parameter_widget(tag, tt)
-            # A bit backwards to make a readOnly widget and then make it editable
-            #  But it is quicker than making a new widget
-            widget.label.setReadOnly(False)
-            widget.label.setAlignment(QWidget.AlignLeft)
+            self.setup_parameter_widget(tag, self.PARAMETERS[tag])
 
     def setup_parameter_widget(self, param_id, values):
         param_label=values[0]
@@ -118,36 +125,51 @@ class GphlAcquisitionWidget(QWidget):
             param=self._parameter_dict[param_id]
         except KeyError:
             return None
-        return param.text()
+        if param.isVisible():
+            return param.text()
+        else:
+            return None
 
     def setEnabled(self, value):
         super(GphlAcquisitionWidget, self).setEnabled(value)
         for widget in self._parameter_dict.values():
             widget.setEnabled(value)
 
-    def set_default_values(self):
+    def set_parameter_enabled(self, tag, value):
+        param = self._parameter_dict.get(tag)
+        if param:
+            if hasattr(param, 'setReadOnly'):
+                param.setReadOnly(not(value))
+            else:
+                param.setEnabled(value)
+        else:
+            raise ValueError("GPhL: No parameter widget called %s" % tag)
 
-        self.set_param_value('resolution', 3.)
-        self.set_param_value('mad_1_energy', (True, 'Peak', '12.0'))
-        self.set_param_value('mad_2_energy', (False, 'Inflection', ''))
-        self.set_param_value('mad_3_energy', (False, 'Remote', ''))
+    def display_energy_widgets(self, tags):
+        for tag in self._energy_tags:
+            if tag in tags:
+                self._parameter_dict[tag].show()
+                self._label_dict[tag].show()
+            else:
+                self._parameter_dict[tag].hide()
+                self._label_dict[tag].hide()
 
 
     def get_parameter_dict(self):
         params={}
-        for param in self.PARAMETERS:
-            param_id=param[0]
-            if self._parameter_dict[param_id].hasAcceptableInput():
-                text=self._parameter_dict[param_id].text()
-            else:
-                text=None
-            params[param_id]=text
+        for param_id in self.PARAMETERS:
+            param = self._parameter_dict[param_id]
+            if param.isVisible():
+                if param.hasAcceptableInput():
+                    text=self._parameter_dict[param_id].text()
+                else:
+                    text=None
+                params[param_id]=text
         return params
 
     def get_validation_dict(self):
         params={}
-        for param in self.PARAMETERS:
-            param_id=param[0]
+        for param_id in self.PARAMETERS:
             if self._parameter_dict[param_id].hasAcceptableInput():
                 valid=True
             else:
