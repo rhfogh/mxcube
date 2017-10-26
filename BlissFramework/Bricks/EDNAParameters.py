@@ -132,7 +132,7 @@ class EDNAParameters(BlissWidget):
                     option = 'level'
                 message[option] = node.text.strip()
             fields = [message]
-        else:            
+        else:
             containers = get_field_containers(xml_root)
             if len(containers) == 0: return
             fields = get_fields(containers[0])
