@@ -7,6 +7,7 @@ from create_task_base import CreateTaskBase
 from widgets.data_path_widget import DataPathWidget
 from widgets.processing_widget import ProcessingWidget
 from widgets.gphl_acquisition_widget import GphlAcquisitionWidget
+from widgets.gphl_data_dialog import GphlDataDialog
 from GphlParameters import GphlParameters
 
 class CreateGphlWorkflowWidget(CreateTaskBase):
@@ -56,18 +57,22 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             self._acquisition_gbox
         )
 
-        self._parameters_gbox = qt.QVGroupBox('Workflow parameters', self,
-                                              'parameters_gbox')
-        self._gphl_parameters_widget = GphlParameters(
-            self._parameters_gbox
-        )
+        # self._parameters_gbox = qt.QVGroupBox('Workflow parameters', self,
+        #                                       'parameters_gbox')
+        # self._gphl_parameters_widget = GphlParameters(
+        #     self._parameters_gbox
+        # )
 
         v_layout.addWidget(self._workflow_type_gbox)
         v_layout.addWidget(self._data_path_gbox)
         v_layout.addWidget(self._processing_gbox)
         v_layout.addWidget(self._acquisition_gbox)
-        v_layout.addWidget(self._parameters_gbox)
+        # v_layout.addWidget(self._parameters_gbox)
         v_layout.addStretch()
+
+        # set up popup data dialog
+        self.gphl_data_dialog = GphlDataDialog(self, 'GPhL Workflow Data')
+        self.gphl_data_dialog.setModal(True)
 
         self.connect(self._data_path_widget.data_path_widget_layout.child('prefix_ledit'), 
                      qt.SIGNAL("textChanged(const QString &)"), 
@@ -86,10 +91,13 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                      qt.SIGNAL('activated ( const QString &)'),
                      self.workflow_selected)
 
+        self.connect(self.gphl_data_dialog, qt.PYSIGNAL("continue_clicked"),
+                           self.data_acquired)
+
     def initialise_workflows(self, workflow_hwobj):
         self._workflow_hwobj = workflow_hwobj
         self._workflow_cbox.clear()
-        self._gphl_parameters_widget.set_workflow(workflow_hwobj)
+        # self._gphl_parameters_widget.set_workflow(workflow_hwobj)
 
         if self._workflow_hwobj is not None:
             workflow_dict = workflow_hwobj.get_available_workflows()
@@ -118,7 +126,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self._data_path_gbox.show()
                 self._processing_gbox.show()
                 self._acquisition_gbox.show()
-                self._parameters_gbox.show()
+                # self._parameters_gbox.show()
                 self._gphl_acquisition_widget.display_energy_widgets(
                     list(beam_energies)
                 )
@@ -131,11 +139,15 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self._data_path_gbox.hide()
                 self._processing_gbox.hide()
                 self._acquisition_gbox.hide()
-                self._parameters_gbox.hide()
+                # self._parameters_gbox.hide()
             prefix = parameters.get('prefix')
             if prefix is not None:
                 self.workflow_model.get_path_template().base_prefix = prefix
             self.workflow_model.set_type(name)
+
+    def data_acquired(self):
+        """Data gathered from popup, continue execution"""
+        pass
 
     def set_beam_energies(self, beam_energy_dict):
         parameter_dict = self._gphl_acquisition_widget.get_parameter_dict()
