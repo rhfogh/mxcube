@@ -2,13 +2,11 @@ import qt
 import queue_item
 import queue_model_objects_v1 as queue_model_objects
 
-import General
 from create_task_base import CreateTaskBase
 from widgets.data_path_widget import DataPathWidget
 from widgets.processing_widget import ProcessingWidget
 from widgets.gphl_acquisition_widget import GphlAcquisitionWidget
 from widgets.gphl_data_dialog import GphlDataDialog
-from GphlParameters import GphlParameters
 
 class CreateGphlWorkflowWidget(CreateTaskBase):
     def __init__(self, parent = None, name = None, fl = 0):
@@ -92,7 +90,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                      self.workflow_selected)
 
         self.connect(self.gphl_data_dialog, qt.PYSIGNAL("continue_clicked"),
-                           self.data_acquired)
+                     self.data_acquired)
 
     def initialise_workflows(self, workflow_hwobj):
         self._workflow_hwobj = workflow_hwobj
@@ -106,6 +104,9 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self._workflow_cbox.insertItem(workflow_name)
             self._workflow_cbox.setCurrentItem(0)
             self.workflow_selected(first_name)
+
+            workflow_hwobj.connect('gphlParametersNeeded',
+                                   self.gphl_data_dialog.open_dialog)
 
         # Set hardwired and default values
         self._gphl_acquisition_widget.set_param_value('char_energy',
@@ -136,10 +137,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self._gphl_acquisition_widget.set_parameter_enabled('char_energy', False)
             else:
                 self._gphl_acquisition_widget.display_energy_widgets([])
-                self._data_path_gbox.hide()
                 self._processing_gbox.hide()
                 self._acquisition_gbox.hide()
-                # self._parameters_gbox.hide()
             prefix = parameters.get('prefix')
             if prefix is not None:
                 self.workflow_model.get_path_template().base_prefix = prefix
@@ -158,14 +157,6 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 raise ValueError("GPhL: No active beam energy named %s"
                                  % tag)
 
-
-    def set_shape_history(self, shape_history_hwobj):
-        pass
-
-    # def init_models(self):
-    #     CreateTaskBase.init_models(self)
-
-
     def single_item_selection(self, tree_item):
         CreateTaskBase.single_item_selection(self, tree_item)
         wf_model = tree_item.get_model()
@@ -173,8 +164,6 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         if isinstance(tree_item, queue_item.SampleQueueItem):
             sample_model = tree_item.get_model()
             self._processing_parameters = sample_model.processing_parameters
-            #self._processing_parameters = copy.deepcopy(self._processing_parameters)
-            self._processing_widget.update_data_model(self._processing_parameters)
         else:
 
             if isinstance(tree_item, queue_item.GphlWorkflowQueueItem):
@@ -194,10 +183,6 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self.setDisabled(True)
 
         self._processing_widget.update_data_model(self._processing_parameters)
-
-
-    # def approve_creation(self):
-    #     return CreateTaskBase.approve_creation(self)
 
     def init_models(self):
         CreateTaskBase.init_models(self)
