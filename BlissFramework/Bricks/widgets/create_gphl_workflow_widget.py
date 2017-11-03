@@ -118,8 +118,6 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
     def workflow_selected(self, name):
         # necessary as this comes in as a QString object
         name = str(name)
-        print('@~@~ GPhL workflow_selected', name,
-              name == self.workflow_model.get_type())
         if name != self.workflow_model.get_type():
             parameters = self._workflow_hwobj.get_available_workflows()[name]
             beam_energies = parameters.get('beam_energies', {})
