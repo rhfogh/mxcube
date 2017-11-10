@@ -238,7 +238,14 @@ def run(GUIConfigFile=None):
         filename = lockfile.name
         try:
             lockfile.close()
-            os.unlink(filename)
+            if os.path.exists(filename):
+                # Bizarrely this is sometimes not the case (RHFogh)
+                os.unlink(filename)
+            else:
+                logging.getLogger().error(
+                    "Lock file missing, could not be removed: %s" % filename
+                )
+
         except:
             logging.getLogger().error("Problem removing the lock file: %s"
                                       % filename)

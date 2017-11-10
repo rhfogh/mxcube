@@ -2,6 +2,8 @@ import qt
 import queue_item
 import queue_model_objects_v1 as queue_model_objects
 
+from General import States
+
 from create_task_base import CreateTaskBase
 from widgets.data_path_widget import DataPathWidget
 from widgets.processing_widget import ProcessingWidget
@@ -14,6 +16,11 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
         # Data attributes
         self._workflow_hwobj = None
+
+        self.current_prefix = None
+
+        # Tracks selected workflow to recognise when workflow changes
+        self._previous_workflow = None
 
         #Layout
         v_layout = qt.QVBoxLayout(self, 2, 5, "main_v_layout")
@@ -102,8 +109,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             first_name = list(workflow_dict)[0]
             for workflow_name in list(workflow_dict):
                 self._workflow_cbox.insertItem(workflow_name)
-            self._workflow_cbox.setCurrentItem(0)
-            self.workflow_selected(first_name)
+            # self._workflow_cbox.setCurrentItem(0)
+            self.workflow_selected(first_name, reset=True)
 
             workflow_hwobj.connect('gphlParametersNeeded',
                                    self.gphl_data_dialog.open_dialog)
@@ -115,10 +122,13 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         # Placeholder. Must be set to match hardwired detector distance
         self._gphl_acquisition_widget.set_param_value('detector_resolution', -1)
 
-    def workflow_selected(self, name):
+    def workflow_selected(self, name, reset=False):
         # necessary as this comes in as a QString object
         name = str(name)
-        if name != self.workflow_model.get_type():
+        if reset or name != self._previous_workflow:
+            self._workflow_cbox.setCurrentText(name)
+            self._previous_workflow = name
+
             parameters = self._workflow_hwobj.get_available_workflows()[name]
             beam_energies = parameters.get('beam_energies', {})
             if bool(beam_energies):
@@ -137,10 +147,10 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self._gphl_acquisition_widget.display_energy_widgets([])
                 self._processing_gbox.hide()
                 self._acquisition_gbox.hide()
+
             prefix = parameters.get('prefix')
             if prefix is not None:
-                self.workflow_model.get_path_template().base_prefix = prefix
-            self.workflow_model.set_type(name)
+                self.current_prefix = prefix
 
     def data_acquired(self):
         """Data gathered from popup, continue execution"""
@@ -190,9 +200,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         self._processing_parameters = queue_model_objects.ProcessingParameters()
         self._processing_parameters.num_residues = 0
         self._processing_parameters.process_data = False
-        self.workflow_model = queue_model_objects.GphlWorkflow()
-        self.workflow_model.workflow_hwobj = self._workflow_hwobj
-        self.workflow_selected(self._workflow_cbox.currentText())
+        # self.workflow_selected(self._workflow_cbox.currentText())
 
 
     # Called by the owning widget (task_toolbox_widget) to create
@@ -203,7 +211,16 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         path_template = self._create_path_template(sample, self._path_template)
         path_template.num_files = 0
 
-        wf = self.workflow_model
+        ho = self._workflow_hwobj
+        if ho.get_state() == States.OFF:
+            # We will be setting up the connection now - time to connect to quit
+            qt.QObject.connect(qt.qApp, qt.SIGNAL("aboutToQuit()"),
+                               ho.shutdown)
+
+        wf = queue_model_objects.GphlWorkflow(self._workflow_hwobj)
+        wf.set_type(str(self._workflow_cbox.currentText()))
+
+        wf.get_path_template().base_prefix = self.current_prefix
         # TODO rethink path template, and other data
         wf.path_template = path_template
         wf.processing_parameters = self._processing_parameters
