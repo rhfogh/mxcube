@@ -141,7 +141,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 )
                 self.set_beam_energies(beam_energies)
                 # These parameters are hardwired - for now
-                self._gphl_acquisition_widget.set_parameter_enabled('detector_resolution', False)
+                self._gphl_acquisition_widget.set_parameter_enabled('detector_resolution', True)
                 self._gphl_acquisition_widget.set_parameter_enabled('char_energy', False)
             else:
                 self._gphl_acquisition_widget.display_energy_widgets([])
