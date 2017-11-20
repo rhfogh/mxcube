@@ -202,6 +202,16 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         self._processing_parameters.process_data = False
         # self.workflow_selected(self._workflow_cbox.currentText())
 
+    def continue_button_click(self, sample_items, checked_items):
+        """Intercepts the datacollection continue_button click for parameter setting"""
+        tree_brick = self._tree_brick
+        if tree_brick:
+            for item in checked_items:
+                model = item.get_model()
+                if isinstance(model, queue_model_objects.GphlWorkflow):
+                    dialog = tree_brick.dc_tree_widget.confirm_dialog
+                    ss = dialog.dialog_layout_widget.take_snapshots_cbox.currentText()
+                    model.set_snapshot_count(int(ss) if ss else 0)
 
     # Called by the owning widget (task_toolbox_widget) to create
     # a collection. When a data collection group is selected.
@@ -217,10 +227,17 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             qt.QObject.connect(qt.qApp, qt.SIGNAL("aboutToQuit()"),
                                ho.shutdown)
 
+            tree_brick = self._tree_brick
+            if tree_brick:
+                qt.QObject.connect(tree_brick.dc_tree_widget.confirm_dialog,
+                                   qt.PYSIGNAL("continue_clicked"),
+                                   self.continue_button_click)
+
         wf = queue_model_objects.GphlWorkflow(self._workflow_hwobj)
         wf.set_type(str(self._workflow_cbox.currentText()))
 
-        wf.get_path_template().base_prefix = self.current_prefix
+        if self.current_prefix:
+            path_template.base_prefix = self.current_prefix
         # TODO rethink path template, and other data
         wf.path_template = path_template
         wf.processing_parameters = self._processing_parameters
