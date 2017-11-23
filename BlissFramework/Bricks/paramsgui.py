@@ -123,6 +123,9 @@ class LineEdit(qt.QLineEdit):
         if options.has_key('defaultValue'):
             self.setText(options['defaultValue'])
         self.setAlignment(qt.Qt.AlignRight)
+        if options.get('readOnly'):
+            self.setReadOnly(True)
+            self.setEnabled(False)
     def set_value(self, value):
         self.setText(value)
     def get_name(self):
@@ -138,7 +141,9 @@ class TextEdit(qt.QTextEdit):
         if options.has_key('defaultValue'):
             self.setText(options['defaultValue'])
         self.setAlignment(qt.Qt.AlignRight)
-        self.setReadOnly(True)
+        if options.get('readOnly'):
+            self.setReadOnly(True)
+            self.setEnabled(False)
     def set_value(self, value):
         self.setText(value)
     def get_name(self):
@@ -266,7 +271,8 @@ WIDGET_CLASSES = {
     'file': File,
     'message': Message,
 
-    'textblock':TextEdit
+    'float':SpinBox,
+    'textarea':TextEdit
 }
 
 def make_widget(parent, options):

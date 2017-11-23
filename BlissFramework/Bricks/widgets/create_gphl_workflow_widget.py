@@ -10,6 +10,11 @@ from widgets.processing_widget import ProcessingWidget
 from widgets.gphl_acquisition_widget import GphlAcquisitionWidget
 from widgets.gphl_data_dialog import GphlDataDialog
 
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
+
 class CreateGphlWorkflowWidget(CreateTaskBase):
     def __init__(self, parent = None, name = None, fl = 0):
         CreateTaskBase.__init__(self, parent, name, fl, 'GphlWorkflow')
@@ -115,12 +120,12 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             workflow_hwobj.connect('gphlParametersNeeded',
                                    self.gphl_data_dialog.open_dialog)
 
-        # Set hardwired and default values
-        self._gphl_acquisition_widget.set_param_value('char_energy',
-            workflow_hwobj.getProperty('characterisation_energy')
-        )
-        # Placeholder. Must be set to match hardwired detector distance
-        self._gphl_acquisition_widget.set_param_value('detector_resolution', -1)
+        # # Set hardwired and default values
+        # self._gphl_acquisition_widget.set_param_value('char_energy',
+        #     workflow_hwobj.getProperty('characterisation_energy')
+        # )
+        # # Placeholder. Must be set to match hardwired detector distance
+        # self._gphl_acquisition_widget.set_param_value('detector_resolution', -1)
 
     def workflow_selected(self, name, reset=False):
         # necessary as this comes in as a QString object
@@ -131,22 +136,25 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
             parameters = self._workflow_hwobj.get_available_workflows()[name]
             beam_energies = parameters.get('beam_energies', {})
-            if bool(beam_energies):
+            strategy_type = parameters.get('strategy_type')
+            if strategy_type == 'transcal':
+                self._gphl_acquisition_widget.display_energy_widgets({})
+                self._processing_gbox.hide()
+                self._acquisition_gbox.hide()
+            elif strategy_type == 'diffractcal':
+                self._data_path_gbox.show()
+                self._processing_gbox.show()
+                self._acquisition_gbox.show()
+                self._gphl_acquisition_widget.display_energy_widgets({})
+            else:
+                # acquisition type strategy
                 self._data_path_gbox.show()
                 self._processing_gbox.show()
                 self._acquisition_gbox.show()
                 # self._parameters_gbox.show()
                 self._gphl_acquisition_widget.display_energy_widgets(
-                    list(beam_energies)
+                    beam_energies
                 )
-                self.set_beam_energies(beam_energies)
-                # These parameters are hardwired - for now
-                self._gphl_acquisition_widget.set_parameter_enabled('detector_resolution', True)
-                self._gphl_acquisition_widget.set_parameter_enabled('char_energy', False)
-            else:
-                self._gphl_acquisition_widget.display_energy_widgets([])
-                self._processing_gbox.hide()
-                self._acquisition_gbox.hide()
 
             prefix = parameters.get('prefix')
             if prefix is not None:
@@ -247,16 +255,13 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         acq_widget = self._gphl_acquisition_widget
         txt = acq_widget.get_parameter_value('expected_resolution')
         wf.set_expected_resolution(float(txt) if txt else None)
-        txt = acq_widget.get_parameter_value('detector_resolution')
-        wf.set_detector_resolution(float(txt) if txt else None)
-        txt = acq_widget.get_parameter_value('char_energy')
-        wf.set_characterisation_energy(float(txt) if txt else None)
 
-        dd = {}
-        for tag in self._gphl_acquisition_widget._energy_tags:
-            value = acq_widget.get_parameter_value(tag)
-            if value:
-                dd[tag] = float(value)
+        dd = OrderedDict()
+        for tag,role in self._gphl_acquisition_widget._beam_energy_map.items():
+            if role:
+                value = acq_widget.get_parameter_value(tag)
+                if value:
+                    dd[role] = float(value)
         wf.set_beam_energies(dd)
         
         tasks.append(wf)

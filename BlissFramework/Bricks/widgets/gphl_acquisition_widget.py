@@ -11,24 +11,29 @@ from BlissFramework.Bricks.DataCollectParametersWidget import LineEditInput
 from BlissFramework.Bricks.DataCollectParametersWidget import HorizontalSpacer
 import logging
 
+try:
+    from collections import OrderedDict
+except ImportError:
+    from ordereddict import OrderedDict
+
 class GphlAcquisitionWidget(QWidget):
 
-    _energy_tags = ('pk', 'ip', 'rm1', 'rm2',)
+    _energy_tags = ('energy_1', 'energy_2', 'energy_3', 'energy_4',)
 
     PARAMETERS = {
-        "detector_resolution":("Detector resolution (A) ", 0, 0, 0, LineEditInput,
+        # "detector_resolution":("Detector resolution (A) ", 0, 0, 0, LineEditInput,
+        #                      (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "expected_resolution":("Expected resolution (A) ", 0, 0, 0, LineEditInput,
                              (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
-        "expected_resolution":("Expected resolution (A) ", 1, 0, 0, LineEditInput,
-                             (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
-        "char_energy":("Characterisation ", 3, 0, 0, LineEditInput,(),
-                       QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
-        "pk":("Peak (pk) ", 4, 0, 0, LineEditInput, (),
+        # "char_energy":("Characterisation ", 3, 0, 0, LineEditInput,(),
+        #                QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+        "energy_1":("First beam energy", 2, 0, 0, LineEditInput, (),
               QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
-        "ip":("Inflection (ip) ", 5, 0, 0, LineEditInput, (),
+        "energy_2":("Second beam energy", 3, 0, 0, LineEditInput, (),
               QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
-        "rm1":("First remote (rm1) ", 6, 0, 0, LineEditInput, (),
+        "energy_3":("Third beam energy", 4, 0, 0, LineEditInput, (),
                QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
-        "rm2":("Second remote (rm2) ", 7, 0, 0, LineEditInput, (),
+        "energy_4":("Fourth beam energy", 5, 0, 0, LineEditInput, (),
                QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
     }
 
@@ -41,15 +46,18 @@ class GphlAcquisitionWidget(QWidget):
 
         self._label_dict = {}
         self._parameter_dict = {}
-        self.setup_parameter_widget('detector_resolution',
-                                    self.PARAMETERS['detector_resolution'])
+        self._beam_energy_map = OrderedDict()
+        # self.setup_parameter_widget('detector_resolution',
+        #                             self.PARAMETERS['detector_resolution'])
         self.setup_parameter_widget('expected_resolution',
                                     self.PARAMETERS['expected_resolution'])
-        self._parameter_box.layout().addWidget(
-            QLabel("Beam energies (keV):", self._parameter_box), 2, 0,)
-        self.setup_parameter_widget('char_energy',
-                                    self.PARAMETERS['char_energy'])
+        label = QLabel("Beam energies (keV):", self._parameter_box)
+        self._parameter_box.layout().addWidget(label, 1, 0,)
+        self._label_dict['_beam_energies_label'] = label
+        # self.setup_parameter_widget('char_energy',
+        #                             self.PARAMETERS['char_energy'])
         for tag in self._energy_tags:
+            self._beam_energy_map[tag] = None
             self.setup_parameter_widget(tag, self.PARAMETERS[tag])
 
     def setup_parameter_widget(self, param_id, values):
@@ -145,14 +153,29 @@ class GphlAcquisitionWidget(QWidget):
         else:
             raise ValueError("GPhL: No parameter widget called %s" % tag)
 
-    def display_energy_widgets(self, tags):
-        for tag in self._energy_tags:
-            if tag in tags:
-                self._parameter_dict[tag].show()
-                self._label_dict[tag].show()
+    def display_energy_widgets(self, energies_dict):
+        """energies is a role:value ORDERED dictionary"""
+        tuples = tuple(energies_dict.items())
+        for ii, tag in enumerate(self._beam_energy_map):
+
+
+            if ii < len(energies_dict):
+                role, energy = tuples[ii]
+                self._beam_energy_map[tag] = role
+                label = self._label_dict[tag]
+                label.setText("      %s energy:" % role)
+                param = self._parameter_dict[tag]
+                param.setText(str(energy))
+                label.show()
+                param.show()
             else:
+                self._beam_energy_map[tag] = None
                 self._parameter_dict[tag].hide()
                 self._label_dict[tag].hide()
+        if energies_dict:
+            self._label_dict['_beam_energies_label'].show()
+        else:
+            self._label_dict['_beam_energies_label'].hide()
 
 
     def get_parameter_dict(self):
