@@ -110,12 +110,10 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         # self._gphl_parameters_widget.set_workflow(workflow_hwobj)
 
         if self._workflow_hwobj is not None:
-            workflow_dict = workflow_hwobj.get_available_workflows()
-            first_name = list(workflow_dict)[0]
-            for workflow_name in list(workflow_dict):
+            workflow_names = list(workflow_hwobj.get_available_workflows())
+            for workflow_name in workflow_names:
                 self._workflow_cbox.insertItem(workflow_name)
-            # self._workflow_cbox.setCurrentItem(0)
-            self.workflow_selected(first_name, reset=True)
+            self.workflow_selected(workflow_names[0], reset=True)
 
             workflow_hwobj.connect('gphlParametersNeeded',
                                    self.gphl_data_dialog.open_dialog)
