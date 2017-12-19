@@ -162,14 +162,14 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         """Data gathered from popup, continue execution"""
         pass
 
-    def set_beam_energies(self, beam_energy_dict):
-        parameter_dict = self._gphl_acquisition_widget.get_parameter_dict()
-        for tag, energy in beam_energy_dict.items():
-            if tag in parameter_dict:
-                self._gphl_acquisition_widget.set_param_value(tag, energy)
-            else:
-                raise ValueError("GPhL: No active beam energy named %s"
-                                 % tag)
+    # def set_beam_energies(self, beam_energy_dict):
+    #     parameter_dict = self._gphl_acquisition_widget.get_parameter_dict()
+    #     for tag, energy in beam_energy_dict.items():
+    #         if tag in parameter_dict:
+    #             self._gphl_acquisition_widget.set_param_value(tag, energy)
+    #         else:
+    #             raise ValueError("GPhL: No active beam energy named %s"
+    #                              % tag)
 
     def single_item_selection(self, tree_item):
         CreateTaskBase.single_item_selection(self, tree_item)
