@@ -1,6 +1,3 @@
-# from lxml import etree
-# TODO clarify usage and lxml v. xml
-from xml.etree import ElementTree as ET
 import types
 
 FIELD_PROPERTIES = [
@@ -16,7 +13,8 @@ FIELD_PROPERTIES = [
 
 def get_field_containers(xml_root):
     if type(xml_root) == types.StringType:
-        xml_root = ET.fromstring(xml_root)
+        from lxml import etree
+        xml_root = etree.fromstring(xml_root)
     return xml_root.xpath('//object[@class="org.dawb.passerelle.actors.ui.config.FieldContainer"]')
 
 def get_fields(field_container):
@@ -69,8 +67,9 @@ def get_fields(field_container):
 
 if __name__=='__main__':
     import sys
+    from lxml import etree
     f = sys.argv[1]
-    doc = ET.parse(f).getroot()
+    doc = etree.parse(f).getroot()
     print '**** containers ****'
     containers = get_field_containers(doc)
     print containers
