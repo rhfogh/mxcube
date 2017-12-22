@@ -65,13 +65,15 @@ class WebViewWidget(QtGui.QWidget):
         _navigation_bar_hlayout.setContentsMargins(2, 2, 2, 2)
 
         _main_vlayout = QtGui.QVBoxLayout(self)
-        _main_vlayout.addWidget(self.navigation_bar) 
-        _main_vlayout.addWidget(self.web_page_viewer)  
+        _main_vlayout.addWidget(self.navigation_bar)
+        if QWEBVIEW_AVAILABLE:
+            _main_vlayout.addWidget(self.web_page_viewer)
         _main_vlayout.setSpacing(2)
         _main_vlayout.setContentsMargins(2, 2, 2, 2)
-        
-        self.web_page_viewer.setSizePolicy(QtGui.QSizePolicy.Expanding,
-                                           QtGui.QSizePolicy.Expanding)
+
+        if QWEBVIEW_AVAILABLE:
+            self.web_page_viewer.setSizePolicy(QtGui.QSizePolicy.Expanding,
+                                               QtGui.QSizePolicy.Expanding)
 
         self.home_button.clicked.connect(self.go_to_home_page)
         self.back_button.clicked.connect(self.go_back)
