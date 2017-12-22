@@ -18,8 +18,8 @@
 #  along with MXCuBE.  If not, see <http://www.gnu.org/licenses/>.
 
 from PyQt4 import QtGui
-from PyQt4 import QtCore
-from PyQt4.QtWebKit import QWebView
+# from PyQt4 import QtCore
+# from PyQt4.QtWebKit import QWebView
 
 from BlissFramework.Qt4_BaseComponents import BlissWidget
 from widgets.Qt4_char_parameters_widget import CharParametersWidget
