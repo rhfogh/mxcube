@@ -23,6 +23,7 @@ import Qt4_GraphicsManager
 
 from BlissFramework import Qt4_Icons
 from BlissFramework.Qt4_BaseComponents import BlissWidget
+import logging
 
 
 __category__ = 'Graphics'
@@ -256,7 +257,14 @@ class Qt4_CameraBrick(BlissWidget):
 
     def set_control_mode(self, have_control):
         if have_control:
-            self.graphics_manager_hwobj.hide_info_msg()
+            if hasattr(self.graphics_manager_hwobj, 'hide_info_msg'):
+                self.graphics_manager_hwobj.hide_info_msg()
+            else:
+                logging.getLogger('HWR').error(
+                    ("GraphicsManager %s has no attribute 'hide_info_msg'"
+                     % self.graphics_manager_hwobj.__class__.__name__)
+                    + " - continuing"
+                )
         else:
             self.graphics_manager_hwobj.display_info_msg(\
                  ["", "Controls are disabled in the Slave mode",
