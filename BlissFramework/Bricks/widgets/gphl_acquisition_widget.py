@@ -24,7 +24,7 @@ class GphlAcquisitionWidget(QWidget):
         # "detector_resolution":("Detector resolution (A) ", 0, 0, 0, LineEditInput,
         #                      (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
         "expected_resolution":("Expected resolution (A) ", 0, 0, 0, LineEditInput,
-                             (), QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
+                             (), QWidget.AlignLeft, (QDoubleValidator,0.01), ()),
         # "char_energy":("Characterisation ", 3, 0, 0, LineEditInput,(),
         #                QWidget.AlignLeft, (QDoubleValidator,0.0), ()),
         "energy_1":("First beam energy", 2, 0, 0, LineEditInput, (),
@@ -49,8 +49,10 @@ class GphlAcquisitionWidget(QWidget):
         self._beam_energy_map = OrderedDict()
         # self.setup_parameter_widget('detector_resolution',
         #                             self.PARAMETERS['detector_resolution'])
-        self.setup_parameter_widget('expected_resolution',
-                                    self.PARAMETERS['expected_resolution'])
+        wdg = self.setup_parameter_widget(
+            'expected_resolution', self.PARAMETERS['expected_resolution']
+        )
+        wdg.setText('0.0')
         label = QLabel("Beam energies (keV):", self._parameter_box)
         self._parameter_box.layout().addWidget(label, 1, 0,)
         self._label_dict['_beam_energies_label'] = label
