@@ -896,17 +896,18 @@ class BlissWidget(Connectable.Connectable, QFrame):
                                          SIGNAL(signal),
                                          slot, shouldCache)
         else:
-            #Porting to Qt5
-            getattr(_sender, signal).connect(slot)
+            if qt_variant == "PyQt5":
+                #Porting to Qt5
+                getattr(_sender, signal).connect(slot)
+            else:
+                # NBNB Re-installed to get Qt4 version to work
+                QObject.connect(_sender,
+                                pysignal and \
+                                SIGNAL(signal) or \
+                                SIGNAL(signal),
+                                slot)
 
-            #QtCore.QObject.connect(_sender,
-            #                       pysignal and \
-            #                       QtCore.SIGNAL(signal) or \
-            #                       QtCore.SIGNAL(signal),
-            #                       slot)
-
-        # workaround for PyQt lapse
-        print "TODO workaround for PyQt lapse" 
+        # TODO workaround for PyQt lapse"
         #if hasattr(sender, "connectNotify"):
         #    sender.connectNotify(QtCore.pyqtSignal(signal))
 
@@ -914,6 +915,10 @@ class BlissWidget(Connectable.Connectable, QFrame):
         """
         Descript. :
         """
+
+        # NBNB removed 'QtCore.' in front of SIGNAL and QObject
+        # to make compatible with QImport
+
         signal = str(signal)
         if signal[0].isdigit():
             pysignal = signal[0] == '9'
@@ -933,27 +938,29 @@ class BlissWidget(Connectable.Connectable, QFrame):
             sender = emitter(sender)
 
             try:
-                uid = (sender, pysignal and QtCore.SIGNAL(signal) or \
-                       QtCore.SIGNAL(signal), hash(slot))
+                uid = (sender, pysignal and SIGNAL(signal) or \
+                       SIGNAL(signal), hash(slot))
                 signalSlotFilter = self._signal_slot_filters[uid]
             except KeyError:
-                QtCore.QObject.disconnect(sender,
+                QObject.disconnect(sender,
                                           pysignal and \
-                                          QtCore.SIGNAL(signal) or \
-                                          QtCore.SIGNAL(signal),
+                                          SIGNAL(signal) or \
+                                          SIGNAL(signal),
                                           slot)
             else:
-                QtCore.QObject.disconnect(sender,
+                QObject.disconnect(sender,
                                           pysignal and \
-                                          QtCore.SIGNAL(signal) or \
-                                          QtCore.SIGNAL(signal),
+                                          SIGNAL(signal) or \
+                                          SIGNAL(signal),
                                           signalSlotFilter)
                 del self._signal_slot_filters[uid]
         else:
-            QtCore.QObject.disconnect(sender,
+            # TODO signalSlotFilter is not set here. Set to None as workaround
+            signalSlotFilter = None
+            QObject.disconnect(sender,
                                       pysignal and \
-                                      QtCore.SIGNAL(signal) or \
-                                      QtCore.SIGNAL(signal),
+                                      SIGNAL(signal) or \
+                                      SIGNAL(signal),
                                       signalSlotFilter)
 
     """
