@@ -1009,7 +1009,10 @@ class DataCollectTree(QtGui.QWidget):
                                              get_model_root(), basket)
             basket.set_enabled(False)
             for sample in sample_list:
-                 if sample.location[0] == basket.get_location():
+                # Changed so 1) it works with nested baskets,
+                # 2) it does not beak is both locations are empty
+                # if sample.location[0] == basket.get_location():
+                if sample.location[:-1] == basket.get_location():
                      basket.add_sample(sample)
                      self.queue_model_hwobj.add_child(basket, sample)
                      sample.set_enabled(False)
