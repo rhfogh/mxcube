@@ -33,6 +33,7 @@ from widgets.Qt4_create_char_widget import CreateCharWidget
 from widgets.Qt4_create_energy_scan_widget import CreateEnergyScanWidget
 from widgets.Qt4_create_xrf_spectrum_widget import CreateXRFSpectrumWidget
 from widgets.Qt4_create_gphl_workflow_widget import CreateGphlWorkflowWidget
+# self.gphl_page.setBackgroundMode(qt.QWidget.PaletteBackground)
 from widgets.Qt4_create_advanced_widget import CreateAdvancedWidget
 
 
@@ -145,13 +146,17 @@ class TaskToolBoxWidget(QtGui.QWidget):
             logging.getLogger("user_level_log").info("XRF spectrum task not available")
 
         has_gphl_workflow = False
-        if hasattr(beamline_setup_hwobj, 'xrf_spectrum_hwobj'):
-            if beamline_setup_hwobj.xrf_spectrum_hwobj:
+        if hasattr(beamline_setup_hwobj, 'gphl_workflow_hwobj'):
+            if beamline_setup_hwobj.gphl_workflow_hwobj:
                 has_gphl_workflow = True
 
-        if not has_gphl_workflow:
+        if has_gphl_workflow:
+            self.gphl_workflow_page.initialise_workflows(
+                beamline_setup_hwobj.gphl_workflow_hwobj
+            )
+        else:
             self.tool_box.removeItem(self.tool_box.indexOf(self.gphl_workflow_page))
-            self.has_gphl_workflow_page.hide()
+            self.gphl_workflow_page.hide()
             logging.getLogger("user_level_log").info("GPhL workflow task not available")
 
     def update_data_path_model(self):
@@ -202,7 +207,7 @@ class TaskToolBoxWidget(QtGui.QWidget):
             elif isinstance(tree_item, Qt4_queue_item.XRFSpectrumQueueItem):
                 if self.tool_box.currentWidget() == self.xrf_spectrum_page:
                     self.create_task_button.setEnabled(True)
-            elif isinstance(tree_item, Qt4_queue_item.XGphlWorkflowQueueItem):
+            elif isinstance(tree_item, Qt4_queue_item.GphlWorkflowQueueItem):
                 if self.tool_box.currentWidget() == self.gphl_workflow_page:
                     self.create_task_button.setEnabled(True)
             elif isinstance(tree_item, Qt4_queue_item.GenericWorkflowQueueItem):
