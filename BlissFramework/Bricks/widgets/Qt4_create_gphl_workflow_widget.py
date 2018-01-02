@@ -186,21 +186,21 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         beam_energies = parameters.get('beam_energies', {})
         strategy_type = parameters.get('strategy_type')
         if strategy_type == 'transcal':
-            self._gphl_acquisition_widget.display_energy_widgets({})
-            self._processing_gbox.hide()
-            self._acquisition_gbox.hide()
+            self._acq_widget.display_energy_widgets({})
+            self._processing_widget.hide()
+            self._acq_widget.hide()
         elif strategy_type == 'diffractcal':
-            self._data_path_gbox.show()
-            self._processing_gbox.show()
-            self._acquisition_gbox.show()
-            self._gphl_acquisition_widget.display_energy_widgets({})
+            self._data_path_widget.show()
+            self._processing_widget.show()
+            self._acq_widget.show()
+            self._acq_widget.display_energy_widgets({})
         else:
             # acquisition type strategy
-            self._data_path_gbox.show()
-            self._processing_gbox.show()
-            self._acquisition_gbox.show()
+            self._data_path_widget.show()
+            self._processing_widget.show()
+            self._acq_widget.show()
             # self._parameters_gbox.show()
-            self._gphl_acquisition_widget.display_energy_widgets(
+            self._acq_widget.display_energy_widgets(
                 beam_energies
             )
 
