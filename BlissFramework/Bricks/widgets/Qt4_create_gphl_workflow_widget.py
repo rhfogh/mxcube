@@ -161,7 +161,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         if self._workflow_hwobj is not None:
             workflow_names = list(workflow_hwobj.get_available_workflows())
             for workflow_name in workflow_names:
-                self._workflow_cbox.insertItem(workflow_name)
+                self._workflow_cbox.addItem(workflow_name)
             self.workflow_selected(workflow_names[0])
 
             workflow_hwobj.connect('gphlParametersNeeded',
@@ -178,7 +178,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         # necessary as this comes in as a QString object
         name = str(name)
         # if reset or name != self._previous_workflow:
-        self._workflow_cbox.setCurrentText(name)
+        xx = self._workflow_cbox
+        xx.setCurrentIndex(xx.findText(name))
         # self._previous_workflow = name
 
         parameters = self._workflow_hwobj.get_available_workflows()[name]
