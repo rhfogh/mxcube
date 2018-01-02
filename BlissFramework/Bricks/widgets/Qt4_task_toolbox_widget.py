@@ -32,6 +32,7 @@ from widgets.Qt4_create_helical_widget import CreateHelicalWidget
 from widgets.Qt4_create_char_widget import CreateCharWidget
 from widgets.Qt4_create_energy_scan_widget import CreateEnergyScanWidget
 from widgets.Qt4_create_xrf_spectrum_widget import CreateXRFSpectrumWidget
+from widgets.Qt4_create_gphl_workflow_widget import CreateGphlWorkflowWidget
 from widgets.Qt4_create_advanced_widget import CreateAdvancedWidget
 
 
@@ -62,7 +63,8 @@ class TaskToolBoxWidget(QtGui.QWidget):
         self.char_page = CreateCharWidget(self.tool_box, "Characterise")
         self.helical_page = CreateHelicalWidget(self.tool_box, "helical_page")
         self.energy_scan_page = CreateEnergyScanWidget(self.tool_box, "energy_scan")
-        self.xrf_spectrum_page = CreateXRFSpectrumWidget(self.tool_box, "xrf_spectrum")  
+        self.xrf_spectrum_page = CreateXRFSpectrumWidget(self.tool_box, "xrf_spectrum")
+        self.gphl_workflow_page = CreateGphlWorkflowWidget(self.tool_box, "gphl_workflow")
         self.advanced_page = CreateAdvancedWidget(self.tool_box, "advanced_scan")
         
         self.tool_box.addItem(self.discrete_page, "Standard Collection")
@@ -70,6 +72,7 @@ class TaskToolBoxWidget(QtGui.QWidget):
         self.tool_box.addItem(self.helical_page, "Helical Collection")
         self.tool_box.addItem(self.energy_scan_page, "Energy Scan")
         self.tool_box.addItem(self.xrf_spectrum_page, "XRF Spectrum")
+        self.tool_box.addItem(self.gphl_workflow_page, "Workflow")
         self.tool_box.addItem(self.advanced_page, "Advanced")
 
         self.button_box = QtGui.QWidget(self)
@@ -130,7 +133,7 @@ class TaskToolBoxWidget(QtGui.QWidget):
             self.tool_box.removeItem(self.tool_box.indexOf(self.energy_scan_page))
             self.energy_scan_page.hide()
             logging.getLogger("user_level_log").info("Energy scan task not available")
-        
+
         has_xrf_spectrum = False
         if hasattr(beamline_setup_hwobj, 'xrf_spectrum_hwobj'):
             if beamline_setup_hwobj.xrf_spectrum_hwobj:
@@ -140,6 +143,16 @@ class TaskToolBoxWidget(QtGui.QWidget):
             self.tool_box.removeItem(self.tool_box.indexOf(self.xrf_spectrum_page))
             self.xrf_spectrum_page.hide()
             logging.getLogger("user_level_log").info("XRF spectrum task not available")
+
+        has_gphl_workflow = False
+        if hasattr(beamline_setup_hwobj, 'xrf_spectrum_hwobj'):
+            if beamline_setup_hwobj.xrf_spectrum_hwobj:
+                has_gphl_workflow = True
+
+        if not has_gphl_workflow:
+            self.tool_box.removeItem(self.tool_box.indexOf(self.gphl_workflow_page))
+            self.has_gphl_workflow_page.hide()
+            logging.getLogger("user_level_log").info("GPhL workflow task not available")
 
     def update_data_path_model(self):
         for i in range(0, self.tool_box.count()):
@@ -189,6 +202,9 @@ class TaskToolBoxWidget(QtGui.QWidget):
             elif isinstance(tree_item, Qt4_queue_item.XRFSpectrumQueueItem):
                 if self.tool_box.currentWidget() == self.xrf_spectrum_page:
                     self.create_task_button.setEnabled(True)
+            elif isinstance(tree_item, Qt4_queue_item.XGphlWorkflowQueueItem):
+                if self.tool_box.currentWidget() == self.gphl_workflow_page:
+                    self.create_task_button.setEnabled(True)
             elif isinstance(tree_item, Qt4_queue_item.GenericWorkflowQueueItem):
                 if self.tool_box.currentWidget() == self.workflow_page:
                     self.create_task_button.setEnabled(True)
@@ -220,6 +236,8 @@ class TaskToolBoxWidget(QtGui.QWidget):
                 self.tool_box.setCurrentWidget(self.energy_scan_page)
             elif isinstance(items[0], Qt4_queue_item.XRFSpectrumQueueItem):
                 self.tool_box.setCurrentWidget(self.xrf_spectrum_page)
+            elif isinstance(items[0], Qt4_queue_item.GphlWorkflowQueueItem):
+                self.tool_box.setCurrentWidget(self.gphl_workflow_page)
             elif isinstance(items[0], Qt4_queue_item.GenericWorkflowQueueItem):
                 self.tool_box.setCurrentWidget(self.workflow_page)
             elif isinstance(items[0], Qt4_queue_item.AdvancedQueueItem):
@@ -240,6 +258,9 @@ class TaskToolBoxWidget(QtGui.QWidget):
                 for item in items:
                     shapes = self.graphics_manager_hwobj.get_selected_points()
                     task_model = item.get_model()
+
+                    # TODO Consider if GPhL workflow needs task-per-shape
+                    # like xrf does
 
                     # Create a new group if sample is selected
                     if isinstance(task_model, queue_model_objects.Sample):
