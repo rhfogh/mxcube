@@ -255,7 +255,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         wf.set_expected_resolution(float(txt) if txt else None)
 
         dd = OrderedDict()
-        for tag,role in self._gphl_acquisition_widget._beam_energy_map.items():
+        for tag,role in acq_widget._beam_energy_map.items():
             if role:
                 value = acq_widget.get_parameter_value(tag)
                 if value:
