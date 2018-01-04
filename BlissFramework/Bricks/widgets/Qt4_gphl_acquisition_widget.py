@@ -5,7 +5,6 @@ import logging
 from PyQt4 import QtCore
 from PyQt4 import QtGui
 from widgets.Qt4_widget_utils import DataModelInputBinder
-from PyQt4 import uic
 
 try:
     from collections import OrderedDict
@@ -21,24 +20,6 @@ class GphlAcquisitionData(object):
     pass
 
 class GphlAcquisitionWidget(QtGui.QWidget):
-
-    # _energy_tags = ('energy_1', 'energy_2', 'energy_3', 'energy_4',)
-    #
-    # # Parameters are:
-    # # label, row, col, span, class, class_args, validator, signals
-    # PARAMETERS = {
-    #     "expected_resolution":("Expected resolution (A) ", 0, 0, 0,
-    #                            QtGui.QLineEdit, (), QtCore.Qt.AlignLeft,
-    #                            (QtGui.QDoubleValidator,0.01), ()),
-    #     "energy_1":("First beam energy", 2, 0, 0, QtGui.QLineEdit, (),
-    #                 QtCore.Qt.AlignLeft, (QtGui.QDoubleValidator,0.0), ()),
-    #     "energy_2":("Second beam energy", 3, 0, 0, QtGui.QLineEdit, (),
-    #                 QtCore.Qt.AlignLeft, (QtGui.QDoubleValidator,0.0), ()),
-    #     "energy_3":("Third beam energy", 4, 0, 0, QtGui.QLineEdit, (),
-    #                 QtCore.Qt.AlignLeft, (QtGui.QDoubleValidator,0.0), ()),
-    #     "energy_4":("Fourth beam energy", 5, 0, 0, QtGui.QLineEdit, (),
-    #                 QtCore.Qt.AlignLeft, (QtGui.QDoubleValidator,0.0), ()),
-    # }
 
     def __init__(self, parent=None, name='gphl_acquisition_widget'):
         QtGui.QWidget.__init__(self,parent)
@@ -253,8 +234,6 @@ class GphlAcquisitionWidget(QtGui.QWidget):
 
     def populate_widget(self, beam_energies={}, **kw):
 
-        print ('@~@~ populate_widget, %s energies' % len(beam_energies))
-
         # Dummy object to support _mib
         data_object = self._data_object = GphlAcquisitionData()
         parameter_mib = self._parameter_mib = DataModelInputBinder(data_object)
@@ -267,16 +246,12 @@ class GphlAcquisitionWidget(QtGui.QWidget):
         if not beam_energies:
             skip_fields.append('beam_energies_label')
 
-        print('@~@~ skip_fields', skip_fields)
-
         for tag, tt in widget_data.items():
             if tag in skip_fields:
                 tt[0].hide()
-                print('@~@~ hiding', tag, tt[0])
             else:
                 widget, w_type, validator, value = tt
                 widget.show()
-                print('@~@~ showing', tag, tt[0])
 
                 setattr(data_object, tag, value)
                 parameter_mib.bind_value_update(tag, widget, w_type, validator)

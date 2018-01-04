@@ -9,7 +9,7 @@ from Qt4_create_task_base import CreateTaskBase
 from widgets.Qt4_data_path_widget import DataPathWidget
 from widgets.Qt4_processing_widget import ProcessingWidget
 from widgets.Qt4_gphl_acquisition_widget import GphlAcquisitionWidget
-# from widgets.Qt4_gphl_data_dialog import GphlDataDialog
+from widgets.Qt4_gphl_data_dialog import GphlDataDialog
 
 try:
     from collections import OrderedDict
@@ -81,9 +81,10 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         )
 
 
-        # # set up popup data dialog
-        # self.gphl_data_dialog = GphlDataDialog(self, 'GPhL Workflow Data')
-        # self.gphl_data_dialog.setModal(True)
+        # set up popup data dialog
+        self.gphl_data_dialog = GphlDataDialog(self, 'GPhL Workflow Data')
+        self.gphl_data_dialog.setModal(True)
+        self.gphl_data_dialog.continueClickedSignal.connect(self.data_acquired)
         # self.connect(self.gphl_data_dialog, qt.PYSIGNAL("continue_clicked"),
         #              self.data_acquired)
 
@@ -98,8 +99,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self._workflow_cbox.addItem(workflow_name)
             self.workflow_selected(workflow_names[0])
 
-            # workflow_hwobj.connect('gphlParametersNeeded',
-            #                        self.gphl_data_dialog.open_dialog)
+            workflow_hwobj.connect('gphlParametersNeeded',
+                                   self.gphl_data_dialog.open_dialog)
 
         # # Set hardwired and default values
         # self._gphl_acquisition_widget.set_param_value('char_energy',
