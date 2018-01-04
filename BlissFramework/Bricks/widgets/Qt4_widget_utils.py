@@ -81,8 +81,8 @@ class DataModelInputBinder(object):
             self._update_widget(field_name, None)
 
     def _update_widget(self, field_name, data_binder):
-	if data_binder == self:
-	    return
+        if data_binder == self:
+            return
         try:
             widget, validator, type_fn = self.bindings[field_name]
         except KeyError:
@@ -105,7 +105,7 @@ class DataModelInputBinder(object):
                 widget.setCurrentIndex(int(getattr(self.__model, field_name)))
             elif isinstance(widget, QtGui.QCheckBox) or \
                     isinstance(widget, QtGui.QRadioButton):
-                widget.setChecked(bool(getattr(self.__model, field_name)))       
+                widget.setChecked(bool(getattr(self.__model, field_name)))
         finally:
             widget.blockSignals(False)
         
