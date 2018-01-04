@@ -81,8 +81,8 @@ class DataModelInputBinder(object):
             self._update_widget(field_name, None)
 
     def _update_widget(self, field_name, data_binder):
-        if data_binder == self:
-            return
+	if data_binder == self:
+	    return
         try:
             widget, validator, type_fn = self.bindings[field_name]
         except KeyError:
@@ -180,48 +180,4 @@ class DataModelInputBinder(object):
                         isinstance(widget, QtGui.QRadioButton):
                     pass
 
-        return result
-
-    def set_enabled(self, value):
-        """Set all mib widgets to enabled/disabled"""
-        for widget, validator, type_fn in self.bindings.values():
-            if hasattr(widget, 'setEnabled'):
-                widget.setEnabled(value)
-
-    def set_field_enabled(self, field_name, value):
-        """Set all named widgets to enabled/disabled"""
-        tt = self.bindings.get(field_name)
-        if tt:
-            widget = tt[0]
-            if hasattr(widget, 'setEnabled'):
-                widget.setEnabled(value)
-        else:
-            raise ValueError(
-                "DataModelInputBinder.set_field_enabled: no field named %s"
-                % field_name
-            )
-
-    def show_field(self, field_name, value=True):
-        tt = self.bindings.get(field_name)
-        if tt:
-            if value:
-                tt[0].show()
-            else:
-                tt[0].hide()
-        else:
-            raise ValueError(
-                "DataModelInputBinder.hide_field: no field named %s"
-                % field_name
-            )
-
-    def get_field_values(self):
-        """Get dictionary of filed_name:value for fields that are:
-        visible, excluding labels"""
-        result = {}
-        for tag, tt in self.bindings.items():
-            widget = tt[0]
-            if not isinstance(widget, QtGui.QLabel):
-                if widget.isVisible():
-                    result[tag] = getattr(self.__model, tag)
-        #
         return result
