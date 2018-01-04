@@ -8,8 +8,7 @@ from General import States
 from Qt4_create_task_base import CreateTaskBase
 from widgets.Qt4_data_path_widget import DataPathWidget
 from widgets.Qt4_processing_widget import ProcessingWidget
-# from widgets.Qt4_gphl_acquisition_widget import GphlAcquisitionWidget
-from widgets.Qt4_acquisition_widget import AcquisitionWidget
+from widgets.Qt4_gphl_acquisition_widget import GphlAcquisitionWidget
 # from widgets.Qt4_gphl_data_dialog import GphlDataDialog
 
 try:
@@ -30,34 +29,41 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
         # Internal variables --------------------------------------------------
         self.current_prefix = None
-        # # Tracks selected workflow to recognise when workflow changes
-        # self._previous_workflow = None
 
-        # TODO move down?
         self.init_models()
 
         # Graphic elements ----------------------------------------------------
         self._workflow_type_widget = QtGui.QGroupBox('Workflow type', self)
 
         self._workflow_cbox = QtGui.QComboBox(self._workflow_type_widget)
-        self._acq_widget =  AcquisitionWidget(self, "acquisition_widget",
-                                              layout='vertical')
-        # self._acq_widget =  GphlAcquisitionWidget(self,
-        #                                           "gphl_acquisition_widget",
-        #                                           layout='vertical')
+        self._gphl_acq_widget = QtGui.QGroupBox('Acquisition', self)
+        self._gphl_acq_param_widget =  GphlAcquisitionWidget(
+            self._gphl_acq_widget, "gphl_acquisition_parameter_widget"
+        )
 
         self._data_path_widget = DataPathWidget(self, 'create_dc_path_widget',
                                                 layout='vertical')
+        data_path_layout = self._data_path_widget.data_path_layout
+        data_path_layout.file_name_label.hide()
+        data_path_layout.file_name_value_label.hide()
+        data_path_layout.run_number_label.hide()
+        data_path_layout.run_number_ledit.hide()
 
         self._processing_widget = ProcessingWidget(self)
+        processing_layout = self._processing_widget.processing_widget
+        processing_layout.num_residues_label.hide()
+        processing_layout.num_residues_ledit.hide()
+        processing_layout.run_processing_cbox.hide()
 
         # Layout --------------------------------------------------------------
         _workflow_type_vlayout = QtGui.QVBoxLayout(self._workflow_type_widget)
         _workflow_type_vlayout.addWidget(self._workflow_cbox)
+        _gphl_acq_vlayout = QtGui.QVBoxLayout(self._gphl_acq_widget)
+        _gphl_acq_vlayout.addWidget(self._gphl_acq_param_widget)
         _main_vlayout = QtGui.QVBoxLayout(self)
         _main_vlayout.addWidget(self._workflow_type_widget)
         _main_vlayout.addWidget(self._data_path_widget)
-        _main_vlayout.addWidget(self._acq_widget)
+        _main_vlayout.addWidget(self._gphl_acq_widget)
         _main_vlayout.addWidget(self._processing_widget)
         _main_vlayout.addStretch(0)
         _main_vlayout.setSpacing(2)
@@ -70,86 +76,14 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                      self._prefix_ledit_change)
         self._data_path_widget.data_path_layout.run_number_ledit.textChanged.connect(
                      self._run_number_ledit_change)
-        # self._data_path_widget.pathTemplateChangedSignal.connect(\
-        #      self.handle_path_conflict)
-
-        # self._acq_widget.acqParametersChangedSignal.connect(\
-        #      self.handle_path_conflict)
-        # self._acq_widget.madEnergySelectedSignal.connect(\
-        #      self.mad_energy_selected)
-        # self._processing_widget.enableProcessingSignal.connect(\
-        #      self._enable_processing_toggled)_path_conflict)
         self._workflow_cbox.currentIndexChanged[str].connect(
             self.workflow_selected
         )
 
 
-
-
-
-        # v_layout = QtGui.QVBoxLayout(self, 2, 5, "main_v_layout")
-        #
-        # self._workflow_type_gbox = QtGui.QGroupBox('Workflow type', self,
-        #                                          'workflow_rtype')
-        #
-        # self._workflow_cbox = QtGui.QComboBox(self._workflow_type_gbox)
-        #
-        #
-        # self._data_path_gbox = QtGui.QGroupBox('Data location', self,
-        #                                        'data_path_gbox')
-        # self._data_path_widget = DataPathWidget(self._data_path_gbox,
-        #                                         data_model=self._path_template,
-        #                                         layout='vertical')
-        #
-        #
-        # data_path_layout = self._data_path_widget.data_path_widget_layout
-        # # NBNB TODO change layout to remove invisible but space-using widgets
-        # data_path_layout.child('file_name_label').setText('')
-        # data_path_layout.child('file_name_value_label').hide()
-        # data_path_layout.child('run_number_label').setText('')
-        # data_path_layout.child('run_number_ledit').hide()
-        #
-        # self._processing_gbox = QtGui.QGroupBox('Crystal data', self,
-        #                                       'processing_gbox')
-        #
-        # processing_layout = self._processing_widget.layout_widget
-        # processing_layout.child('num_residues_label').hide()
-        # processing_layout.child('num_residues_ledit').hide()
-        #
-        # self._acquisition_gbox = QtGui.QGroupBox('Acquisition', self,
-        #                                        'acquisition_gbox')
-        # self._gphl_acquisition_widget = GphlAcquisitionWidget(
-        #     self._acquisition_gbox
-        # )
-        #
-        # v_layout.addWidget(self._workflow_type_gbox)
-        # v_layout.addWidget(self._data_path_gbox)
-        # v_layout.addWidget(self._processing_gbox)
-        # v_layout.addWidget(self._acquisition_gbox)
-        # # v_layout.addWidget(self._parameters_gbox)
-        # v_layout.addStretch()
-        #
         # # set up popup data dialog
         # self.gphl_data_dialog = GphlDataDialog(self, 'GPhL Workflow Data')
         # self.gphl_data_dialog.setModal(True)
-        #
-        # self.connect(self._data_path_widget.data_path_widget_layout.child('prefix_ledit'),
-        #              qt.SIGNAL("textChanged(const QString &)"),
-        #              self._prefix_ledit_change)
-        #
-        # self.connect(self._data_path_widget.data_path_widget_layout.child('run_number_ledit'),
-        #              qt.SIGNAL("textChanged(const QString &)"),
-        #              self._run_number_ledit_change)
-        #
-        # self.connect(self._data_path_widget,
-        #              qt.PYSIGNAL("path_template_changed"),
-        #              self.handle_path_conflict)
-        #
-        # self.connect(self._workflow_cbox,
-        #              # qt.SIGNAL("textChanged(const QString &)"),
-        #              qt.SIGNAL('activated ( const QString &)'),
-        #              self.workflow_selected)
-        #
         # self.connect(self.gphl_data_dialog, qt.PYSIGNAL("continue_clicked"),
         #              self.data_acquired)
 
@@ -164,8 +98,8 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 self._workflow_cbox.addItem(workflow_name)
             self.workflow_selected(workflow_names[0])
 
-            workflow_hwobj.connect('gphlParametersNeeded',
-                                   self.gphl_data_dialog.open_dialog)
+            # workflow_hwobj.connect('gphlParametersNeeded',
+            #                        self.gphl_data_dialog.open_dialog)
 
         # # Set hardwired and default values
         # self._gphl_acquisition_widget.set_param_value('char_energy',
@@ -186,23 +120,15 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         beam_energies = parameters.get('beam_energies', {})
         strategy_type = parameters.get('strategy_type')
         if strategy_type == 'transcal':
-            self._acq_widget.display_energy_widgets({})
             self._processing_widget.hide()
-            self._acq_widget.hide()
-        elif strategy_type == 'diffractcal':
-            self._data_path_widget.show()
-            self._processing_widget.show()
-            self._acq_widget.show()
-            self._acq_widget.display_energy_widgets({})
+            self._gphl_acq_widget.hide()
         else:
-            # acquisition type strategy
-            self._data_path_widget.show()
+            # diffractcal or acquisition type strategy
             self._processing_widget.show()
-            self._acq_widget.show()
-            # self._parameters_gbox.show()
-            self._acq_widget.display_energy_widgets(
-                beam_energies
+            self._gphl_acq_param_widget.populate_widget(
+                beam_energies=beam_energies
             )
+            self._gphl_acq_widget.show()
 
         prefix = parameters.get('prefix')
         if prefix is not None:
@@ -280,36 +206,29 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         ho = self._workflow_hwobj
         if ho.get_state() == States.OFF:
             # We will be setting up the connection now - time to connect to quit
-            qt.QObject.connect(qt.qApp, qt.SIGNAL("aboutToQuit()"),
-                               ho.shutdown)
+            QtGui.QApplication.instance().aboutToQuit.connect(ho.shutdown)
 
             tree_brick = self._tree_brick
             if tree_brick:
-                qt.QObject.connect(tree_brick.dc_tree_widget.confirm_dialog,
-                                   qt.PYSIGNAL("continue_clicked"),
-                                   self.continue_button_click)
+                tree_brick.dc_tree_widget.confirm_dialog.continueClickedSignal\
+                    .connect(self.continue_button_click)
+
 
         wf = queue_model_objects.GphlWorkflow(self._workflow_hwobj)
         wf.set_type(str(self._workflow_cbox.currentText()))
 
         if self.current_prefix:
             path_template.base_prefix = self.current_prefix
-        # TODO rethink path template, and other data
         wf.path_template = path_template
         wf.processing_parameters = self._processing_parameters
         wf.set_name(wf.path_template.get_prefix())
         wf.set_number(wf.path_template.run_number)
 
-        acq_widget = self._gphl_acquisition_widget
-        txt = acq_widget.get_parameter_value('expected_resolution')
-        wf.set_expected_resolution(float(txt) if txt else None)
+        data_object = self._gphl_acq_param_widget.get_data_object()
 
-        dd = OrderedDict()
-        for tag,role in self._gphl_acquisition_widget._beam_energy_map.items():
-            if role:
-                value = acq_widget.get_parameter_value(tag)
-                if value:
-                    dd[role] = float(value)
+        wf.set_expected_resolution(data_object.expected_resolution)
+
+        dd = self._gphl_acq_param_widget.get_energy_dict()
         wf.set_beam_energies(dd)
         
         tasks.append(wf)
