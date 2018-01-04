@@ -45,6 +45,7 @@ class ProcessingWidget(QtGui.QWidget):
 
         self._model_mib = DataModelInputBinder(self._model)
 
+        # TODO rename or remove 'self.acq_widget_layout' cannot be right
         self.processing_widget = self.acq_widget_layout = uic.loadUi(
                            os.path.join(os.path.dirname(__file__),
                            "ui_files/Qt4_processing_widget_vertical_layout.ui"))
