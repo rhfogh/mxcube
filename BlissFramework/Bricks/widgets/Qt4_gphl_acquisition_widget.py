@@ -139,7 +139,10 @@ class GphlAcquisitionWidget(QtGui.QWidget):
                 elif tag in self.beam_energy_tags:
                     ii = self.beam_energy_tags.index(tag)
                     if ii < len(beam_energies):
-                        value = beam_energies[list(beam_energies)[ii]]
+                        name = list(beam_energies)[ii]
+                        value = beam_energies[name]
+                        label_tag = self._get_label_name(tag)
+                        setattr(data_object, label_tag, name)
 
                 setattr(data_object, tag, value)
                 parameter_mib.bind_value_update(tag, widget, w_type, validator)

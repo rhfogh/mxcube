@@ -193,7 +193,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                 model = item.get_model()
                 if isinstance(model, queue_model_objects.GphlWorkflow):
                     dialog = tree_brick.dc_tree_widget.confirm_dialog
-                    ss = dialog.dialog_layout_widget.take_snapshots_cbox.currentText()
+                    ss = dialog.conf_dialog_layout.take_snapshots_combo.currentText()
                     model.set_snapshot_count(int(ss) if ss else 0)
 
     # Called by the owning widget (task_toolbox_widget) to create
