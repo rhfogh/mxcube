@@ -1,10 +1,8 @@
 """GPhL runtime-set parameter input widget. """
 
-import logging
-
 from PyQt4 import QtCore
 from PyQt4 import QtGui
-from widgets.Qt4_widget_utils import DataModelInputBinder
+from Qt4_paramsgui import FieldsWidget
 
 try:
     from collections import OrderedDict
@@ -108,10 +106,12 @@ class GphlDataDialog(QtGui.QDialog):
 
         # Info box
         self.info_gbox = QtGui.QGroupBox('Info', self)
+        QtGui.QVBoxLayout(self.info_gbox)
         main_layout.addWidget(self.info_gbox)
         self.info_text = QtGui.QTextEdit(self.info_gbox)
         self.info_text.setFont(QtGui.QFont("Courier"))
         self.info_text.setReadOnly(True)
+        self.info_gbox.layout().addWidget(self.info_text)
 
         # Special parameter box
         self.cplx_gbox = QtGui.QGroupBox('Indexing solution', self)
@@ -121,6 +121,8 @@ class GphlDataDialog(QtGui.QDialog):
         # Parameter box
         self.parameter_gbox = QtGui.QGroupBox('Parameters', self,)
         main_layout.addWidget(self.parameter_gbox)
+        self.parameter_gbox.setSizePolicy(QtGui.QSizePolicy.Expanding,
+                                          QtGui.QSizePolicy.Expanding)
         self.params_widget = None
 
         # Button bar
@@ -136,13 +138,8 @@ class GphlDataDialog(QtGui.QDialog):
 
         self.continue_button.clicked.connect(self.continue_button_click)
         self.cancel_button.clicked.connect(self.cancel_button_click)
-        # qt.QObject.connect(self.continue_button, qt.SIGNAL("clicked()"),
-        #                    self.continue_button_click)
-        #
-        # qt.QObject.connect(self.cancel_button, qt.SIGNAL("clicked()"),
-        #                    self.cancel_button_click)
 
-        # self.resize(QtGui.QSize(1018,472).expandedTo(self.minimumSizeHint()))
+        self.resize(QtCore.QSize(1018,472).expandedTo(self.minimumSizeHint()))
         # self.clearWState(QtGui.WState_Polished)
 
     def continue_button_click(self):
