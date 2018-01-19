@@ -7,6 +7,7 @@ MXCUBE_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__fi
 sys.path.insert(0, MXCUBE_ROOT)
 os.environ["CUSTOM_BRICKS_PATH"]=os.path.join(MXCUBE_ROOT, "Bricks")
 os.environ["CUSTOM_HARDWARE_OBJECTS_PATH"]=os.path.join(MXCUBE_ROOT, "HardwareObjects")
+sys.path.insert(0, os.path.join(MXCUBE_ROOT, 'HardwareRepository/HardwareObjects/SOLEIL/PX2'))
 
 # Qt4/5, PySide
 MXCUBE_GUI_FILE = os.path.join(MXCUBE_ROOT, "ExampleFiles/example_mxcube_qt4.yml")
