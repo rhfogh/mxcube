@@ -216,7 +216,7 @@ class Qt4_ResolutionBrick(BlissWidget):
                              'limitsChanged',
                              self.detector_distance_limits_changed)
 
-                if self.detector_distance_hwobj.isReady():
+                if self.detector_distance_hwobj.is_ready():
                     self.detector_distance_hwobj.update_values()
                     self.connected()
                 else:
@@ -314,13 +314,13 @@ class Qt4_ResolutionBrick(BlissWidget):
     
     def create_tool_tip(self):
         tool_tip = ""
-        if self.units_combobox.currentText() == "mm" and \
-           self.detector_distance_limits:
-            tool_tip = "Detector distance limits %0.1f : %0.1f mm" \
-                       %(self.detector_distance_limits[0],
-                         self.detector_distance_limits[1])
+        if self.units_combobox.currentText() == "mm":
+            if self.detector_distance_limits:
+                tool_tip = "Detector distance limits %0.4f : %0.4f mm" \
+                           %(self.detector_distance_limits[0],
+                             self.detector_distance_limits[1])
         elif self.resolution_limits:
-            tool_tip = "Resolution limits %0.1f : %0.1f %s"\
+            tool_tip = "Resolution limits %0.4f : %0.4f %s"\
                        %(self.resolution_limits[0], 
                          self.resolution_limits[1],
                          chr(197))
@@ -347,13 +347,13 @@ class Qt4_ResolutionBrick(BlissWidget):
                 if self.detector_distance_hwobj.connection.isSpecConnected():
                     detector_ready = self.detector_distance_hwobj.isReady()
             except AttributeError:
-                detector_ready = self.detector_distance_hwobj.isReady()
+                detector_ready = self.detector_distance_hwobj.is_ready()
 
         if detector_ready:
             self.get_detector_distance_limits()
-            curr_detector_distance = self.detector_distance_hwobj.getPosition()
+            curr_detector_distance = self.detector_distance_hwobj.get_position()
             self.detector_distance_changed(curr_detector_distance)
-            self.detector_distance_state_changed(self.detector_distance_hwobj.getState())
+            self.detector_distance_state_changed(self.detector_distance_hwobj.get_state())
             if self.units_combobox.currentText() == "mm":
                 self.group_box.setTitle('Detector distance')
                 self.new_value_validator.setRange(self.detector_distance_limits[0],
@@ -429,7 +429,11 @@ class Qt4_ResolutionBrick(BlissWidget):
                     resolution_ready = self.resolution_hwobj.isReady()
 
         if resolution_ready:
-            self.resolution_limits_changed(self.resolution_hwobj.getLimits())
+            #TODO remove this check and use get_limits
+            if hasattr(self.resolution_hwobj, "getLimits"):
+                self.resolution_limits_changed(self.resolution_hwobj.getLimits())
+            else:
+                self.resolution_limits_changed(self.resolution_hwobj.get_limits())
         else:
             self.resolution_limits = None
 
@@ -441,12 +445,12 @@ class Qt4_ResolutionBrick(BlissWidget):
         if self.detector_distance_hwobj is not None:
             try:
                 if self.detector_distance_hwobj.connection.isSpecConnected():
-                    detector_ready = self.detector_distance_hwobj.isReady()
+                    detector_ready = self.detector_distance_hwobj.is_ready()
             except AttributeError:
-                detector_ready=self.detector_distance_hwobj.isReady()
+                detector_ready=self.detector_distance_hwobj.is_ready()
 
         if detector_ready:
-            self.detector_distance_limits_changed(self.detector_distance_hwobj.getLimits())
+            self.detector_distance_limits_changed(self.detector_distance_hwobj.get_limits())
         else:
             self.detector_distance_limits = None
 
@@ -469,15 +473,14 @@ class Qt4_ResolutionBrick(BlissWidget):
 
             unit = self.units_combobox.currentText()
             if unit is chr(197):
-                if state == self.detector_distance_hwobj.READY:
+                if state == self.detector_distance_hwobj.motor_states.READY:
                     self.new_value_ledit.blockSignals(True)
                     self.new_value_ledit.setText("")
                     self.new_value_ledit.blockSignals(False)
                     self.new_value_ledit.setEnabled(True)
                 else:
                     self.new_value_ledit.setEnabled(False)
-                if state == self.detector_distance_hwobj.MOVING or \
-                   state == self.detector_distance_hwobj.MOVESTARTED:
+                if state == self.detector_distance_hwobj.motor_states.MOVING: #or state == self.detector_distance_hwobj.motor_states.MOVESTARTED:
                     self.stop_button.setEnabled(True)
                 else:
                     self.stop_button.setEnabled(False)
@@ -491,15 +494,15 @@ class Qt4_ResolutionBrick(BlissWidget):
         color = Qt4_ResolutionBrick.STATE_COLORS[state]
         unit = self.units_combobox.currentText()
         if unit == "mm":
-            if state == self.detector_distance_hwobj.READY:
+            if state == self.detector_distance_hwobj.motor_states.READY:
                 self.new_value_ledit.blockSignals(True)
                 self.new_value_ledit.setText("")
                 self.new_value_ledit.blockSignals(False)
                 self.new_value_ledit.setEnabled(True)
             else:
                 self.new_value_ledit.setEnabled(False)
-            if state == self.detector_distance_hwobj.MOVING or \
-               state == self.detector_distance_hwobj.MOVESTARTED:
+            if state == self.detector_distance_hwobj.motor_states.MOVING : #or \
+                #state == self.detector_distance_hwobj.motor_states.MOVESTARTED:
                 self.stop_button.setEnabled(True)
             else:
                 self.stop_button.setEnabled(False)

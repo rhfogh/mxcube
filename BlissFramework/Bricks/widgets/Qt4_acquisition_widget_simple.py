@@ -362,7 +362,7 @@ class AcquisitionWidgetSimple(QWidget):
         Descript. :
         """
         if self._beamline_setup_hwobj is not None:
-            roi_modes = self._beamline_setup_hwobj._get_roi_modes()
+            roi_modes = self._beamline_setup_hwobj.detector_hwobj.get_roi_modes()
             if (len(roi_modes) > 0 and
                 self.acq_widget_layout.detector_roi_mode_combo.count() == 0):
                 for roi_mode in roi_modes: 
@@ -379,18 +379,22 @@ class AcquisitionWidgetSimple(QWidget):
         pass
 
     def update_exp_time_limits(self):
-        exp_time_limits = self._beamline_setup_hwobj.detector_hwobj.get_exposure_time_limits()
-        max_osc_speed = self._diffractometer_hwobj.get_osc_max_speed()
-        top_limit = float(self.acq_widget_layout.osc_range_ledit.text()) / max_osc_speed
-        limits = (max(exp_time_limits[0], top_limit), exp_time_limits[1])
+        try: 
+            exp_time_limits = self._beamline_setup_hwobj.detector_hwobj.get_exposure_time_limits()
+            max_osc_speed = self._diffractometer_hwobj.get_osc_max_speed()
+            top_limit = float(self.acq_widget_layout.osc_range_ledit.text()) / max_osc_speed
+            limits = (max(exp_time_limits[0], top_limit), exp_time_limits[1])
 
-        self.update_detector_exp_time_limits(limits)
+            self.update_detector_exp_time_limits(limits)
+        except:
+            pass
 
     def update_detector_roi_mode(self, roi_mode_index):
         """
         Descript. :
         """
-        if self.acq_widget_layout.detector_roi_mode_combo.count() > 0:
+        if roi_mode_index is not None and \
+           self.acq_widget_layout.detector_roi_mode_combo.count() > 0:
             self.acq_widget_layout.detector_roi_mode_combo.\
                  setCurrentIndex(roi_mode_index)
 

@@ -94,12 +94,12 @@ class Qt4_MDApertureBrick(BlissWidget):
         _main_gbox_vlayout.addWidget(self.aperture_position_combo)
         _main_gbox_vlayout.addStretch()
         _main_gbox_vlayout.setSpacing(2)
-        _main_gbox_vlayout.setContentsMargins(2, 2, 2, 2)
+        _main_gbox_vlayout.setContentsMargins(0, 0, 0, 0)
 
         _main_vlayout = QVBoxLayout(self)
         _main_vlayout.addWidget(self.main_gbox)
         _main_vlayout.setSpacing(0)
-        _main_vlayout.addSpacing(0)
+        #_main_vlayout.addSpacing(0)
         _main_vlayout.setContentsMargins(2, 2, 2, 2)
 
         # Qt signal/slot connections ------------------------------------------
@@ -145,10 +145,8 @@ class Qt4_MDApertureBrick(BlissWidget):
         else:
             BlissWidget.propertyChanged(self, property_name, old_value, new_value)
 
-    def set_expert_mode(self, in_expert_mode):
-        """ 
-        """
-        self.aperture_position_combo.setEnabled(in_expert_mode)
+    #def set_expert_mode(self, in_expert_mode):
+    #    self.aperture_position_combo.setEnabled(in_expert_mode)
     
     def change_diameter(self):
         """
@@ -206,10 +204,10 @@ class Qt4_MDApertureBrick(BlissWidget):
         """
         self.aperture_position_combo.blockSignals(True)
         if position is None:
-            self.aperture_position_combo.setEnabled(False)
+            #self.aperture_position_combo.setEnabled(False)
             self.aperture_position_combo.setCurrentIndex(-1)
         else:
-            self.aperture_position_combo.setEnabled(True)
+            #self.aperture_position_combo.setEnabled(True)
             self.aperture_position_combo.setCurrentIndex(\
                  self.aperture_position_combo.findText(position))
         self.aperture_position_combo.blockSignals(False)

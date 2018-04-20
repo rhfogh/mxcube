@@ -31,8 +31,9 @@ from widgets.Qt4_create_helical_widget import CreateHelicalWidget
 from widgets.Qt4_create_char_widget import CreateCharWidget
 from widgets.Qt4_create_energy_scan_widget import CreateEnergyScanWidget
 from widgets.Qt4_create_xrf_spectrum_widget import CreateXRFSpectrumWidget
+from widgets.Qt4_create_gphl_workflow_widget import CreateGphlWorkflowWidget
 from widgets.Qt4_create_advanced_widget import CreateAdvancedWidget
-
+#from widgets.Qt4_create_xray_imaging_widget import CreateXrayImagingWidget
 
 class TaskToolBoxWidget(QWidget):
     def __init__(self, parent = None, name = "task_toolbox"):
@@ -65,15 +66,19 @@ class TaskToolBoxWidget(QWidget):
         self.char_page = CreateCharWidget(self.tool_box, "Characterise")
         self.helical_page = CreateHelicalWidget(self.tool_box, "helical_page")
         self.energy_scan_page = CreateEnergyScanWidget(self.tool_box, "energy_scan")
-        self.xrf_spectrum_page = CreateXRFSpectrumWidget(self.tool_box, "xrf_spectrum")  
+        self.xrf_spectrum_page = CreateXRFSpectrumWidget(self.tool_box, "xrf_spectrum")
+        self.gphl_workflow_page = CreateGphlWorkflowWidget(self.tool_box, "gphl_workflow")
         self.advanced_page = CreateAdvancedWidget(self.tool_box, "advanced_scan")
+        #self.xray_imaging_page = CreateXrayImagingWidget(self.tool_box, "xray_imaging")
         
         self.tool_box.addItem(self.discrete_page, "Standard Collection")
         self.tool_box.addItem(self.char_page, "Characterisation")
         self.tool_box.addItem(self.helical_page, "Helical Collection")
         self.tool_box.addItem(self.energy_scan_page, "Energy Scan")
         self.tool_box.addItem(self.xrf_spectrum_page, "XRF Spectrum")
+        self.tool_box.addItem(self.gphl_workflow_page, "Workflow")
         self.tool_box.addItem(self.advanced_page, "Advanced")
+        #self.tool_box.addItem(self.xray_imaging_page, "Xray Imaging")
 
         self.button_box = QWidget(self)
         self.create_task_button = QPushButton("  Add to queue", self.button_box)
@@ -119,6 +124,10 @@ class TaskToolBoxWidget(QWidget):
 
         # Other ---------------------------------------------------------------   
 
+    def set_expert_mode(self, state):
+        for i in range(0, self.tool_box.count()):
+            self.tool_box.widget(i).set_expert_mode(state)
+
     def set_tree_brick(self, brick):
         """
         Sets the tree brick of each page in the toolbox.
@@ -133,6 +142,10 @@ class TaskToolBoxWidget(QWidget):
             if acq_widget:
                 acq_widget.use_osc_start(status)
 
+    def enable_compression(self, status):
+        for i in range(0, self.tool_box.count()):
+            self.tool_box.widget(i).enable_compression(status)
+
     def set_beamline_setup(self, beamline_setup_hwobj):
         self._beamline_setup_hwobj = beamline_setup_hwobj
         for i in range(0, self.tool_box.count()):
@@ -142,6 +155,7 @@ class TaskToolBoxWidget(QWidget):
 
         has_energy_scan = False
         has_xrf_spectrum = False
+        has_xray_imaging = False
 
         if not beamline_setup_hwobj.diffractometer_hwobj.in_plate_mode():
             if hasattr(beamline_setup_hwobj, 'energyscan_hwobj'):
@@ -153,6 +167,10 @@ class TaskToolBoxWidget(QWidget):
                 if beamline_setup_hwobj.xrf_spectrum_hwobj is not None:
                     has_xrf_spectrum = True
 
+            if hasattr(beamline_setup_hwobj, 'xray_imaging_hwobj'):
+                if beamline_setup_hwobj.xray_imaging_hwobj is not None:
+                    has_xray_imaging = True
+
         if not has_energy_scan:
             self.tool_box.removeItem(self.tool_box.indexOf(self.energy_scan_page))
             self.energy_scan_page.hide()
@@ -161,6 +179,26 @@ class TaskToolBoxWidget(QWidget):
             self.tool_box.removeItem(self.tool_box.indexOf(self.xrf_spectrum_page))
             self.xrf_spectrum_page.hide()
             logging.getLogger("GUI").warning("XRF spectrum task not available")
+        if not has_xray_imaging:
+            pass
+            #self.tool_box.removeItem(self.tool_box.indexOf(self.xray_imaging_page))
+            #self.xray_imaging_page.hide()
+            #logging.getLogger("GUI").warning("Xray Imaging task not available")
+
+        has_gphl_workflow = False
+        if hasattr(beamline_setup_hwobj, 'gphl_workflow_hwobj'):
+            if beamline_setup_hwobj.gphl_workflow_hwobj:
+                has_gphl_workflow = True
+
+        if has_gphl_workflow:
+            self.gphl_workflow_page.initialise_workflows(
+                beamline_setup_hwobj.gphl_workflow_hwobj
+            )
+        else:
+            self.tool_box.removeItem(self.tool_box.indexOf(self.gphl_workflow_page))
+            self.gphl_workflow_page.hide()
+            logging.getLogger("GUI").info("GPhL workflow task not available")
+
 
     def update_data_path_model(self):
         for i in range(0, self.tool_box.count()):
@@ -186,7 +224,7 @@ class TaskToolBoxWidget(QWidget):
             tree_item = tree_items[0]
 
             # Get the directory form the previous page and update 
-            # the new page with the directory and run_number from the old.
+            # the new page with the direcotry and run_number from the old.
             # IF sample, basket group selected.
             if type(tree_item) in (Qt4_queue_item.DataCollectionGroupQueueItem, \
                                    Qt4_queue_item.SampleQueueItem, \
@@ -220,6 +258,9 @@ class TaskToolBoxWidget(QWidget):
             elif isinstance(tree_item, Qt4_queue_item.XRFSpectrumQueueItem):
                 if self.tool_box.currentWidget() == self.xrf_spectrum_page:
                     self.create_task_button.setEnabled(True)
+            elif isinstance(tree_item, Qt4_queue_item.GphlWorkflowQueueItem):
+                if self.tool_box.currentWidget() == self.gphl_workflow_page:
+                    self.create_task_button.setEnabled(True)
             elif isinstance(tree_item, Qt4_queue_item.GenericWorkflowQueueItem):
                 if self.tool_box.currentWidget() == self.workflow_page:
                     self.create_task_button.setEnabled(True)
@@ -235,9 +276,9 @@ class TaskToolBoxWidget(QWidget):
         Called by the parent widget when selection in the tree changes.
         """
         title = "<b>Collection method template</b>"
-        self.create_task_button.setEnabled(False)
 
         if len(items) == 1:
+            self.create_task_button.setEnabled(False)
             data_model = items[0].get_model()
             title = "<b>%s</b>" % data_model.get_display_name()
 
@@ -256,6 +297,8 @@ class TaskToolBoxWidget(QWidget):
                 self.tool_box.setCurrentWidget(self.energy_scan_page)
             elif isinstance(items[0], Qt4_queue_item.XRFSpectrumQueueItem):
                 self.tool_box.setCurrentWidget(self.xrf_spectrum_page)
+            elif isinstance(items[0], Qt4_queue_item.GphlWorkflowQueueItem):
+                self.tool_box.setCurrentWidget(self.gphl_workflow_page)
             elif isinstance(items[0], Qt4_queue_item.GenericWorkflowQueueItem):
                 self.tool_box.setCurrentWidget(self.workflow_page)
             elif isinstance(items[0], Qt4_queue_item.XrayCenteringQueueItem):
@@ -263,7 +306,7 @@ class TaskToolBoxWidget(QWidget):
             elif isinstance(items[0], Qt4_queue_item.SampleQueueItem):
                 title = "<b>Sample: %s</b>" % data_model.get_display_name()
             self.method_label.setText(title)
-        elif len(items) > 1:
+        else:
             self.create_task_button.setEnabled(True)
          
         current_page = self.tool_box.currentWidget()
@@ -281,6 +324,9 @@ class TaskToolBoxWidget(QWidget):
                 for item in items:
                     shapes = self.graphics_manager_hwobj.get_selected_points()
                     task_model = item.get_model()
+
+                    # TODO Consider if GPhL workflow needs task-per-shape
+                    # like xrf does
 
                     # Create a new group if sample is selected
                     if isinstance(task_model, queue_model_objects.Sample):
@@ -345,7 +391,7 @@ class TaskToolBoxWidget(QWidget):
             new_node = self.tree_brick.queue_model_hwobj.copy_node(task_node)
             new_snapshot = self._beamline_setup_hwobj.\
                 shape_history_hwobj.get_scene_snapshot()
-
+            
             if isinstance(task_node, queue_model_objects.Characterisation):
                 new_node.reference_image_collection.acquisitions[0].\
                    acquisition_parameters.centred_position.snapshot_image = \
@@ -356,6 +402,7 @@ class TaskToolBoxWidget(QWidget):
             elif type(task_node) in (queue_model_objects.DataCollection,
                                      queue_model_objects.XRFSpectrum):
                 new_node.centred_position.snapshot_image = new_snapshot
+
             self.tree_brick.queue_model_hwobj.add_child(task_node.get_parent(), new_node)
 
     def collect_now_button_click(self):

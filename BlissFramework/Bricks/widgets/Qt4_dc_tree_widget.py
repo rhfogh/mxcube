@@ -38,6 +38,7 @@ import queue_model_objects_v1 as queue_model_objects
 
 from BlissFramework import Qt4_Icons
 from BlissFramework.Utils import Qt4_widget_colors
+from BlissFramework.Qt4_BaseComponents import BlissWidget
 from widgets.Qt4_confirm_dialog import ConfirmDialog
 from widgets.Qt4_plate_navigator_widget import PlateNavigatorWidget
 from queue_model_enumerables_v1 import CENTRING_METHOD
@@ -150,7 +151,7 @@ class DataCollectTree(QWidget):
         self.sample_tree_widget = QTreeWidget(self.tree_splitter)
         self.history_tree_widget = QTreeWidget(self.tree_splitter)
         self.history_tree_widget.setHidden(True)
-        self.history_enable_cbox = QCheckBox("Display history view", self)
+        self.history_enable_cbox = QCheckBox("Queue history", self)
         self.history_enable_cbox.setChecked(False)
  
         self.plate_navigator_cbox = QCheckBox("Plate navigator", self)
@@ -205,10 +206,15 @@ class DataCollectTree(QWidget):
         self.plate_navigator_cbox.stateChanged.\
              connect(self.use_plate_navigator)
 
-        # Other ---------------------------------------------------------------    
-        self.sample_tree_widget.setColumnCount(2)
-        #self.sample_tree_widget.setColumnWidth(0, 150)
-        self.sample_tree_widget.setColumnWidth(1, 130)
+        # Other ---------------------------------------------------------------
+        #TODO number of columns should not be hard coded but come from processing methods
+        self.sample_tree_widget.setColumnCount(6)
+        self.sample_tree_widget.setColumnWidth(0, 150)
+        self.sample_tree_widget.setColumnWidth(1, 160)
+        for col in range (4):
+            self.sample_tree_widget.setColumnWidth(2 + col, 15)
+        
+        #self.sample_tree_widget.header().setDefaultSectionSize(180)
         self.sample_tree_widget.header().setDefaultSectionSize(280)
         self.sample_tree_widget.header().hide()
         self.sample_tree_widget.setRootIsDecorated(1)
@@ -217,9 +223,6 @@ class DataCollectTree(QWidget):
         self.setAttribute(Qt.WA_WState_Polished)      
         self.sample_tree_widget.viewport().installEventFilter(self)
 
-        font = self.history_tree_widget.font()
-        font.setPointSize(8)
-        self.history_tree_widget.setFont(font)
         self.history_tree_widget.setEditTriggers(\
              QAbstractItemView.NoEditTriggers)
         self.history_tree_widget.setColumnCount(5)
@@ -406,6 +409,8 @@ class DataCollectTree(QWidget):
                 self.tree_brick.show_workflow_tab(item)
             elif isinstance(item, Qt4_queue_item.DataCollectionGroupQueueItem):
                 self.tree_brick.show_dcg_tab(item)
+            elif isinstance(item, Qt4_queue_item.XrayCenteringQueueItem):
+                self.tree_brick.show_advanced_tab(item)
         #elif len(items) == 0:
         #    self.tree_brick.show_sample_tab()
 
@@ -458,7 +463,7 @@ class DataCollectTree(QWidget):
     def mount_sample_task(self):
         """Sample mount task via queue_entry"""
         items = self.get_selected_items()
-        
+
         if len(items) == 1:
             if not items[0].get_model().free_pin_mode:
                 self.sample_centring_result = gevent.event.AsyncResult()
@@ -504,6 +509,7 @@ class DataCollectTree(QWidget):
                      "sample will be lost.")
 
             location = items[0].get_model().location
+            self.tree_brick.enable_widgets.emit(False)
 
             sample_changer = None
             if self.sample_mount_method == 1:
@@ -549,6 +555,7 @@ class DataCollectTree(QWidget):
             items[0].setOn(False)
             items[0].set_mounted_style(False)
         self.enable_collect(True)
+        self.tree_brick.enable_widgets.emit(True)
 
     def sample_tree_widget_selection(self):
         """Callback when a tree item is selected.
@@ -574,6 +581,7 @@ class DataCollectTree(QWidget):
 
     def toggle_collect_button_enabled(self):
         self.collect_button.setEnabled((len(self.get_checked_items()) > 1 and \
+                                       len(self.get_checked_samples()) and
                                        self.enable_collect_condition) or \
                                        self.collecting)
 
@@ -629,6 +637,11 @@ class DataCollectTree(QWidget):
         if isinstance(view_item, Qt4_queue_item.TaskQueueItem) and \
             self.samples_initialized:
             self.tree_brick.auto_save_queue()
+        #self.sample_tree_widget.resizeColumnToContents(0)
+
+        if isinstance(task, queue_model_objects.DataCollection):
+            view_item.init_tool_tip()
+            view_item.init_processing_info() 
 
     def get_selected_items(self):
         """Return a list with selected items"""
@@ -702,6 +715,13 @@ class DataCollectTree(QWidget):
                   return item
            it += 1
            item = it.value()
+
+    def get_checked_samples(self):
+        res_list = []
+        for item in self.get_checked_items():
+            if isinstance(item,  Qt4_queue_item.SampleQueueItem):
+               res_list.append(item)
+        return res_list
 
     def filter_sample_list(self, option):
         """Updates sample tree based on the sample mount"""
@@ -801,39 +821,39 @@ class DataCollectTree(QWidget):
 
     def collect_stop_toggle(self):
         """Stops queue"""
-        #checked_items = self.get_checked_items()
-        checked_items = self.get_collect_items()
 
         self.queue_hwobj.disable(False)
-
-        path_conflict = self.check_for_path_collisions()     
-
-        if path_conflict:
-            self.queue_hwobj.disable(True)
-        
-        if self.queue_hwobj.is_disabled():
-            logging.getLogger("GUI").\
-                error('Can not start collect, see the tasks marked' +\
-                      ' in the tree and solve the prorblems.')
-            
-        elif not self.collecting:
-            # Unselect selected items.
-            selected_items = self.get_selected_items()
-            for item in selected_items:
-                item.setSelected(False)
-                #self.sample_tree_widget.setSelected(item, False)
-            
-            if len(checked_items):
-                self.confirm_dialog.set_items(checked_items)
-                self.confirm_dialog.show()
-            else:
-                message = "No data collections selected, please select one" + \
-                          " or more data collections"
-
-                QMessageBox.information(self,"Data collection",
-                                              message, "OK")
-        else:
+        if self.collecting:
             self.stop_collection()
+
+        else:
+            path_conflict = self.check_for_path_collisions()
+
+            if path_conflict:
+                self.queue_hwobj.disable(True)
+
+            if self.queue_hwobj.is_disabled():
+                logging.getLogger("GUI").\
+                    error('Can not start collect, see the tasks marked' +\
+                          ' in the tree and solve the prorblems.')
+
+            else:
+                checked_items = self.get_collect_items()
+                # Unselect selected items.
+                selected_items = self.get_selected_items()
+                for item in selected_items:
+                    item.setSelected(False)
+                    #self.sample_tree_widget.setSelected(item, False)
+
+                if len(checked_items):
+                    self.confirm_dialog.set_items(checked_items)
+                    self.confirm_dialog.show()
+                else:
+                    message = "No data collections selected, please select one" + \
+                              " or more data collections"
+
+                    QMessageBox.information(self,"Data collection",
+                                                  message, "OK")
 
     def enable_sample_changer_widget(self, state):
         """Enables sample changer widget"""
@@ -881,6 +901,7 @@ class DataCollectTree(QWidget):
             item.reset_style()
             if isinstance(item.get_model(), queue_model_objects.DataCollection):
                 collection_par_list.append(item.get_model().as_dict())
+        """
         invalid_parameters = self.beamline_setup_hwobj.\
             check_collection_parameters(collection_par_list)
         if len(invalid_parameters) > 0:
@@ -892,6 +913,7 @@ class DataCollectTree(QWidget):
                    "and run queue again"
             logging.getLogger("GUI").error(msg)
             return
+        """
         
         self.user_stopped = False
         self.delete_button.setEnabled(False)
@@ -947,14 +969,15 @@ class DataCollectTree(QWidget):
         view_item.setSelected(True)
 
     def queue_entry_execution_finished(self, queue_entry, status):
-        """Slot connected to the signal comming from QueueManager
+        """Slot connected to the signal coming from QueueManager
            Adds executed queue entry to the history view
         """
         view_item = queue_entry.get_view()
         if queue_entry.get_type_str() not in ["Sample", "Basket", ""]:
             item_model = queue_entry.get_data_model()
             item_details = ""
-            sample_model = item_model.get_parent().get_parent()
+            sample_model = item_model.get_sample_node()
+            # sample_model = item_model.get_parent().get_parent()
 
             if isinstance(view_item, Qt4_queue_item.DataCollectionQueueItem):
                 item_details = "%.1f%s " % (item_model.as_dict()["osc_range"] ,
@@ -1526,7 +1549,7 @@ class DataCollectTree(QWidget):
             elif self.item_copy[0].is_mesh():
                 group_name = "Advanced"
             else:
-                group_name = "Standart"
+                group_name = "Standard"
         elif isinstance(self.item_copy[0], queue_model_objects.Characterisation):
             group_name = "Characterisation" 
         elif isinstance(self.item_copy[0], queue_model_objects.EnergyScan):
