@@ -77,7 +77,7 @@ class Qt4_EnergyBrick(BlissWidget):
         self.units_combobox.addItems(["keV", u"\u212B"]) 
         self.stop_button = QPushButton(self.new_value_widget)        
         self.stop_button.setIcon(Qt4_Icons.load_icon("Stop2"))
-        self.stop_button.setEnabled(False)
+        self.stop_button.setEnabled(True)
         self.stop_button.setFixedWidth(25)
  
         # Layout --------------------------------------------------------------
