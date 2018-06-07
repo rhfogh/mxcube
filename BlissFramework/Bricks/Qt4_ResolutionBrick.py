@@ -25,6 +25,7 @@ from BlissFramework import Qt4_Icons
 from BlissFramework.Utils import Qt4_widget_colors
 from BlissFramework.Qt4_BaseComponents import BlissWidget
 
+import traceback
 
 __credits__ = ["MXCuBE colaboration"]
 __version__ = "2.3"
@@ -176,6 +177,7 @@ class Qt4_ResolutionBrick(BlissWidget):
 
                 if self.resolution_hwobj.isReady():
                     self.resolution_hwobj.update_values()
+                    self.resolution_limits = self.resolution_hwobj.getLimits()
                     self.connected()
                 else:
                     self.disconnected()
@@ -403,9 +405,16 @@ class Qt4_ResolutionBrick(BlissWidget):
         self.update_gui(detector_ready=False)
 
     def set_resolution(self, value):
-        if self.resolution_limits is not None:
-            if self.resolution_limits[0] < value < self.resolution_limits[1]:
-                self.resolution_hwobj.move(value)
+        logging.getLogger("HWR").info('set_resolution value %s' % (value,) )
+        if self.resolution_limits is None:
+            try:
+                self.resolution_limits = self.resolution_hwobj.get_limits() 
+            except:
+                logging.getLogger("HWR").debug('%s' % traceback.format_exc())
+                logging.getLogger("HWR").info('set_resolution problem getting resolution limits %s' % (self.resolution_limits,) )
+        
+        if self.resolution_limits[0] < value < self.resolution_limits[1]:
+            self.resolution_hwobj.move(value)
 
     def set_detector_distance(self, value):
         if self.detector_distance_limits is not None:
@@ -465,6 +474,9 @@ class Qt4_ResolutionBrick(BlissWidget):
             self.detector_distance_ledit.setText("%s mm" % detector_str)
 
     def resolution_state_changed(self, state):
+        
+        logging.getLogger("HWR").debug('Qt4_ResolutionBrick: resolution_state_changed called state %s type %s' % (state, type(state)) )
+        
         if self.detector_distance_hwobj is not None:
             if state:
                 color = Qt4_ResolutionBrick.STATE_COLORS[state]
@@ -479,15 +491,18 @@ class Qt4_ResolutionBrick(BlissWidget):
                     self.new_value_ledit.blockSignals(False)
                     self.new_value_ledit.setEnabled(True)
                 else:
-                    self.new_value_ledit.setEnabled(False)
-                if state == self.detector_distance_hwobj.motor_states.MOVING: #or state == self.detector_distance_hwobj.motor_states.MOVESTARTED:
                     self.stop_button.setEnabled(True)
-                else:
-                    self.stop_button.setEnabled(False)
+            else:
+                self.stop_button.setEnabled(True)
+                #if state == self.detector_distance_hwobj.motor_states.MOVING or state == self.detector_distance_hwobj.motor_states.MOVESTARTED:
+                    #self.stop_button.setEnabled(True)
+                #else:
+                    #self.stop_button.setEnabled(False)
 
                 Qt4_widget_colors.set_widget_color(self.new_value_ledit, color)
 
     def detector_distance_state_changed(self, state):
+        logging.getLogger("HWR").debug('Qt4_ResolutionBrick: resolution_distance_state_changed called state %s type %s' % (state, type(state)) )
         if state is None:
             return
 
@@ -500,12 +515,12 @@ class Qt4_ResolutionBrick(BlissWidget):
                 self.new_value_ledit.blockSignals(False)
                 self.new_value_ledit.setEnabled(True)
             else:
-                self.new_value_ledit.setEnabled(False)
-            if state == self.detector_distance_hwobj.motor_states.MOVING : #or \
-                #state == self.detector_distance_hwobj.motor_states.MOVESTARTED:
+                #self.new_value_ledit.setEnabled(False)
                 self.stop_button.setEnabled(True)
-            else:
-                self.stop_button.setEnabled(False)
+            #if state == self.detector_distance_hwobj.motor_states.MOVING or state == self.detector_distance_hwobj.motor_states.MOVESTARTED:
+                #self.stop_button.setEnabled(True)
+            #else:
+                #self.stop_button.setEnabled(False)
 
             Qt4_widget_colors.set_widget_color(self.new_value_ledit, color)
 
