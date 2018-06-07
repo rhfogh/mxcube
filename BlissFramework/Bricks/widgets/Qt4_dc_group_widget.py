@@ -27,6 +27,7 @@ from BlissFramework import Qt4_Icons
 from BlissFramework.Utils import Qt4_widget_colors
 from widgets.Qt4_matplot_widget import PolarScaterWidget
 
+import traceback
 
 
 class DCGroupWidget(QWidget):
@@ -113,16 +114,24 @@ class DCGroupWidget(QWidget):
                     sw_list.append([len(sw_list), 0, acq_par.first_image, 
                        acq_par.num_images, acq_par.osc_start, 
                        acq_par.osc_range * acq_par.num_images]) 
-
+        
         for sw in sw_list:
             color = Qt4_widget_colors.get_random_numpy_color(alpha=50)
-            sw.append(color)
+            if type(sw) is list:
+                sw.append(color)
+            elif type(sw) is dict:
+                sw['color'] = color
 
         self.subwedge_table.setRowCount(0) 
         for sw in sw_list:
-            acq_par = dcg_child_list[sw[0]].acquisitions[0].acquisition_parameters
             row = self.subwedge_table.rowCount()
             self.subwedge_table.setRowCount(row + 1)
+            if type(sw) is list:
+                acq_par = dcg_child_list[sw[0]].acquisitions[0].acquisition_parameters
+                
+            elif type(sw) is dict:
+                acq_par = dcg_child_list[sw['collect_index']].acquisitions[0].acquisition_parameters
+
             param_list = (str(acq_par.osc_start),
                           str(acq_par.osc_range),
                           str(acq_par.num_images),
@@ -134,10 +143,16 @@ class DCGroupWidget(QWidget):
             #sw.append(color)
             for col in range(7):
                 self.subwedge_table.setItem(row, col, QTableWidgetItem(param_list[col]))
-                color = QColor(int(sw[-1][0] * 255),
-                               int(sw[-1][0] * 255),
-                               int(sw[-1][0] * 255))
+                if type(sw) is list:
+                    color = QColor(int(sw[-1][0] * 255),
+                                int(sw[-1][0] * 255),
+                                int(sw[-1][0] * 255))
+                elif type(sw) is dict:
+                    color = QColor(int(sw['color'][0] * 255),
+                                   int(sw['color'][0] * 255),
+                                   int(sw['color'][0] * 255))
                 color.setAlpha(100)
+                
                 self.subwedge_table.item(row, col).setBackground(color)
                 #     QtGui.QColor(Qt4_widget_colors.TASK_GROUP[sw[0]]))
 
