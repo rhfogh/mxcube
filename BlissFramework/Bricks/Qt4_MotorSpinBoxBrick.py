@@ -38,7 +38,7 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
     """
     STATE_COLORS = (Qt4_widget_colors.LIGHT_YELLOW,  # INITIALIZING
                     Qt4_widget_colors.LIGHT_GREEN,   # ON
-                    #Qt4_widget_colors.DARK_GRAY,     # OFF
+                    Qt4_widget_colors.DARK_GRAY,     # OFF
                     Qt4_widget_colors.LIGHT_GREEN,   # READY
                     Qt4_widget_colors.LIGHT_YELLOW,  # MOVING
                     Qt4_widget_colors.LIGHT_YELLOW,  # BUSY
