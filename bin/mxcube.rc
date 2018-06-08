@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
-export INSTITUTE=
-export MXCUBE_ROOT=/MXCuBE/mxcube
-export MXCUBE_XML_PATH=$MXCUBE_ROOT/../HardwareObjects.xml
-export MXCUBE_GUI_PATH=$MXCUBE_ROOT/../guis
-export MXCUBE_LOG_PATH=$MXCUBE_ROOT/../log
+export http_proxy=http://172.19.43.1:8080
+export MXCUBE_SITE=SOLEIL
+export INSTITUTE=SOLEIL
+export MXCUBE_ROOT=/927bis/ccd/gitRepos/MXCuBE/from_scratch/mxcube
+export MXCUBE_XML_PATH=$MXCUBE_ROOT/config_files
+export XML_FILES_PATH=$MXCUBE_XML_PATH
+export MXCUBE_GUI_PATH=$MXCUBE_ROOT/gui_files
+export MXCUBE_LOG_PATH=$MXCUBE_ROOT/log
+export PYTHONPATH=${PYTHONPATH}:${MXCUBE_ROOT}:${MXCUBE_ROOT}/HardwareRepository:${MXCUBE_ROOT}/HardwareRepository/HardwareObjects:${MXCUBE_ROOT}/BlissFramework:${MXCUBE_ROOT}/HardwareObjects/SOLEIL
+
