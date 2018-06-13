@@ -529,23 +529,23 @@ class Qt4_TreeBrick(BlissWidget):
         BlissWidget.set_status_info("status", "Queue stoped")
 
     def diffractometer_ready_changed(self, status):
-        #self.enable_widgets.emit(status) 
-        self.diffractometer_ready.emit(self.diffractometer_hwobj.is_ready()) 
-        logging.getLogger('HWR').info('diffractometer_ready_changed %s' % status)
-        logging.getLogger('HWR').info('self.diffractometer_hwobj.get_status() %s' % self.diffractometer_hwobj.get_status())
-        if status:
-            try:
-                info_message = self.diffractometer_hwobj.get_status()
-            except:
-                info_message = "Ready"
-            BlissWidget.set_status_info("diffractometer", info_message, "ready")
+        self.diffractometer_ready.emit(self.diffractometer_hwobj.is_ready())
+        try:
+            info_message = self.diffractometer_hwobj.get_status()
+        except AttributeError:
+            info_message = None
+            
+        if info_message is None and status:
+            info_message = "Ready"
+            info_status = "ready"
+        elif info_message is None:
+            info_message = "Not ready"
+            info_status = "running"
         else:
-            try:
-                info_message = self.diffractometer_hwobj.get_status()
-            except:
-                info_message = "Not ready"
-            BlissWidget.set_status_info("diffractometer", info_message, "running")
-
+            info_status = "ready"
+            
+        BlissWidget.set_status_info("diffractometer", info_message, info_status)
+        
     def diffractometer_automatic_centring_done(self, point):
         if self.dc_tree_widget.centring_method == \
             CENTRING_METHOD.LOOP:
