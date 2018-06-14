@@ -23,7 +23,8 @@ from QtImport import *
 
 from BlissFramework.Utils import Qt4_widget_colors
 from HardwareRepository.dispatcher import dispatcher
-
+import logging
+import traceback
 
 class DataModelInputBinder(object):
     def __init__(self,  obj):
@@ -46,9 +47,15 @@ class DataModelInputBinder(object):
     def __ledit_update_value(self, field_name, widget, new_value, type_fn, validator): 
         if not self.bindings[field_name][3]:
             origin_value = new_value
-            if type_fn == float and validator:
+            #logging.getLogger().info('__line_update_value field_name %s new_value %s type_fn %s' % (field_name, new_value, type_fn))
+            if type_fn == float and validator and new_value != None:
                 pattern = "%." + str(validator.decimals()) + 'f'
-                new_value = pattern % float(new_value)
+                try:
+                    new_value = pattern % float(new_value)
+                except:
+                    logging.getLogger().exception(traceback.format_exc())
+                    logging.getLogger().info('__line_update_value field_name %s new_value %s type_fn %s' % (field_name, new_value, type_fn))
+                    
 
             # fix validation if PyQt4 and sipapi 1 is used
             if type(new_value) is str:
@@ -60,10 +67,14 @@ class DataModelInputBinder(object):
                              self.bindings[field_name][0], 
                              new_value)
             if True:
-                if isinstance(widget, QLineEdit):
-                    if type_fn is float and validator:
-                        widget.setText('{:g}'.format(round(float(origin_value), \
-                                       validator.decimals())))
+                try:
+                    if isinstance(widget, QLineEdit):
+                        if type_fn is float and validator:
+                            widget.setText('{:g}'.format(round(float(origin_value), \
+                                        validator.decimals())))
+                except:
+                    logging.getLogger().exception(traceback.format_exc())
+                    logging.getLogger().info('__line_update_value field_name %s origin_value %s type_fn %s' % (field_name, origin_value, type_fn))
                 try:
                     setattr(self.__model, field_name, type_fn(origin_value)) 
                 except ValueError:
@@ -172,13 +183,18 @@ class DataModelInputBinder(object):
     def bind_value_update(self, field_name, widget, type_fn, validator = None):
         self.bindings[field_name] = [widget, validator, type_fn, False]
 
-        if isinstance(widget, QLineEdit):        
-            widget.textChanged.connect(\
-              lambda new_value: self.__ledit_update_value(field_name,
-                                                          widget,
-                                                          new_value,
-                                                          type_fn, 
-                                                          validator))
+        if isinstance(widget, QLineEdit):
+            try:
+                widget.textChanged.connect(\
+                lambda new_value: self.__ledit_update_value(field_name,
+                                                            widget,
+                                                            new_value,
+                                                            type_fn, 
+                                                            validator))
+            except:
+                logging.getLogger().exception(traceback.format_exc())
+                lgoging.getLogger().info('bind_value_update field_name %s, widget %s, type_fn %s' % (field_name, widget, type_fn))
+                
             widget.textEdited.connect(\
               lambda new_value: self.__ledit_text_edited(field_name,
                                                          widget,
