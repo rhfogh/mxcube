@@ -145,6 +145,8 @@
               type: boolean, value: 0}
             - {comment: '', defaultValue: '', hidden: false, name: hwobj_state_machine,
               oldValue: '', type: string, value: ''}
+            - {comment: '', defaultValue: '', hidden: false, name: hwobj_unittest,
+              oldValue: null, type: string, value: ''}
             - {comment: Allow to control brick in all modes, defaultValue: 0, hidden: false,
               name: instanceAllowAlways, oldValue: 0, type: boolean, value: 0}
             - {comment: Allow to control brick in slave mode, defaultValue: 0, hidden: false,
@@ -559,61 +561,61 @@
                         name: omega_focus
                         properties:
                         - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                          oldValue: null, type: integer, value: 2}
+                          oldValue: 2, type: integer, value: 2}
                         - {comment: '', defaultValue: 180 90 45 30 10, hidden: false,
-                          name: defaultSteps, oldValue: null, type: string, value: 180
-                            90 45 30 10}
+                          name: defaultSteps, oldValue: 180 90 45 30 10, type: string,
+                          value: 180 90 45 30 10}
                         - {comment: '', defaultValue: '', hidden: false, name: delta,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: Set fixed height in pixels, defaultValue: -1,
-                          hidden: false, name: fixedHeight, oldValue: null, type: integer,
+                          hidden: false, name: fixedHeight, oldValue: -1, type: integer,
                           value: -1}
                         - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                          name: fixedWidth, oldValue: null, type: integer, value: -1}
+                          name: fixedWidth, oldValue: -1, type: integer, value: -1}
                         - {comment: '', defaultValue: '11', hidden: false, name: fontSize,
-                          oldValue: null, type: string, value: '9'}
+                          oldValue: '11', type: string, value: '9'}
                         - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
                           formatStringLength: 5, hidden: false, name: formatString,
-                          oldValue: null, type: formatString, value: +##.##}
+                          oldValue: +##.##, type: formatString, value: +##.##}
                         - {comment: Draw a frame around the widget, defaultValue: 0,
-                          hidden: false, name: frame, oldValue: null, type: boolean,
+                          hidden: false, name: frame, oldValue: 0, type: boolean,
                           value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: helpDecrease,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: '', defaultValue: '', hidden: false, name: helpIncrease,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: icons,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: Allow to control brick in all modes, defaultValue: 0,
-                          hidden: false, name: instanceAllowAlways, oldValue: null,
-                          type: boolean, value: 0}
+                          hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
+                          value: 0}
                         - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                          hidden: false, name: instanceAllowConnected, oldValue: null,
+                          hidden: false, name: instanceAllowConnected, oldValue: 0,
                           type: boolean, value: 0}
                         - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: label,
                           oldValue: '', type: string, value: OmegaX}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
                           oldValue: '', type: string, value: /diffractometer/alignmentx}
                         - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                          oldValue: null, type: boolean, value: 1}
+                          oldValue: 1, type: boolean, value: 1}
                         - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
                           oldValue: 1, type: boolean, value: 0}
                         - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                          oldValue: null, type: boolean, value: 1}
+                          oldValue: 1, type: boolean, value: 1}
                         - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: 1, hidden: false, name: showStep,
                           oldValue: 1, type: boolean, value: 0}
                         - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: 1, hidden: false, name: showStop,
                           oldValue: 1, type: boolean, value: 0}
                         type: Qt4_MotorSpinBoxBrick
@@ -663,7 +665,7 @@
                         - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
                           oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: label,
-                          oldValue: Horizontal, type: string, value: OmegaY}
+                          oldValue: '', type: string, value: OmegaY}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
                           oldValue: '', type: string, value: /diffractometer/alignmenty}
                         - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
@@ -687,61 +689,61 @@
                         name: omega_vertical
                         properties:
                         - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                          oldValue: null, type: integer, value: 2}
+                          oldValue: 2, type: integer, value: 2}
                         - {comment: '', defaultValue: 180 90 45 30 10, hidden: false,
-                          name: defaultSteps, oldValue: null, type: string, value: 180
-                            90 45 30 10}
+                          name: defaultSteps, oldValue: 180 90 45 30 10, type: string,
+                          value: 180 90 45 30 10}
                         - {comment: '', defaultValue: '', hidden: false, name: delta,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: Set fixed height in pixels, defaultValue: -1,
-                          hidden: false, name: fixedHeight, oldValue: null, type: integer,
+                          hidden: false, name: fixedHeight, oldValue: -1, type: integer,
                           value: -1}
                         - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                          name: fixedWidth, oldValue: null, type: integer, value: -1}
+                          name: fixedWidth, oldValue: -1, type: integer, value: -1}
                         - {comment: '', defaultValue: '11', hidden: false, name: fontSize,
-                          oldValue: null, type: string, value: '9'}
+                          oldValue: '11', type: string, value: '9'}
                         - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
                           formatStringLength: 5, hidden: false, name: formatString,
-                          oldValue: null, type: formatString, value: +##.##}
+                          oldValue: +##.##, type: formatString, value: +##.##}
                         - {comment: Draw a frame around the widget, defaultValue: 0,
-                          hidden: false, name: frame, oldValue: null, type: boolean,
+                          hidden: false, name: frame, oldValue: 0, type: boolean,
                           value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: helpDecrease,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: '', defaultValue: '', hidden: false, name: helpIncrease,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: icons,
-                          oldValue: null, type: string, value: ''}
+                          oldValue: '', type: string, value: ''}
                         - {comment: Allow to control brick in all modes, defaultValue: 0,
-                          hidden: false, name: instanceAllowAlways, oldValue: null,
-                          type: boolean, value: 0}
+                          hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
+                          value: 0}
                         - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                          hidden: false, name: instanceAllowConnected, oldValue: null,
+                          hidden: false, name: instanceAllowConnected, oldValue: 0,
                           type: boolean, value: 0}
                         - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: label,
                           oldValue: '', type: string, value: OmegaZ}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
                           oldValue: '', type: string, value: /diffractometer/alignmentz}
                         - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                          oldValue: null, type: boolean, value: 1}
+                          oldValue: 1, type: boolean, value: 1}
                         - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
                           oldValue: 1, type: boolean, value: 0}
                         - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                          oldValue: null, type: boolean, value: 1}
+                          oldValue: 1, type: boolean, value: 1}
                         - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: 1, hidden: false, name: showStep,
                           oldValue: 1, type: boolean, value: 0}
                         - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                          oldValue: null, type: boolean, value: 0}
+                          oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: 1, hidden: false, name: showStop,
                           oldValue: 1, type: boolean, value: 0}
                         type: Qt4_MotorSpinBoxBrick
@@ -854,9 +856,9 @@
                         - {comment: '', defaultValue: '', hidden: false, name: label,
                           oldValue: '', type: string, value: Backlight}
                         - {comment: '', defaultValue: '', hidden: false, name: light_actuator,
-                          oldValue: '', type: string, value: /diffractometer/backlight}
+                          oldValue: '', type: string, value: /diffractometer/tango_polling/backlight}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
-                          oldValue: '', type: string, value: /diffractometer/backlight}
+                          oldValue: '', type: string, value: /diffractometer/tango_polling/backlight}
                         - {comment: '', defaultValue: '', hidden: false, name: out_delta,
                           oldValue: '', type: string, value: ''}
                         - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
@@ -922,9 +924,9 @@
                         - {comment: '', defaultValue: '', hidden: false, name: label,
                           oldValue: '', type: string, value: Frontlight}
                         - {comment: '', defaultValue: '', hidden: false, name: light_actuator,
-                          oldValue: '', type: string, value: /diffractometer/frontlight}
+                          oldValue: '', type: string, value: /diffractometer/tango_polling/frontlight}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
-                          oldValue: '', type: string, value: /diffractometer/frontlight}
+                          oldValue: '', type: string, value: /diffractometer/tango_polling/frontlight}
                         - {comment: '', defaultValue: '', hidden: false, name: out_delta,
                           oldValue: '', type: string, value: ''}
                         - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
@@ -970,7 +972,7 @@
                         - {comment: '', defaultValue: '', hidden: false, name: label,
                           oldValue: '', type: string, value: Zoom}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
-                          oldValue: '', type: string, value: /diffractometer/predefined-zoom}
+                          oldValue: '', type: string, value: /diffractometer/tango_polling/predefined-zoom}
                         - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
                           oldValue: 1, type: boolean, value: 1}
                         type: Qt4_MotorPredefPosBrick
@@ -1039,7 +1041,7 @@
                         - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
                           oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: label,
-                          oldValue: Focus, type: string, value: SampleFocus}
+                          oldValue: '', type: string, value: SampleFocus}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
                           oldValue: '', type: string, value: /diffractometer/centringtablefocus}
                         - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
@@ -1103,7 +1105,7 @@
                         - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
                           oldValue: 0, type: boolean, value: 0}
                         - {comment: '', defaultValue: '', hidden: false, name: label,
-                          oldValue: Vertical, type: string, value: SampleVertical}
+                          oldValue: '', type: string, value: SampleVertical}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
                           oldValue: '', type: string, value: /diffractometer/centringtablevertical}
                         - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
@@ -2658,7 +2660,7 @@
               name: energy_scan_brick
               properties:
               - {comment: '', defaultValue: '', hidden: false, name: energy-scan,
-                oldValue: '', type: string, value: /mockups/energyscan-mockup}
+                oldValue: '', type: string, value: /experimental_methods/energyscan}
               - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
                 name: fixedHeight, oldValue: -1, type: integer, value: -1}
               - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
@@ -2758,7 +2760,7 @@
               - {comment: '', defaultValue: /session, hidden: false, name: session,
                 oldValue: /session, type: string, value: /singleton_objects/session}
               - {comment: '', defaultValue: '', hidden: false, name: xrf-spectrum,
-                oldValue: '', type: string, value: /mockups/xrf-spectrum-mockup}
+                oldValue: '', type: string, value: /experimental_methods/xrf-spectrum}
               type: Qt4_XRFSpectrumParametersBrick
             connections: []
             name: xrf_spectrum_tab
@@ -3497,9 +3499,9 @@
         defaultValue: default
         hidden: false
         name: hsizepolicy
-        oldValue: null
+        oldValue: default
         type: combo
-        value: default
+        value: expanding
       - {comment: '', defaultValue: '', hidden: false, name: icon, oldValue: null,
         type: string, value: ''}
       - {comment: '', defaultValue: '', hidden: false, name: label, oldValue: null,
