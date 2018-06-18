@@ -8,6 +8,6 @@
     <command type="tango" name="abort">abort</command>
     <command type="tango" name="homing">startHomingMotor</command>
     <command type="tango" name="getZoomDynamicLimits">getMotorDynamicLimits</command>
-    <command type="tango" name="get_limits">getMotorLimits</command>
-    <command type="tango" name="get_max_speed">getMotorMaxSpeed</command>
+    <command type="tango" name="getMotorLimits">getMotorLimits</command>
+    <command type="tango" name="getMotorMaxSpeed">getMotorMaxSpeed</command>
 </device>
