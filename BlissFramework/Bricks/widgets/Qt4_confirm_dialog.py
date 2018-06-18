@@ -165,7 +165,7 @@ class ConfirmDialog(QDialog):
                 info_str_list.append(path_template.directory)
                 #This part is also in Qt4_data_path_widget. Mote to PathTemplate
                 file_name = path_template.get_image_file_name()
-                file_name = file_name.replace('%' + path_template.precision + \
+                file_name = file_name.replace('%' + str(path_template.precision) + \
                       'd', int(path_template.precision) * '#' )
                 file_name = file_name.strip(' ')
                 info_str_list.append(file_name)
