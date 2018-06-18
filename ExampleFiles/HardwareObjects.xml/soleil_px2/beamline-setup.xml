@@ -10,17 +10,17 @@
     <object href="/singleton_motors/transmission" role="transmission"/>
 
     <!-- Software (abstract) concepts -->
-    <object href="/singleton_objects/beaminfo_exporter" role="beam_info"/>
+    <object href="/singleton_objects/beaminfo" role="beam_info"/>
     <object href="/singleton_objects/Qt4_graphics-manager" role="shape_history"/>
     <object href="/singleton_objects/session" role="session"/>
     <object href="/singleton_objects/dbconnection" role="lims_client"/>
     <object href="/singleton_objects/data-analysis" role="data_analysis"/>
     
     <!-- Procedures and routines -->
-    <object href="/mockups/energyscan-mockup" role="energyscan"/>
+    <object href="/experimental_methods/energyscan" role="energyscan"/>
     <object href="/experimental_methods/diffraction_methods" role="collect"/>
+    <object href="/experimental_methods/xrf-spectrum" role="xrf_spectrum"/>
     <object href="/singleton_objects/parallel-processing" role="parallel_processing"/>
-    <object href="/mockups/xrf-spectrum-mockup" role="xrf_spectrum"/>
     <object href="/mockups/detector-mockup" role="detector"/>
 
     <!-- advanced methods are defined as a list with method names.
