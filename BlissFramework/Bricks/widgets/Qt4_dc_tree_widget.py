@@ -209,8 +209,8 @@ class DataCollectTree(QWidget):
         for col in range (4):
             self.sample_tree_widget.setColumnWidth(2 + col, 15)
 
-        #self.sample_tree_widget.header().setDefaultSectionSize(180)
-        self.sample_tree_widget.header().setDefaultSectionSize(280)
+        self.sample_tree_widget.header().setDefaultSectionSize(200)
+        #self.sample_tree_widget.header().setDefaultSectionSize(280)
         self.sample_tree_widget.header().hide()
         self.sample_tree_widget.setRootIsDecorated(1)
         self.sample_tree_widget.setCurrentItem(self.sample_tree_widget.topLevelItem(0))
