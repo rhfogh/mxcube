@@ -686,7 +686,7 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
             self.set_motor(self.motor_hwobj, new_value)
         elif property_name == 'formatString':
             if self.motor_hwobj is not None:
-                self.update_GUI()
+                self.update_gui()
         elif property_name == 'label':
             self.setLabel(new_value)
         elif property_name == 'showLabel':
