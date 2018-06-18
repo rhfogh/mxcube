@@ -112,14 +112,14 @@ class Qt4_ProposalBrick2(BlissWidget):
         self.main_gbox = QGroupBox("ISPyB proposal", self)
 
         self.login_as_proposal_widget = QWidget(self.main_gbox)
-        code_label = QLabel("  Code: ", self.login_as_proposal_widget)
+        self.code_label = QLabel(" Code: ", self.login_as_proposal_widget)
         self.proposal_type_combox = QComboBox(self.login_as_proposal_widget)
         self.proposal_type_combox.setEditable(True)
         self.proposal_type_combox.setFixedWidth(60)
-        dash_label = QLabel(" - ", self.login_as_proposal_widget)
+        self.dash_label = QLabel(" - ", self.login_as_proposal_widget)
         self.proposal_number_ledit = QLineEdit(self.login_as_proposal_widget)
-        self.proposal_number_ledit.setFixedWidth(60)
-        password_label = QLabel("   Password: ", self.login_as_proposal_widget)
+        self.proposal_number_ledit.setFixedWidth(80)
+        self.password_label = QLabel(" Password: ", self.login_as_proposal_widget)
         self.proposal_password_ledit = QLineEdit(self.login_as_proposal_widget)
         self.proposal_password_ledit.setEchoMode(QLineEdit.Password)
         #self.proposal_password_ledit.setFixedWidth(40)
@@ -138,7 +138,7 @@ class Qt4_ProposalBrick2(BlissWidget):
         self.user_group_widget = QWidget(self.main_gbox)
         #self.title_label = QtGui.QLabel(self.user_group_widget)
         #self.title_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.user_group_label = QLabel("  Group: ", self.user_group_widget)
+        self.user_group_label = QLabel(" Group: ", self.user_group_widget)
         self.user_group_ledit = QLineEdit(self.user_group_widget)
         self.user_group_ledit.setFixedHeight(27)
         self.user_group_save_button = QToolButton(self.user_group_widget)
@@ -157,11 +157,11 @@ class Qt4_ProposalBrick2(BlissWidget):
         self.user_group_widget.hide()
 
         _login_as_proposal_widget_layout = QHBoxLayout(self.login_as_proposal_widget)
-        _login_as_proposal_widget_layout.addWidget(code_label)
+        _login_as_proposal_widget_layout.addWidget(self.code_label)
         _login_as_proposal_widget_layout.addWidget(self.proposal_type_combox)
-        _login_as_proposal_widget_layout.addWidget(dash_label)
+        _login_as_proposal_widget_layout.addWidget(self.dash_label)
         _login_as_proposal_widget_layout.addWidget(self.proposal_number_ledit)
-        _login_as_proposal_widget_layout.addWidget(password_label)
+        _login_as_proposal_widget_layout.addWidget(self.password_label)
         _login_as_proposal_widget_layout.addWidget(self.proposal_password_ledit)
         _login_as_proposal_widget_layout.addWidget(self.login_button)
         _login_as_proposal_widget_layout.setSpacing(2)
@@ -208,7 +208,8 @@ class Qt4_ProposalBrick2(BlissWidget):
         Qt4_widget_colors.set_widget_color(self.proposal_password_ledit,
                                            Qt4_widget_colors.LIGHT_RED,
                                            QPalette.Base)
- 
+        self.log = logging.getLogger('GUI')
+        
     def save_group(self):
         """
         Descript. :
@@ -255,23 +256,23 @@ class Qt4_ProposalBrick2(BlissWidget):
                     method = event.method
                     arguments = event.arguments
                 except (Exception, diag):
-                    logging.getLogger().exception("Qt4_ProposalBrick2: problem in event! (%s)" % str(diag))
+                    self.log.exception("Qt4_ProposalBrick2: problem in event! (%s)" % str(diag))
                 except:
-                    logging.getLogger().exception("Qt4_ProposalBrick2: problem in event!")
+                    self.log.exception("Qt4_ProposalBrick2: problem in event!")
                 else:
-                    #logging.getLogger().debug("Qt4_ProposalBrick2: custom event method is %s" % method)
+                    #self.log.debug("Qt4_ProposalBrick2: custom event method is %s" % method)
                     if callable(method):
                         try:
                             method(*arguments)
                         except Exception as diag:
-                            logging.getLogger().exception("Qt4_ProposalBrick2: uncaught exception! (%s)" % str(diag))
+                            self.log.exception("Qt4_ProposalBrick2: uncaught exception! (%s)" % str(diag))
                         except:
-                            logging.getLogger().exception("Qt4_ProposalBrick2: uncaught exception!")
+                            self.log.exception("Qt4_ProposalBrick2: uncaught exception!")
                         else:
-                            #logging.getLogger().debug("Qt4_ProposalBrick2: custom event finished")
+                            #self.log.debug("Qt4_ProposalBrick2: custom event finished")
                             pass
                     else:
-                        logging.getLogger().warning('Qt4_ProposalBrick2: uncallable custom event!')
+                        self.log.warning('Qt4_ProposalBrick2: uncallable custom event!')
 
     # Enabled/disabled the login/logout button
     def setButtonEnabled(self, state):
@@ -289,7 +290,7 @@ class Qt4_ProposalBrick2(BlissWidget):
             self._do_login_as_proposal(proposal_code, proposal_number, None, \
                 self.lims_hwobj.beamline_name, impersonate = True)
         else:
-            logging.getLogger().debug('Qt4_ProposalBrick2: cannot impersonate unless logged as the inhouse user!')
+            self.log.debug('Qt4_ProposalBrick2: cannot impersonate unless logged as the inhouse user!')
 
     # Opens the logout dialog (modal); if the answer is OK then logout the user
     def logout_clicked(self):
@@ -331,7 +332,14 @@ class Qt4_ProposalBrick2(BlissWidget):
         self.setWindowTitle.emit(self["titlePrefix"])
         #self.sessionSelected.emit(None, None, None, None, None, None, None)
         self.loggedIn.emit(False)
-
+        
+        self.proposal_type_combox.show()
+        self.dash_label.show()
+        self.code_label.show()
+        self.password_label.show()
+        self.proposal_password_ledit.show()
+        #self.user_group_widget.hide()
+        
     def resetProposal(self):
         """
         Descript. :
@@ -346,6 +354,7 @@ class Qt4_ProposalBrick2(BlissWidget):
         """
         Descript. :
         """
+        self.log.info('setProposal proposal %s, session %s' % (proposal, session)) 
         self.lims_hwobj.enable()
         self.session_hwobj.proposal_code = proposal['code']
         self.session_hwobj.session_id = session['sessionId']
@@ -369,7 +378,7 @@ class Qt4_ProposalBrick2(BlissWidget):
         if code == "":
             #self.proposalLabel.setText("<nobr><i>%s</i>" % personFullName(person))
             session_id = ""
-            logging.getLogger().warning("Using local login: the data collected won't be stored in the database")
+            self.log.warning("Using local login: the data collected won't be stored in the database")
             self.lims_hwobj.disable()
             expiration_time = 0
         else:
@@ -445,6 +454,7 @@ class Qt4_ProposalBrick2(BlissWidget):
                   session["startDate"],
                   proposal["code"],
                   is_inhouse)
+        self.log.info('setProposal loggedIn.emit(True)')
         self.loggedIn.emit(True)
 
     def setCodes(self, codes):
@@ -532,9 +542,28 @@ class Qt4_ProposalBrick2(BlissWidget):
         """
         #self.setProposal(proposal_dict, person_dict, lab_dict, 
         #                 session_dict, contact_dict)
+        self.log.info('in acceptLogin')
+        self.log.info('proposal_dict %s ' % proposal_dict )
+        self.log.info('session_dict %s ' % session_dict )
         self.setProposal(proposal_dict, session_dict)
         self.setEnabled(True)
-
+        
+        Qt4_widget_colors.set_widget_color(self.proposal_number_ledit,
+                                               Qt4_widget_colors.LIGHT_GREEN,
+                                               QPalette.Base) 
+        Qt4_widget_colors.set_widget_color(self.proposal_password_ledit,
+                                               Qt4_widget_colors.LIGHT_GREEN,
+                                               QPalette.Base)  
+        Qt4_widget_colors.set_widget_color(self.user_group_ledit,
+                                               Qt4_widget_colors.LIGHT_GREEN,
+                                               QPalette.Base) 
+        self.proposal_type_combox.hide()
+        self.dash_label.hide()
+        self.code_label.hide()
+        self.password_label.hide()
+        self.proposal_password_ledit.hide()
+        #self.user_group_widget.hide()
+        
     def ispybDown(self):
         """
         Descript. :
@@ -571,12 +600,14 @@ class Qt4_ProposalBrick2(BlissWidget):
         """
         Descript. :
         """
+        logging.getLogger("GUI").info('In login')
         self.saved_group = False
         Qt4_widget_colors.set_widget_color(self.user_group_ledit, 
                                            Qt4_widget_colors.WHITE)
         self.user_group_ledit.setText('')
         self.setEnabled(False)
-
+        
+        logging.getLogger("GUI").info('In login self.login_as_user %s' % self.login_as_user )
         if not self.login_as_user:
             prop_type = str(self.proposal_type_combox.currentText())
             prop_number = str(self.proposal_number_ledit.text())
@@ -604,7 +635,7 @@ class Qt4_ProposalBrick2(BlissWidget):
                 pers_dict = {'familyName' : locallogin_person}
                 lab_dict = {'name' : 'local lab'}
                 cont_dict = {'familyName' : 'local contact'}
-                logging.getLogger().debug("ProposalBrick: local login password validated")
+                self.log.debug("ProposalBrick: local login password validated")
              
                 #return self.acceptLogin(prop_dict, pers_dict, lab_dict, ses_dict, cont_dict)
                 return self.acceptLogin(prop_dict, ses_dict)
@@ -613,7 +644,7 @@ class Qt4_ProposalBrick2(BlissWidget):
                 return self.refuseLogin(False,'Not connected to the ISPyB database, unable to get proposal.')
 
             self._do_login_as_proposal(prop_type, prop_number, prop_password, self.lims_hwobj.beamline_name)
-
+        
     def passControl(self, has_control_id):
         """
         Descript. :
@@ -681,7 +712,7 @@ class Qt4_ProposalBrick2(BlissWidget):
         Descript. :
         """
         # Get proposal and sessions
-        logging.getLogger().debug('ProposalBrick: querying ISPyB database...')
+        self.log.info('ProposalBrick: querying ISPyB database...')
         prop = self.lims_hwobj.getProposal(proposal_code, proposal_number)
 
         # Check if everything went ok
@@ -694,6 +725,7 @@ class Qt4_ProposalBrick2(BlissWidget):
             self.ispybDown()
         else:
             self.select_proposal(prop)
+            self.log.info('ProposalBrick: select_proposal %s' % prop)
             BlissWidget.set_status_info("user", "%s%s@%s" % \
                (proposal_code, str(proposal_number), beamline_name))
 
@@ -770,7 +802,7 @@ class Qt4_ProposalBrick2(BlissWidget):
             localcontact = None
         else:
             session_id = todays_session['sessionId']
-            logging.getLogger().debug('ProposalBrick: getting local contact for %s' % session_id)
+            self.log.debug('ProposalBrick: getting local contact for %s' % session_id)
             localcontact = self.lims_hwobj.get_session_local_contact(session_id)
 
         #self.acceptLogin(selected_proposal['Proposal'], 
@@ -781,10 +813,10 @@ class Qt4_ProposalBrick2(BlissWidget):
         self.acceptLogin(selected_proposal['Proposal'], todays_session)
     
     def _do_login_as_user(self, user_name):
-        logging.getLogger().debug('ProposalBrick: querying ISPyB database...')
+        self.log.debug('ProposalBrick: querying ISPyB database...')
  
         self.proposals = self.lims_hwobj.get_proposals_by_user(user_name)
-
+        self.log.debug('_do_login_as_proposal: self.proposals %s' % self.proposals)
         if len(self.proposals) == 0:
             logging.getLogger("GUI").error("No proposals for user %s found in ISPyB" % user_name)
             self.ispybDown()
