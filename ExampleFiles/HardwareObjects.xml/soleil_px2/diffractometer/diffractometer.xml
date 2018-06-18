@@ -26,11 +26,10 @@
     <object href="/diffractometer/centringy" role="sampy"/>
     <object href="/diffractometer/kappa" role="kappa"/>
     <object href="/diffractometer/phi" role="kappa_phi"/>
-    <object href="/singleton_objects/camera" role="camera"/>
     <object href="/singleton_objects/beaminfo" role="beam_info"/>
     <object href="/singleton_objects/centring-math" role="centring"/>
     <object href="/singleton_objects/minikappa-correction" role="minikappa_correction"/>
-    <object href="/singleton_objects/camera" role="camera"/>
+    <object href="/singleton_objects/vimba" role="camera"/>
     <object href="/singleton_objects/cats" role="samplechanger"/>
     
     <use_sample_changer>True</use_sample_changer> 
