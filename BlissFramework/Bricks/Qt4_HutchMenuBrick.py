@@ -90,25 +90,9 @@ class Qt4_HutchMenuBrick(BlissWidget):
         self.auto_center_button.setText("Auto")
         self.realign_button = MonoStateButton(self, "Realign beam", "QuickRealign")
 
-        # Layout -------------------------------------------------------------- 
-        _main_vlayout = QVBoxLayout(self)
-        _main_vlayout.addWidget(self.centre_button)
-        _main_vlayout.addWidget(self.accept_button)
-        _main_vlayout.addWidget(self.reject_button)
-        _main_vlayout.addWidget(self.create_line_button)
-        _main_vlayout.addWidget(self.draw_grid_button)
-        _main_vlayout.addWidget(self.auto_focus_button)
-        _main_vlayout.addWidget(self.snapshot_button)
-        _main_vlayout.addWidget(self.refresh_camera_button)
-        _main_vlayout.addWidget(self.visual_align_button)
-        _main_vlayout.addWidget(self.select_all_button)
-        _main_vlayout.addWidget(self.clear_all_button)
-        _main_vlayout.addWidget(self.auto_center_button)
-        _main_vlayout.addWidget(self.realign_button)
-        _main_vlayout.addStretch(0)
-        _main_vlayout.setSpacing(0)
-        _main_vlayout.setContentsMargins(0, 0, 0, 0)
-
+        # Layout --------------------------------------------------------------
+        _main_layout = self.create_layout()
+        
         # Qt signal/slot connections ------------------------------------------
         self.centre_button.commandExecuteSignal.connect(self.centre_button_clicked)
         self.accept_button.clicked.connect(self.accept_clicked)
@@ -134,6 +118,26 @@ class Qt4_HutchMenuBrick(BlissWidget):
         self.select_all_button.setToolTip("Select all centring points (Ctrl+A)")
         self.clear_all_button.setToolTip("Clear all items (Ctrl+X)")
         #self.instanceSynchronize("")
+
+    def create_layout(self):
+        _main_vlayout = QVBoxLayout(self)
+        _main_vlayout.addWidget(self.centre_button)
+        _main_vlayout.addWidget(self.accept_button)
+        _main_vlayout.addWidget(self.reject_button)
+        _main_vlayout.addWidget(self.create_line_button)
+        _main_vlayout.addWidget(self.draw_grid_button)
+        _main_vlayout.addWidget(self.auto_focus_button)
+        _main_vlayout.addWidget(self.snapshot_button)
+        _main_vlayout.addWidget(self.refresh_camera_button)
+        _main_vlayout.addWidget(self.visual_align_button)
+        _main_vlayout.addWidget(self.select_all_button)
+        _main_vlayout.addWidget(self.clear_all_button)
+        _main_vlayout.addWidget(self.auto_center_button)
+        _main_vlayout.addWidget(self.realign_button)
+        _main_vlayout.addStretch(0)
+        _main_vlayout.setSpacing(0)
+        _main_vlayout.setContentsMargins(0, 0, 0, 0)
+        return _main_vlayout
 
     def propertyChanged(self, property_name, old_value, new_value):
         """
