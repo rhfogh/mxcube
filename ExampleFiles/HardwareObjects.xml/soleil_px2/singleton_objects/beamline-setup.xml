@@ -20,7 +20,7 @@
     <object href="/experimental_methods/energyscan" role="energyscan"/>
     <object href="/experimental_methods/diffraction_methods" role="collect"/>
     <object href="/experimental_methods/xrf-spectrum" role="xrf_spectrum"/>
-    <object href="/singleton_objects/parallel-processing" role="parallel_processing"/>
+    <!--object href="/singleton_objects/parallel-processing" role="parallel_processing"/-->
     <object href="/mockups/detector-mockup" role="detector"/>
 
     <!-- advanced methods are defined as a list with method names.
@@ -68,7 +68,7 @@
     <default_characterisation_values>
         <exposure_time>0.025</exposure_time>
         <start_angle>0.0</start_angle>
-        <range>0.1</range>
+        <range>1</range>
         <number_of_passes>1</number_of_passes>
         <start_image_number>1</start_image_number>
         <run_number>1</run_number>
