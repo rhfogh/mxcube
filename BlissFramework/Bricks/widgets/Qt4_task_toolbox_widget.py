@@ -63,7 +63,7 @@ class TaskToolBoxWidget(QWidget):
 
         self.tool_box = QToolBox(self)
         self.tool_box.setObjectName("tool_box")
-        self.tool_box.setFixedWidth(425)
+        #self.tool_box.setFixedWidth(475)
         #self.tool_box.setFont(font)
 
         self.discrete_page = CreateDiscreteWidget(self.tool_box, "Discrete",)
