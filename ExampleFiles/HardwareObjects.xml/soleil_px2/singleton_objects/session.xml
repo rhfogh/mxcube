@@ -24,6 +24,7 @@
     </inhouse_users>
 
     <file_info>
+        <precision>"06"</precision>
         <file_suffix>h5</file_suffix>
         <base_directory>/nfs/data/testQt4</base_directory>
         <ispyb_base_directory>/nfs/ruche/proxima2a-users/%(projuser)s/published-data</ispyb_base_directory>
