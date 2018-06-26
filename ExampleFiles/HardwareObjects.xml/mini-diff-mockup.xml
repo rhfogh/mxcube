@@ -5,7 +5,7 @@
   <object href="/beam-info" role="beam_info"/>
 
   <!-- Next block added by rhfogh for better representation of move_motor behaviour -->
-  <object href="/diff-phiz" role="phiz"/>
+  <object href="/diff-phiz-mockup" role="phiz"/>
   <object href="/diff-phiy-mockup" role="phiy"/>
   <object href="/diff-sampx-mockup" role="sampx"/>
   <object href="/diff-sampy-mockup" role="sampy"/>
