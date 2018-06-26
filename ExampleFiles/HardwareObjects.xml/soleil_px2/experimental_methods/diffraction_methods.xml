@@ -4,7 +4,7 @@
     <object href="/singleton_objects/dbconnection" role="lims_client"/>
     <object href="/singleton_motors/photon_energy" role="energy"/>
     <object href="/singleton_motors/transmission" role="transmission"/>
-    <object href="/mockups/detector-mockup" role="detector"/>
+    <object href="/detectors/diffraction_detector" role="detector"/>
     <object href="/singleton_motors/resolution" role="resolution"/>
     <object href="/singleton_objects/mach-info" role="machine_info"/>
 
