@@ -21,7 +21,7 @@
     <object href="/experimental_methods/diffraction_methods" role="collect"/>
     <object href="/experimental_methods/xrf-spectrum" role="xrf_spectrum"/>
     <!--object href="/singleton_objects/parallel-processing" role="parallel_processing"/-->
-    <object href="/mockups/detector-mockup" role="detector"/>
+    <object href="/detectors/diffraction_detector" role="detector"/>
 
     <!-- advanced methods are defined as a list with method names.
         Each name is then converted to class name.

@@ -8,11 +8,11 @@
         </undulator> 
     </BEAMLINE_PARS>
     <COLLECT_PARS>
-        <escan_dir>/tmp/Escans</escan_dir> <!--  /data/proxima1-soleil/temp/Escans</escan_dir> change! -->
-        <escan_prefix>eprefix</escan_prefix> <!-- change! -->
+        <escan_dir>/tmp/Escans</escan_dir>
+        <escan_prefix>eprefix</escan_prefix> 
         <fileinfo>
-            <directory>/tmp/images</directory> <!-- /data/proxima1-soleil/temp/images change! -->
-            <prefix>img_</prefix>
+            <directory>/tmp/images</directory> 
+            <prefix>escan_</prefix>
             <run_number>1</run_number>
         </fileinfo>
         <current_filename>test</current_filename>
@@ -39,14 +39,14 @@
     </SPEC_PARS>
     <BCM_PARS>
         <detector>
-            <manufacturer>DECTRIS</manufacturer>   <!--<manufacturer>Dectris</manufacturer> -->
-            <type>EIGER</type>                <!--       <type>PILATUS</type> -->
-            <model>9M</model>                 <!--       <model>6M</model> -->
+            <manufacturer>DECTRIS</manufacturer>
+            <type>EIGER</type>               
+            <model>9M</model>               
         </detector>
-        <detector_radius>116.62</detector_radius> <!--might need to be changed to 157.5? -->
+        <detector_radius>116.62</detector_radius> 
         <FileSuffix>h5</FileSuffix>
-        <default_exposure_time>0.10</default_exposure_time>
-        <minimum_exposure_time>0.004202</minimum_exposure_time>
+        <default_exposure_time>0.025</default_exposure_time>
+        <minimum_exposure_time>0.0043</minimum_exposure_time>
         <minimum_phi_speed>0.01</minimum_phi_speed>
         <minimum_phi_oscillation>0.01</minimum_phi_oscillation>
         <maximum_phi_speed>130</maximum_phi_speed>

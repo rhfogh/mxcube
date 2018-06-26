@@ -1,7 +1,7 @@
 <object class="Qt4_GraphicsManager">
     <object href="/diffractometer/diffractometer" role="diffractometer"/>
     <object href="/singleton_objects/beaminfo" role="beam_info"/>
-    <object href="/singleton_objects/vimba" role="camera"/>
+    <object href="/singleton_objects/camera" role="camera"/>
 
     <!-- Use magnification tool -->
     <magnification_tool>{"scale": 4, "area_size": 50}</magnification_tool>
