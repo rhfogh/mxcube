@@ -1432,9 +1432,9 @@
                       - {comment: '', defaultValue: '', hidden: false, name: label,
                         oldValue: '', type: string, value: Front}
                       - {comment: '', defaultValue: '', hidden: false, name: light_actuator,
-                        oldValue: '', type: string, value: /diffractometer/tango_polling/frontlight}
+                        oldValue: '', type: string, value: /diffractometer/frontlight}
                       - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
-                        oldValue: '', type: string, value: /diffractometer/tango_polling/frontlight}
+                        oldValue: '', type: string, value: /diffractometer/frontlight}
                       - {comment: '', defaultValue: '', hidden: false, name: out_delta,
                         oldValue: '', type: string, value: ''}
                       - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
@@ -1498,9 +1498,9 @@
                       - {comment: '', defaultValue: '', hidden: false, name: label,
                         oldValue: '', type: string, value: Back}
                       - {comment: '', defaultValue: '', hidden: false, name: light_actuator,
-                        oldValue: '', type: string, value: /diffractometer/tango_polling/backlight}
+                        oldValue: '', type: string, value: /diffractometer/backlight}
                       - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
-                        oldValue: '', type: string, value: /diffractometer/tango_polling/backlight}
+                        oldValue: '', type: string, value: /diffractometer/backlight}
                       - {comment: '', defaultValue: '', hidden: false, name: out_delta,
                         oldValue: '', type: string, value: ''}
                       - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
@@ -1740,7 +1740,7 @@
                         - {comment: '', defaultValue: '', hidden: false, name: label,
                           oldValue: '', type: string, value: Zoom}
                         - {comment: '', defaultValue: '', hidden: false, name: mnemonic,
-                          oldValue: '', type: string, value: /diffractometer/tango_polling/predefined-zoom}
+                          oldValue: '', type: string, value: /diffractometer/predefined-zoom}
                         - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
                           oldValue: 1, type: boolean, value: 1}
                         type: Qt4_MotorPredefPosBrick
@@ -3678,7 +3678,7 @@
                 - {comment: '', defaultValue: '', hidden: false, name: detectorDistance,
                   oldValue: '', type: string, value: /tango_motors/detector_distance}
                 - {comment: '', defaultValue: '', hidden: false, name: doorInterlock,
-                  oldValue: '', type: string, value: /mockups/door-interlock-mockup}
+                  oldValue: '', type: string, value: /singleton_objects/door-interlock}
                 - {comment: '', defaultValue: '', hidden: false, name: energy, oldValue: '',
                   type: string, value: /singleton_motors/photon_energy}
                 - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
@@ -3980,25 +3980,25 @@
               type: combo
               value: default
             type: hbox
-          - children: []
-            connections: []
-            name: vspacer4
-            properties:
-            - choices: [none, top center, top left, top right, bottom center, bottom
-                  left, bottom right, center, hcenter, vcenter, left, right]
-              comment: ''
-              defaultValue: none
-              hidden: false
-              name: alignment
-              oldValue: null
-              type: combo
-              value: none
-            - {comment: '', defaultValue: 0, hidden: false, name: fixed_size, oldValue: null,
-              type: boolean, value: 0}
-            - {comment: '', defaultValue: 100, hidden: false, name: size, oldValue: null,
-              type: integer, value: 100}
-            type: vspacer
           - children:
+            - children: []
+              connections: []
+              name: label4
+              properties:
+              - choices: [none, top center, top left, top right, bottom center, bottom
+                    left, bottom right, center, hcenter, vcenter, left, right]
+                comment: ''
+                defaultValue: none
+                hidden: false
+                name: alignment
+                oldValue: null
+                type: combo
+                value: none
+              - {comment: '', defaultValue: 9, hidden: false, name: fontSize, oldValue: null,
+                type: integer, value: 9}
+              - {comment: '', defaultValue: Log messages, hidden: false, name: text,
+                oldValue: null, type: string, value: Log messages}
+              type: label
             - brick: {class: Qt4_LogBarBrick, name: log_bar_brick}
               children: []
               connections: []
@@ -4021,94 +4021,6 @@
               - {comment: '', defaultValue: -1, hidden: false, name: maxLogLines,
                 oldValue: -1, type: integer, value: -1}
               type: Qt4_LogBarBrick
-            - children:
-              - brick: {class: Qt4_ChatBrick, name: chat_brick}
-                children: []
-                connections: []
-                name: chat_brick
-                properties:
-                - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                  name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                  name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                - {comment: '', defaultValue: '11', hidden: false, name: fontSize,
-                  oldValue: '11', type: string, value: '9'}
-                - {comment: Draw a frame around the widget, defaultValue: 0, hidden: false,
-                  name: frame, oldValue: 0, type: boolean, value: 0}
-                - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                  oldValue: 0, type: boolean, value: 0}
-                - {comment: '', defaultValue: '', hidden: false, name: icons, oldValue: '',
-                  type: string, value: ''}
-                - {comment: Allow to control brick in all modes, defaultValue: 0,
-                  hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                  value: 0}
-                - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                  hidden: false, name: instanceAllowConnected, oldValue: 0, type: boolean,
-                  value: 0}
-                - {comment: '', defaultValue: '', hidden: false, name: mnemonic, oldValue: '',
-                  type: string, value: /singleton_objects/instanceconnection}
-                - {comment: '', defaultValue: '', hidden: false, name: myTabLabel,
-                  oldValue: '', type: string, value: ''}
-                type: Qt4_ChatBrick
-              connections: []
-              name: vbox9
-              properties:
-              - choices: [none, top center, top left, top right, bottom center, bottom
-                    left, bottom right, center, hcenter, vcenter, left, right]
-                comment: ''
-                defaultValue: none
-                hidden: false
-                name: alignment
-                oldValue: null
-                type: combo
-                value: none
-              - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
-                type: color, value: null}
-              - {comment: '', defaultValue: 250, hidden: false, name: fixedheight,
-                oldValue: null, type: integer, value: 250}
-              - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
-                type: integer, value: -1}
-              - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: frameshape
-                oldValue: null
-                type: combo
-                value: default
-              - choices: [fixed, expanding, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: hsizepolicy
-                oldValue: null
-                type: combo
-                value: default
-              - {comment: '', defaultValue: '', hidden: false, name: icon, oldValue: null,
-                type: string, value: ''}
-              - {comment: '', defaultValue: '', hidden: false, name: label, oldValue: null,
-                type: string, value: ''}
-              - {comment: '', defaultValue: 2, hidden: false, name: margin, oldValue: null,
-                type: integer, value: 2}
-              - choices: [plain, raised, sunken, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: shadowstyle
-                oldValue: null
-                type: combo
-                value: default
-              - {comment: '', defaultValue: 2, hidden: false, name: spacing, oldValue: null,
-                type: integer, value: 2}
-              - choices: [fixed, expanding, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: vsizepolicy
-                oldValue: null
-                type: combo
-                value: default
-              type: vbox
             connections: []
             name: vbox5
             properties:
@@ -4123,8 +4035,112 @@
               value: none
             - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
               type: color, value: null}
-            - {comment: '', defaultValue: 650, hidden: false, name: fixedheight, oldValue: null,
-              type: integer, value: 850}
+            - {comment: '', defaultValue: 700, hidden: false, name: fixedheight, oldValue: 700,
+              type: integer, value: -1}
+            - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
+              type: integer, value: -1}
+            - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
+              comment: ''
+              defaultValue: default
+              hidden: false
+              name: frameshape
+              oldValue: null
+              type: combo
+              value: default
+            - choices: [fixed, expanding, default]
+              comment: ''
+              defaultValue: default
+              hidden: false
+              name: hsizepolicy
+              oldValue: null
+              type: combo
+              value: default
+            - {comment: '', defaultValue: '', hidden: false, name: icon, oldValue: null,
+              type: string, value: ''}
+            - {comment: '', defaultValue: '', hidden: false, name: label, oldValue: null,
+              type: string, value: ''}
+            - {comment: '', defaultValue: 2, hidden: false, name: margin, oldValue: null,
+              type: integer, value: 2}
+            - choices: [plain, raised, sunken, default]
+              comment: ''
+              defaultValue: default
+              hidden: false
+              name: shadowstyle
+              oldValue: null
+              type: combo
+              value: default
+            - {comment: '', defaultValue: 2, hidden: false, name: spacing, oldValue: null,
+              type: integer, value: 2}
+            - choices: [fixed, expanding, default]
+              comment: ''
+              defaultValue: default
+              hidden: false
+              name: vsizepolicy
+              oldValue: default
+              type: combo
+              value: expanding
+            type: vbox
+          - children:
+            - children: []
+              connections: []
+              name: label5
+              properties:
+              - choices: [none, top center, top left, top right, bottom center, bottom
+                    left, bottom right, center, hcenter, vcenter, left, right]
+                comment: ''
+                defaultValue: none
+                hidden: false
+                name: alignment
+                oldValue: null
+                type: combo
+                value: none
+              - {comment: '', defaultValue: 9, hidden: false, name: fontSize, oldValue: null,
+                type: integer, value: 9}
+              - {comment: '', defaultValue: Chat, hidden: false, name: text, oldValue: null,
+                type: string, value: Chat}
+              type: label
+            - brick: {class: Qt4_ChatBrick, name: chat_brick}
+              children: []
+              connections: []
+              name: chat_brick
+              properties:
+              - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
+                name: fixedHeight, oldValue: -1, type: integer, value: -1}
+              - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
+                name: fixedWidth, oldValue: -1, type: integer, value: -1}
+              - {comment: '', defaultValue: '11', hidden: false, name: fontSize, oldValue: '11',
+                type: string, value: '9'}
+              - {comment: Draw a frame around the widget, defaultValue: 0, hidden: false,
+                name: frame, oldValue: 0, type: boolean, value: 0}
+              - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
+                oldValue: 0, type: boolean, value: 0}
+              - {comment: '', defaultValue: '', hidden: false, name: icons, oldValue: '',
+                type: string, value: ''}
+              - {comment: Allow to control brick in all modes, defaultValue: 0, hidden: false,
+                name: instanceAllowAlways, oldValue: 0, type: boolean, value: 0}
+              - {comment: Allow to control brick in slave mode, defaultValue: 0, hidden: false,
+                name: instanceAllowConnected, oldValue: 0, type: boolean, value: 0}
+              - {comment: '', defaultValue: '', hidden: false, name: mnemonic, oldValue: '',
+                type: string, value: /singleton_objects/instanceconnection}
+              - {comment: '', defaultValue: '', hidden: false, name: myTabLabel, oldValue: '',
+                type: string, value: ''}
+              type: Qt4_ChatBrick
+            connections: []
+            name: vbox9
+            properties:
+            - choices: [none, top center, top left, top right, bottom center, bottom
+                  left, bottom right, center, hcenter, vcenter, left, right]
+              comment: ''
+              defaultValue: none
+              hidden: false
+              name: alignment
+              oldValue: null
+              type: combo
+              value: none
+            - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
+              type: color, value: null}
+            - {comment: '', defaultValue: 250, hidden: false, name: fixedheight, oldValue: null,
+              type: integer, value: 250}
             - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
               type: integer, value: -1}
             - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
