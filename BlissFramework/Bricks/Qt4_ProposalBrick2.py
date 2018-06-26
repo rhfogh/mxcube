@@ -209,6 +209,7 @@ class Qt4_ProposalBrick2(BlissWidget):
                                            Qt4_widget_colors.LIGHT_RED,
                                            QPalette.Base)
         self.log = logging.getLogger('GUI')
+        self.root_log = logging.getLogger()
         
     def save_group(self):
         """
@@ -354,7 +355,7 @@ class Qt4_ProposalBrick2(BlissWidget):
         """
         Descript. :
         """
-        self.log.info('setProposal proposal %s, session %s' % (proposal, session)) 
+        self.root_log.info('setProposal proposal %s, session %s' % (proposal, session)) 
         self.lims_hwobj.enable()
         self.session_hwobj.proposal_code = proposal['code']
         self.session_hwobj.session_id = session['sessionId']
@@ -454,7 +455,7 @@ class Qt4_ProposalBrick2(BlissWidget):
                   session["startDate"],
                   proposal["code"],
                   is_inhouse)
-        self.log.info('setProposal loggedIn.emit(True)')
+        self.log.info('log in successful')
         self.loggedIn.emit(True)
 
     def setCodes(self, codes):
@@ -542,9 +543,8 @@ class Qt4_ProposalBrick2(BlissWidget):
         """
         #self.setProposal(proposal_dict, person_dict, lab_dict, 
         #                 session_dict, contact_dict)
-        self.log.info('in acceptLogin')
-        self.log.info('proposal_dict %s ' % proposal_dict )
-        self.log.info('session_dict %s ' % session_dict )
+        self.root_log.debug('proposal_dict %s ' % proposal_dict)
+        self.root_log.debug('session_dict %s ' % session_dict)
         self.setProposal(proposal_dict, session_dict)
         self.setEnabled(True)
         
@@ -600,14 +600,14 @@ class Qt4_ProposalBrick2(BlissWidget):
         """
         Descript. :
         """
-        logging.getLogger("GUI").info('In login')
+        logging.getLogger().debug('In login')
         self.saved_group = False
         Qt4_widget_colors.set_widget_color(self.user_group_ledit, 
                                            Qt4_widget_colors.WHITE)
         self.user_group_ledit.setText('')
         self.setEnabled(False)
         
-        logging.getLogger("GUI").info('In login self.login_as_user %s' % self.login_as_user )
+        logging.getLogger().debug('In login self.login_as_user %s' % self.login_as_user )
         if not self.login_as_user:
             prop_type = str(self.proposal_type_combox.currentText())
             prop_number = str(self.proposal_number_ledit.text())
@@ -725,7 +725,7 @@ class Qt4_ProposalBrick2(BlissWidget):
             self.ispybDown()
         else:
             self.select_proposal(prop)
-            self.log.info('ProposalBrick: select_proposal %s' % prop)
+            self.root_log.info('ProposalBrick: select_proposal %s' % prop)
             BlissWidget.set_status_info("user", "%s%s@%s" % \
                (proposal_code, str(proposal_number), beamline_name))
 
