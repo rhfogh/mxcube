@@ -224,12 +224,12 @@ class DataPathWidget(QWidget):
 
         self.data_path_layout.base_path_ledit.setText(base_image_dir)       
 
-    #def set_run_number(self, run_number):
-    #    """
-    #    Descript. :
-    #    """
-    #    self._data_model.run_number = int(run_number)
-    #    self.data_path_layout.run_number_ledit.setText(str(run_number))
+    def set_run_number(self, run_number):
+        """
+        Descript. :
+        """
+        self._data_model.run_number = int(run_number)
+        self.data_path_layout.run_number_ledit.setText(str(run_number))
 
     def set_prefix(self, base_prefix):
         """
