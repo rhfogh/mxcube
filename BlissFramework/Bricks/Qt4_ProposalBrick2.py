@@ -398,8 +398,10 @@ class Qt4_ProposalBrick2(BlissWidget):
             # Build the info for the interface
             title = str(proposal['title'])
             session_id = session['sessionId']
-            start_date = session['startDate'].split()[0]
-            end_date = session['endDate'].split()[0]
+            _start_date = str(session['startDate'])
+            start_date = _start_date.split()[0]
+            _end_date = str(session['endDate'])
+            end_date = _end_date.split()[0]
             try:
                 comments = session['comments']
             except KeyError:
@@ -430,7 +432,8 @@ class Qt4_ProposalBrick2(BlissWidget):
             #self.title_label.setToolTip(tooltip)
             self.user_group_widget.show()
             try:
-                end_time = session['endDate'].split()[1]
+                _end_time = str(session['endDate'])
+                end_time = _end_date.split()[1]
                 end_date_list = end_date.split('-')
                 end_time_list = end_time.split(':')
                 expiration_time = time.mktime((\
@@ -452,7 +455,7 @@ class Qt4_ProposalBrick2(BlissWidget):
                   self.lims_hwobj.translate(proposal["code"],'gui'),
                   str(proposal["number"]),
                   proposal["proposalId"],
-                  session["startDate"],
+                  str(session["startDate"]),
                   proposal["code"],
                   is_inhouse)
         self.log.info('log in successful')
@@ -746,8 +749,10 @@ class Qt4_ProposalBrick2(BlissWidget):
             # Check for today's session
             for session in sessions:
                 beamline = session['beamlineName']
-                start_date = "%s 00:00:00" % session['startDate'].split()[0]
-                end_date = "%s 23:59:59" % session['endDate'].split()[0]
+                _start_date = str(session['startDate'])
+                start_date = "%s 00:00:00" % _start_date.split()[0]
+                _end_date = str(session['endDate'])
+                end_date = "%s 23:59:59" % _end_date.split()[0]
                 try:
                     start_struct = time.strptime(start_date, "%Y-%m-%d %H:%M:%S")
                 except ValueError:
@@ -865,15 +870,17 @@ class Qt4_ProposalBrick2(BlissWidget):
                 # Check for today's session
                 for session in sessions:
                     beamline = session['beamlineName']
-                    start_date = "%s 00:00:00" % session['startDate'].split()[0]
-                    end_date = "%s 23:59:59" % session['endDate'].split()[0]
+                    _start_date = str(session['startDate'])
+                    start_date = _start_date.split()[0]
+                    _end_date = str(session['endDate'])
+                    end_date = _end_date.split()[0]
                     try:
-                        start_struct = time.strptime(start_date,"%Y-%m-%d %H:%M:%S")
+                        start_struct = time.strptime(start_date, "%Y-%m-%d %H:%M:%S")
                     except ValueError:
                         pass
                     else:
                         try:
-                            end_struct = time.strptime(end_date,"%Y-%m-%d %H:%M:%S")
+                            end_struct = time.strptime(end_date, "%Y-%m-%d %H:%M:%S")
                         except ValueError:
                             pass
                         else:
