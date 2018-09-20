@@ -172,7 +172,7 @@ class Qt4_ConfigurationTable(QTableWidget):
             if prop.getUserValue() is None:
                 temp_table_item = QTableWidgetItem("")
             else:
-                temp_table_item = QTableWidgetItem(str(prop.getUserValue()))  
+                temp_table_item = QTableWidgetItem(unicode(prop.getUserValue()))  
             self.setItem(row, 1, temp_table_item)
         self.resizeColumnsToContents()
         #self.parent().adjustSize()
