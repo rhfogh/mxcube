@@ -1,5 +1,5 @@
 <object class="ParallelProcessing">
-  <object href="/detectors/detector-mockup" role="detector"/>
+  <object href="/detectors/diffraction_detector" role="detector"/>
   <object href="/experimental_methods/diffraction_methods" role="collect"/>
   <object href="/singleton_objects/beamstop" role="beamstop"/>
   <processing_command>/pathToProcessingScript</processing_command>

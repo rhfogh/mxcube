@@ -4,7 +4,9 @@
 
     <!-- specify the number of lids here to support different models-->
     <no_of_lids>3</no_of_lids>
-    <samples_per_basket>16</samples_per_basket>
+    <no_of_baskets_in_lid>3</no_of_baskets_in_lid>
+    <no_of_baskets>9</no_of_baskets>
+    <no_of_samples_in_basket>16</no_of_samples_in_basket>
     <useUpdateTimer>False</useUpdateTimer>
 
     <tool>CRYOTONG</tool>
@@ -65,7 +67,6 @@
     
     <command type="tango" name="_cmdRegulOn">regulon</command>
     <command type="tango" name="_cmdRegulOff">reguloff</command>
-
 
     <command type="tango" name="_cmdOpenLid1">openlid1</command>
     <command type="tango" name="_cmdCloseLid1">closelid1</command>
