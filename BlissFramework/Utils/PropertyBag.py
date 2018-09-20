@@ -96,7 +96,7 @@ class StringProperty(Property):
 
     def setValue(self, propertyValue):
         self.oldValue = self.value
-        self.value = str(propertyValue)
+        self.value = unicode(propertyValue)
         
 
 class IntegerProperty(Property):
