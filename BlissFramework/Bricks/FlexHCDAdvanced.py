@@ -10,9 +10,12 @@ class FlexHCDAdvanced(BaseComponents.BlissWidget):
         BaseComponents.BlissWidget.__init__(self, *args)
         self.addProperty("hwobj", "string", "")
         self.addProperty("hutch_mode", "boolean", False)
+        self.addProperty("gripper_list", "boolean", False)
        
         self.btnHome = qt.QPushButton("Home", self)
         self.btnChangeGripper = qt.QPushButton("Change gripper", self)
+        self.comboChangeGripper = qt.QComboBox(self)
+        self.grippers = ["one", "two", "three", "four"]
         self.btnEnablePower = qt.QPushButton("Enable power", self)
         self.btnCleanGripper = qt.QPushButton("Clean gripper", self)
         self.btnResetLoaded = qt.QPushButton("Reset sample", self)
@@ -35,6 +38,7 @@ class FlexHCDAdvanced(BaseComponents.BlissWidget):
 
         qt.QObject.connect(self.btnHome, qt.SIGNAL("clicked()"), self.homeClicked)
         qt.QObject.connect(self.btnChangeGripper, qt.SIGNAL("clicked()"), self.changeGripperClicked)
+        qt.QObject.connect(self.comboChangeGripper, qt.SIGNAL("activated(int)"), self.changeGripperClicked)
         qt.QObject.connect(self.btnEnablePower, qt.SIGNAL("clicked()"), self.enablePowerClicked)
         qt.QObject.connect(self.btnCleanGripper, qt.SIGNAL("clicked()"), self.cleanGripperClicked)
         qt.QObject.connect(self.btnResetLoaded, qt.SIGNAL("clicked()"), self.resetLoadedClicked)
@@ -45,12 +49,13 @@ class FlexHCDAdvanced(BaseComponents.BlissWidget):
         qt.QGridLayout(self, 4, 3)
         self.layout().setSpacing(10)
         self.layout().setMargin(40)
-        self.layout().addWidget(self.btnHome, 0, 1)
         #self.layout().addWidget(self.btnEnablePower, 0, 0)
         self.layout().addWidget(self.btnCleanGripper, 0, 0)
+        self.layout().addWidget(self.btnHome, 0, 1)
         self.layout().addWidget(self.btnResetLoaded, 0, 2)
         self.layout().addMultiCellWidget(self.lblCurrentGripper, 1, 1, 0, 1)
         self.layout().addWidget(self.btnChangeGripper, 1, 2)
+        self.layout().addWidget(self.comboChangeGripper, 1, 2)
         self.layout().addWidget(self.btnUserPort, 2, 0)
         self.layout().addMultiCellWidget(self.btnScan, 2, 2, 1, 2)
         self.layout().addMultiCellWidget(self.cellsbox, 3, 3, 0, 2)
@@ -74,30 +79,55 @@ class FlexHCDAdvanced(BaseComponents.BlissWidget):
                 for btn in (self.btnUserPort, self.btnScan):
                   btn.hide() 
                 self.cellsbox.hide()
+        elif property_name == 'gripper_list':
+            self.gripper_list = new_value
 
     def run(self):
         if self.hw_obj is not None:
             self.cellTimer.start(1000)
             self.connect(self.hw_obj, self.hw_obj.STATE_CHANGED_EVENT, self.stateUpdated)
             self.stateUpdated(self.hw_obj.getState(), None)
+            if self.gripper_list:
+                for btn in (self.btnEnablePower, self.btnChangeGripper):
+                #for btn in (self.btnHome, self.btnCleanGripper, self.btnEnablePower, self.btnResetLoaded, self.btnChangeGripper):
+                    btn.hide()
+                self.comboChangeGripper.show()
+                try:
+                    self.grippers = self.hw_obj.get_available_grippers()
+                    for item_name in self.grippers:
+                        self.comboChangeGripper.insertItem(item_name)
+                    gripper = self.hw_obj.get_gripper()
+                    self.comboChangeGripper.setCurrentItem(self.grippers.index(gripper))
+                except AttributeError:
+                    pass
+            else:
+                self.comboChangeGripper.hide()
+
 
     def userPortToggled(self, open):
-        self.hw_obj._execute_cmd("user_port", open)
+        try:
+            self.hw_obj._execute_cmd("user_port", open)
+        except Exception:
+            #Commanfd not implemented
+            pass
 
     def scanProxiSense(self):
         pass
 
     def readCell(self):
-        cell = self.hw_obj._execute_cmd('get_user_cell_position')
-        for i in range(8):
-          if not self.btnChangeCell[i].moving:
-            self.btnChangeCell[i].setOn(False)
-        if cell > 0:
-          self.btnChangeCell[cell-1].setOn(True)
-          if self.btnChangeCell[cell-1].moving:
-            self.cellsbox.setEnabled(True)
-            self.btnChangeCell[cell-1].moving = False
- 
+        try:
+            cell = self.hw_obj._execute_cmd('get_user_cell_position')
+            for i in range(8):
+                if not self.btnChangeCell[i].moving:
+                    self.btnChangeCell[i].setOn(False)
+            if cell > 0:
+                self.btnChangeCell[cell-1].setOn(True)
+            if self.btnChangeCell[cell-1].moving:
+                self.cellsbox.setEnabled(True)
+                self.btnChangeCell[cell-1].moving = False
+        except AttributeError:
+            pass
+
     def gotoCell(self, i):
         target = i+1
         self.btnChangeCell[i].moving = True
@@ -105,10 +135,9 @@ class FlexHCDAdvanced(BaseComponents.BlissWidget):
         self.cellsbox.setEnabled(False)
 
     def stateUpdated(self, state, former):
-        if str(state) == '1':
+        if str(state) == '1' or 'Running':
 	    gripper = self.hw_obj.get_gripper()
 	    self.updateGripperType(gripper)
-
             self.setEnabled(True)
         else:
             self.setEnabled(False)
@@ -125,8 +154,12 @@ class FlexHCDAdvanced(BaseComponents.BlissWidget):
     def enablePowerClicked(self):
         self.hw_obj.enable_power(wait=False)
 
-    def changeGripperClicked(self):
-        self.hw_obj.change_gripper(wait=False)
+    def changeGripperClicked(self, index=None):
+        if index is None:
+            self.hw_obj.change_gripper(wait=False)
+        else:
+            #gripper = self.grippers[index]
+            self.hw_obj.change_gripper(index+1)
 
     def resetLoadedClicked(self):
         self.hw_obj.reset_loaded_sample()
