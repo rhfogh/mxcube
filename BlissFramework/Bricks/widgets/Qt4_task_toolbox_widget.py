@@ -56,14 +56,16 @@ class TaskToolBoxWidget(QWidget):
         self.method_label = QLabel("Collection method", self)
         self.method_label.setAlignment(Qt.AlignCenter)
         #Qt4_widget_colors.set_widget_color(self.method_label,
-        #                                   Qt4_widget_colors.SKY_BLUE)
+                                          #Qt4_widget_colors.SKY_BLUE)
         #font = self.method_group_box.font()
         #font.setPointSize(10)
         #self.method_group_box.setFont(font)
 
         self.tool_box = QToolBox(self)
         self.tool_box.setObjectName("tool_box")
-        #self.tool_box.setFixedWidth(475)
+        self.tool_box.setFixedWidth(600) #550
+        self.tool_box.setMinimumHeight(400)
+        self.tool_box.setBaseSize(600, 1100)
         #self.tool_box.setFont(font)
 
         self.discrete_page = CreateDiscreteWidget(self.tool_box, "Discrete",)
@@ -77,7 +79,7 @@ class TaskToolBoxWidget(QWidget):
                                                                "gphl_workflow")
         else:
             self.gphl_workflow_page = None
-            logging.getLogger("GUI").info("GPhL workflow is not available")
+            logging.getLogger("GUI").debug("GPhL workflow is not available")
         self.advanced_page = CreateAdvancedWidget(self.tool_box, "advanced_scan")
         #self.xray_imaging_page = CreateXrayImagingWidget(self.tool_box, "xray_imaging")
 
@@ -208,7 +210,7 @@ class TaskToolBoxWidget(QWidget):
                 beamline_setup_hwobj.gphl_workflow_hwobj
             )
         else:
-            logging.getLogger("GUI").info("GPhL workflow task not available")
+            logging.getLogger("GUI").debug("GPhL workflow task not available")
 
 
     def update_data_path_model(self):
