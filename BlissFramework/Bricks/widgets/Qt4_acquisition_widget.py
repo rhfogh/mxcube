@@ -793,6 +793,7 @@ class AcquisitionWidget(QWidget):
         Descript. :
         """
         self.acq_widget_layout.energy_ledit.setEnabled(state)
+        self.acq_widget_layout.energy_label.setEnabled(state)
         self.acq_widget_layout.mad_cbox.setEnabled(state)
         self.acq_widget_layout.energies_combo.setEnabled(state)
   
