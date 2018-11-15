@@ -131,7 +131,7 @@ class CreateAdvancedWidget(CreateTaskBase):
                  resizeColumnToContents(col)
 
         self._acq_widget.acq_widget_layout.osc_total_range_label.setText(\
-            "Total osc. range per line")
+            "Range per line")
         self.enable_widgets(False)
 
     def enable_widgets(self, state):
@@ -169,13 +169,15 @@ class CreateAdvancedWidget(CreateTaskBase):
                    self.setEnabled(False)    
 
             self.grid_treewidget_item_selection_changed()
-
+            
     def set_beamline_setup(self, bl_setup_hwobj):
         """
         In plate mode osciallation is start is in the middle of grid
         """
         CreateTaskBase.set_beamline_setup(self, bl_setup_hwobj)
-
+        
+        bl_setup_hwobj.omega_axis_hwobj.connect('positionChanged', self.set_osc_start)
+        
         self._acq_widget.acq_widget_layout.osc_start_label.\
              setText("Oscillation middle:")
 
