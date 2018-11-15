@@ -563,418 +563,294 @@
                     type: hspacer
                   - children:
                     - children:
-                      - children:
-                        - brick: {class: Qt4_MotorSpinBoxBrick, name: omega_brick}
-                          children: []
-                          connections: []
-                          name: omega_brick
-                          properties:
-                          - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                            oldValue: 2, type: integer, value: 2}
-                          - {comment: '', defaultValue: !!python/unicode '180 90 45
-                              30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                              90 45 30 10', type: string, value: !!python/unicode '180
-                              90 45 30 10'}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: delta, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '90'}
-                          - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: Set fixed height in pixels, defaultValue: -1,
-                            hidden: false, name: fixedHeight, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: Set fixed width in pixels, defaultValue: -1,
-                            hidden: false, name: fixedWidth, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                            name: fontSize, oldValue: !!python/unicode '11', type: string,
-                            value: !!python/unicode '9'}
-                          - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                            formatStringLength: 5, hidden: false, name: formatString,
-                            oldValue: +##.##, type: formatString, value: +##.##}
-                          - {comment: Draw a frame around the widget, defaultValue: 0,
-                            hidden: false, name: frame, oldValue: 0, type: boolean,
-                            value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                            value: "Moves \u03C9 by -90 degrees"}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                            value: "Moves \u03C9 by +90 degrees"}
-                          - {comment: Hide widget, defaultValue: 0, hidden: false,
-                            name: hide, oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: icons, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: Allow to control brick in all modes, defaultValue: 0,
-                            hidden: false, name: instanceAllowAlways, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                            hidden: false, name: instanceAllowConnected, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: label, oldValue: !!python/unicode '', type: string,
-                            value: "\u03C9"}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: mnemonic, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '/diffractometer/omega'}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                            oldValue: 1, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                            oldValue: 0, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                            oldValue: 1, type: boolean, value: 1}
-                          type: Qt4_MotorSpinBoxBrick
-                        - brick: {class: Qt4_MotorSpinBoxBrick, name: omega_focus}
-                          children: []
-                          connections: []
-                          name: omega_focus
-                          properties:
-                          - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                            oldValue: 2, type: integer, value: 3}
-                          - {comment: '', defaultValue: !!python/unicode '180 90 45
-                              30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                              90 45 30 10', type: string, value: !!python/unicode '0.1'}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: delta, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '1'}
-                          - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: Set fixed height in pixels, defaultValue: -1,
-                            hidden: false, name: fixedHeight, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: Set fixed width in pixels, defaultValue: -1,
-                            hidden: false, name: fixedWidth, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                            name: fontSize, oldValue: !!python/unicode '11', type: string,
-                            value: !!python/unicode '9'}
-                          - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                            formatStringLength: 5, hidden: false, name: formatString,
-                            oldValue: +##.##, type: formatString, value: +##.##}
-                          - {comment: Draw a frame around the widget, defaultValue: 0,
-                            hidden: false, name: frame, oldValue: 0, type: boolean,
-                            value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: Hide widget, defaultValue: 0, hidden: false,
-                            name: hide, oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: icons, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: Allow to control brick in all modes, defaultValue: 0,
-                            hidden: false, name: instanceAllowAlways, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                            hidden: false, name: instanceAllowConnected, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                            oldValue: 0, type: boolean, value: 1}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: label, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode 'x'}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: mnemonic, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '/diffractometer/alignmentx'}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                            oldValue: 1, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                            oldValue: 0, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                            oldValue: 1, type: boolean, value: 1}
-                          type: Qt4_MotorSpinBoxBrick
+                      - brick: {class: Qt4_MotorSpinBoxBrick, name: omega_brick}
+                        children: []
                         connections: []
-                        name: omega_stage
+                        name: omega_brick
                         properties:
-                        - choices: [none, top center, top left, top right, bottom
-                              center, bottom left, bottom right, center, hcenter,
-                            vcenter, left, right]
-                          comment: ''
-                          defaultValue: none
-                          hidden: false
-                          name: alignment
-                          oldValue: null
-                          type: combo
-                          value: none
-                        - {comment: '', defaultValue: null, hidden: false, name: color,
-                          oldValue: null, type: color, value: null}
-                        - {comment: '', defaultValue: -1, hidden: false, name: fixedheight,
-                          oldValue: null, type: integer, value: -1}
-                        - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth,
-                          oldValue: null, type: integer, value: -1}
-                        - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: frameshape
-                          oldValue: null
-                          type: combo
-                          value: default
-                        - choices: [fixed, expanding, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: hsizepolicy
-                          oldValue: null
-                          type: combo
-                          value: default
+                        - {comment: '', defaultValue: 2, hidden: false, name: decimals,
+                          oldValue: 2, type: integer, value: 2}
+                        - {comment: '', defaultValue: !!python/unicode '180 90 45
+                            30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
+                            90 45 30 10', type: string, value: !!python/unicode '180
+                            90 45 30 10'}
                         - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                          name: icon, oldValue: null, type: string, value: !!python/unicode ''}
-                        - {comment: '', defaultValue: !!python/unicode 'Omega stage',
-                          hidden: false, name: label, oldValue: null, type: string,
-                          value: !!python/unicode 'Omega stage'}
-                        - {comment: '', defaultValue: 2, hidden: false, name: margin,
-                          oldValue: null, type: integer, value: 2}
-                        - choices: [plain, raised, sunken, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: shadowstyle
-                          oldValue: null
-                          type: combo
-                          value: default
-                        - {comment: '', defaultValue: 2, hidden: false, name: spacing,
-                          oldValue: null, type: integer, value: 2}
-                        - choices: [fixed, expanding, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: vsizepolicy
-                          oldValue: null
-                          type: combo
-                          value: default
-                        type: vbox
-                      - children:
-                        - brick: {class: Qt4_MotorSpinBoxBrick, name: omega_horizontal}
-                          children: []
-                          connections: []
-                          name: omega_horizontal
-                          properties:
-                          - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                            oldValue: 2, type: integer, value: 3}
-                          - {comment: '', defaultValue: !!python/unicode '180 90 45
-                              30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                              90 45 30 10', type: string, value: !!python/unicode '0.1'}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: delta, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '1'}
-                          - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: Set fixed height in pixels, defaultValue: -1,
-                            hidden: false, name: fixedHeight, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: Set fixed width in pixels, defaultValue: -1,
-                            hidden: false, name: fixedWidth, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                            name: fontSize, oldValue: !!python/unicode '11', type: string,
-                            value: !!python/unicode '9'}
-                          - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                            formatStringLength: 5, hidden: false, name: formatString,
-                            oldValue: +##.##, type: formatString, value: +##.##}
-                          - {comment: Draw a frame around the widget, defaultValue: 0,
-                            hidden: false, name: frame, oldValue: 0, type: boolean,
-                            value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: Hide widget, defaultValue: 0, hidden: false,
-                            name: hide, oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: icons, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: Allow to control brick in all modes, defaultValue: 0,
-                            hidden: false, name: instanceAllowAlways, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                            hidden: false, name: instanceAllowConnected, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                            oldValue: 0, type: boolean, value: 1}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: label, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode 'y'}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: mnemonic, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '/diffractometer/alignmenty'}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                            oldValue: 1, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                            oldValue: 0, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                            oldValue: 1, type: boolean, value: 1}
-                          type: Qt4_MotorSpinBoxBrick
-                        - brick: {class: Qt4_MotorSpinBoxBrick, name: omega_vertical}
-                          children: []
-                          connections: []
-                          name: omega_vertical
-                          properties:
-                          - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                            oldValue: 2, type: integer, value: 3}
-                          - {comment: '', defaultValue: !!python/unicode '180 90 45
-                              30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                              90 45 30 10', type: string, value: !!python/unicode '0.1'}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: delta, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '1'}
-                          - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: Set fixed height in pixels, defaultValue: -1,
-                            hidden: false, name: fixedHeight, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: Set fixed width in pixels, defaultValue: -1,
-                            hidden: false, name: fixedWidth, oldValue: -1, type: integer,
-                            value: -1}
-                          - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                            name: fontSize, oldValue: !!python/unicode '11', type: string,
-                            value: !!python/unicode '9'}
-                          - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                            formatStringLength: 5, hidden: false, name: formatString,
-                            oldValue: +##.##, type: formatString, value: +##.##}
-                          - {comment: Draw a frame around the widget, defaultValue: 0,
-                            hidden: false, name: frame, oldValue: 0, type: boolean,
-                            value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: Hide widget, defaultValue: 0, hidden: false,
-                            name: hide, oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: icons, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode ''}
-                          - {comment: Allow to control brick in all modes, defaultValue: 0,
-                            hidden: false, name: instanceAllowAlways, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                            hidden: false, name: instanceAllowConnected, oldValue: 0,
-                            type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                            oldValue: 0, type: boolean, value: 1}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: label, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode 'z'}
-                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                            name: mnemonic, oldValue: !!python/unicode '', type: string,
-                            value: !!python/unicode '/diffractometer/alignmentz'}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                            oldValue: 1, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                            oldValue: 0, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                            oldValue: 1, type: boolean, value: 0}
-                          - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                            oldValue: 0, type: boolean, value: 1}
-                          - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                            oldValue: 1, type: boolean, value: 1}
-                          type: Qt4_MotorSpinBoxBrick
+                          name: delta, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode '90'}
+                        - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: Set fixed height in pixels, defaultValue: -1,
+                          hidden: false, name: fixedHeight, oldValue: -1, type: integer,
+                          value: -1}
+                        - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
+                          name: fixedWidth, oldValue: -1, type: integer, value: -1}
+                        - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
+                          name: fontSize, oldValue: !!python/unicode '11', type: string,
+                          value: !!python/unicode '9'}
+                        - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
+                          formatStringLength: 5, hidden: false, name: formatString,
+                          oldValue: +##.##, type: formatString, value: +##.##}
+                        - {comment: Draw a frame around the widget, defaultValue: 0,
+                          hidden: false, name: frame, oldValue: 0, type: boolean,
+                          value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: helpDecrease, oldValue: !!python/unicode '', type: string,
+                          value: "Moves \u03C9 by -90 degrees"}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: helpIncrease, oldValue: !!python/unicode '', type: string,
+                          value: "Moves \u03C9 by +90 degrees"}
+                        - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: icons, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: Allow to control brick in all modes, defaultValue: 0,
+                          hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
+                          value: 0}
+                        - {comment: Allow to control brick in slave mode, defaultValue: 0,
+                          hidden: false, name: instanceAllowConnected, oldValue: 0,
+                          type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: label, oldValue: !!python/unicode '', type: string,
+                          value: "\u03C9"}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: mnemonic, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode '/diffractometer/omega'}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStep,
+                          oldValue: 1, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
+                          oldValue: 0, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStop,
+                          oldValue: 1, type: boolean, value: 1}
+                        type: Qt4_MotorSpinBoxBrick
+                      - brick: {class: Qt4_MotorSpinBoxBrick, name: kappa_brick}
+                        children: []
                         connections: []
-                        name: xz_omega_stage
+                        name: kappa_brick
                         properties:
-                        - choices: [none, top center, top left, top right, bottom
-                              center, bottom left, bottom right, center, hcenter,
-                            vcenter, left, right]
-                          comment: ''
-                          defaultValue: none
-                          hidden: false
-                          name: alignment
-                          oldValue: null
-                          type: combo
-                          value: none
-                        - {comment: '', defaultValue: null, hidden: false, name: color,
-                          oldValue: null, type: color, value: null}
-                        - {comment: '', defaultValue: -1, hidden: false, name: fixedheight,
-                          oldValue: null, type: integer, value: -1}
-                        - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth,
-                          oldValue: null, type: integer, value: -1}
-                        - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: frameshape
-                          oldValue: null
-                          type: combo
-                          value: default
-                        - choices: [fixed, expanding, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: hsizepolicy
-                          oldValue: null
-                          type: combo
-                          value: default
+                        - {comment: '', defaultValue: 2, hidden: false, name: decimals,
+                          oldValue: 2, type: integer, value: 2}
+                        - {comment: '', defaultValue: !!python/unicode '180 90 45
+                            30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
+                            90 45 30 10', type: string, value: !!python/unicode '180
+                            90 45 30 10'}
                         - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                          name: icon, oldValue: null, type: string, value: !!python/unicode ''}
+                          name: delta, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode '1'}
+                        - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: Set fixed height in pixels, defaultValue: -1,
+                          hidden: false, name: fixedHeight, oldValue: -1, type: integer,
+                          value: -1}
+                        - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
+                          name: fixedWidth, oldValue: -1, type: integer, value: -1}
+                        - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
+                          name: fontSize, oldValue: !!python/unicode '11', type: string,
+                          value: !!python/unicode '9'}
+                        - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
+                          formatStringLength: 5, hidden: false, name: formatString,
+                          oldValue: +##.##, type: formatString, value: +##.##}
+                        - {comment: Draw a frame around the widget, defaultValue: 0,
+                          hidden: false, name: frame, oldValue: 0, type: boolean,
+                          value: 0}
                         - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                          name: label, oldValue: null, type: string, value: !!python/unicode ''}
-                        - {comment: '', defaultValue: 2, hidden: false, name: margin,
-                          oldValue: null, type: integer, value: 2}
-                        - choices: [plain, raised, sunken, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: shadowstyle
-                          oldValue: null
-                          type: combo
-                          value: default
-                        - {comment: '', defaultValue: 2, hidden: false, name: spacing,
-                          oldValue: null, type: integer, value: 2}
-                        - choices: [fixed, expanding, default]
-                          comment: ''
-                          defaultValue: default
-                          hidden: false
-                          name: vsizepolicy
-                          oldValue: null
-                          type: combo
-                          value: default
-                        type: vbox
+                          name: helpDecrease, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: helpIncrease, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: icons, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: Allow to control brick in all modes, defaultValue: 0,
+                          hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
+                          value: 0}
+                        - {comment: Allow to control brick in slave mode, defaultValue: 0,
+                          hidden: false, name: instanceAllowConnected, oldValue: 0,
+                          type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
+                          oldValue: 0, type: boolean, value: 1}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: label, oldValue: !!python/unicode '', type: string,
+                          value: "\u03BA"}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: mnemonic, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode '/diffractometer/kappa'}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStep,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStop,
+                          oldValue: 1, type: boolean, value: 0}
+                        type: Qt4_MotorSpinBoxBrick
+                      - brick: {class: Qt4_MotorSpinBoxBrick, name: kappa_phi_brick}
+                        children: []
+                        connections: []
+                        name: kappa_phi_brick
+                        properties:
+                        - {comment: '', defaultValue: 2, hidden: false, name: decimals,
+                          oldValue: 2, type: integer, value: 2}
+                        - {comment: '', defaultValue: !!python/unicode '180 90 45
+                            30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
+                            90 45 30 10', type: string, value: !!python/unicode '180
+                            90 45 30 10'}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: delta, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode '1'}
+                        - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: Set fixed height in pixels, defaultValue: -1,
+                          hidden: false, name: fixedHeight, oldValue: -1, type: integer,
+                          value: -1}
+                        - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
+                          name: fixedWidth, oldValue: -1, type: integer, value: -1}
+                        - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
+                          name: fontSize, oldValue: !!python/unicode '11', type: string,
+                          value: !!python/unicode '9'}
+                        - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
+                          formatStringLength: 5, hidden: false, name: formatString,
+                          oldValue: +##.##, type: formatString, value: +##.##}
+                        - {comment: Draw a frame around the widget, defaultValue: 0,
+                          hidden: false, name: frame, oldValue: 0, type: boolean,
+                          value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: helpDecrease, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: helpIncrease, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: icons, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: Allow to control brick in all modes, defaultValue: 0,
+                          hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
+                          value: 0}
+                        - {comment: Allow to control brick in slave mode, defaultValue: 0,
+                          hidden: false, name: instanceAllowConnected, oldValue: 0,
+                          type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: label, oldValue: !!python/unicode '', type: string,
+                          value: "\u03C6"}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: mnemonic, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode '/diffractometer/phi'}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStep,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStop,
+                          oldValue: 1, type: boolean, value: 0}
+                        type: Qt4_MotorSpinBoxBrick
+                      - brick: {class: Qt4_MotorSpinBoxBrick, name: focus}
+                        children: []
+                        connections: []
+                        name: focus
+                        properties:
+                        - {comment: '', defaultValue: 2, hidden: false, name: decimals,
+                          oldValue: 2, type: integer, value: 3}
+                        - {comment: '', defaultValue: !!python/unicode '180 90 45
+                            30 10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
+                            90 45 30 10', type: string, value: !!python/unicode '180
+                            90 45 30 10'}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: delta, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: Set fixed height in pixels, defaultValue: -1,
+                          hidden: false, name: fixedHeight, oldValue: -1, type: integer,
+                          value: -1}
+                        - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
+                          name: fixedWidth, oldValue: -1, type: integer, value: -1}
+                        - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
+                          name: fontSize, oldValue: !!python/unicode '11', type: string,
+                          value: !!python/unicode '9'}
+                        - {comment: '', defaultValue: +##.##, formatString: '%+2.3f',
+                          formatStringLength: 6, hidden: false, name: formatString,
+                          oldValue: +##.##, type: formatString, value: +##.###}
+                        - {comment: Draw a frame around the widget, defaultValue: 0,
+                          hidden: false, name: frame, oldValue: 0, type: boolean,
+                          value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: helpDecrease, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: helpIncrease, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: icons, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode ''}
+                        - {comment: Allow to control brick in all modes, defaultValue: 0,
+                          hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
+                          value: 0}
+                        - {comment: Allow to control brick in slave mode, defaultValue: 0,
+                          hidden: false, name: instanceAllowConnected, oldValue: 0,
+                          type: boolean, value: 0}
+                        - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: label, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode 'focus'}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: mnemonic, oldValue: !!python/unicode '', type: string,
+                          value: !!python/unicode '/diffractometer/alignmentx'}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
+                          oldValue: 1, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
+                          oldValue: 0, type: boolean, value: 0}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStep,
+                          oldValue: 1, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
+                          oldValue: 0, type: boolean, value: 1}
+                        - {comment: '', defaultValue: 1, hidden: false, name: showStop,
+                          oldValue: 1, type: boolean, value: 0}
+                        type: Qt4_MotorSpinBoxBrick
                       connections: []
                       name: omega_stage2
                       properties:
@@ -1095,406 +971,6 @@
                       type: combo
                       value: default
                     type: vbox
-                  - children:
-                    - brick: {class: Qt4_MotorSpinBoxBrick, name: vertical}
-                      children: []
-                      connections: []
-                      name: vertical
-                      properties:
-                      - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                        oldValue: 2, type: integer, value: 3}
-                      - {comment: '', defaultValue: !!python/unicode '180 90 45 30
-                          10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                          90 45 30 10', type: string, value: !!python/unicode '0.02'}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: delta, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                        name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                      - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                        name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                      - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                        name: fontSize, oldValue: !!python/unicode '11', type: string,
-                        value: !!python/unicode '9'}
-                      - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                        formatStringLength: 5, hidden: false, name: formatString,
-                        oldValue: +##.##, type: formatString, value: +##.##}
-                      - {comment: Draw a frame around the widget, defaultValue: 0,
-                        hidden: false, name: frame, oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: icons, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Allow to control brick in all modes, defaultValue: 0,
-                        hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                        value: 0}
-                      - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                        hidden: false, name: instanceAllowConnected, oldValue: 0,
-                        type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                        oldValue: 0, type: boolean, value: 1}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: label, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode 'vertical'}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: mnemonic, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '/diffractometer/centringtablevertical'}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                        oldValue: 1, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                        oldValue: 1, type: boolean, value: 0}
-                      type: Qt4_MotorSpinBoxBrick
-                    - brick: {class: Qt4_MotorSpinBoxBrick, name: focus}
-                      children: []
-                      connections: []
-                      name: focus
-                      properties:
-                      - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                        oldValue: 2, type: integer, value: 3}
-                      - {comment: '', defaultValue: !!python/unicode '180 90 45 30
-                          10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                          90 45 30 10', type: string, value: !!python/unicode '0.02'}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: delta, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                        name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                      - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                        name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                      - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                        name: fontSize, oldValue: !!python/unicode '11', type: string,
-                        value: !!python/unicode '9'}
-                      - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                        formatStringLength: 5, hidden: false, name: formatString,
-                        oldValue: +##.##, type: formatString, value: +##.##}
-                      - {comment: Draw a frame around the widget, defaultValue: 0,
-                        hidden: false, name: frame, oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: icons, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Allow to control brick in all modes, defaultValue: 0,
-                        hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                        value: 0}
-                      - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                        hidden: false, name: instanceAllowConnected, oldValue: 0,
-                        type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                        oldValue: 0, type: boolean, value: 1}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: label, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode 'focus'}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: mnemonic, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '/diffractometer/centringtablefocus'}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                        oldValue: 1, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                        oldValue: 1, type: boolean, value: 0}
-                      type: Qt4_MotorSpinBoxBrick
-                    connections: []
-                    name: sample_stage
-                    properties:
-                    - choices: [none, top center, top left, top right, bottom center,
-                        bottom left, bottom right, center, hcenter, vcenter, left,
-                        right]
-                      comment: ''
-                      defaultValue: none
-                      hidden: false
-                      name: alignment
-                      oldValue: null
-                      type: combo
-                      value: none
-                    - {comment: '', defaultValue: null, hidden: false, name: color,
-                      oldValue: null, type: color, value: null}
-                    - {comment: '', defaultValue: -1, hidden: false, name: fixedheight,
-                      oldValue: null, type: integer, value: -1}
-                    - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth,
-                      oldValue: null, type: integer, value: -1}
-                    - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: frameshape
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - choices: [fixed, expanding, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: hsizepolicy
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                      name: icon, oldValue: null, type: string, value: !!python/unicode ''}
-                    - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                      name: label, oldValue: null, type: string, value: !!python/unicode ''}
-                    - {comment: '', defaultValue: 0, hidden: false, name: margin,
-                      oldValue: null, type: integer, value: 0}
-                    - choices: [plain, raised, sunken, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: shadowstyle
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - {comment: '', defaultValue: 0, hidden: false, name: spacing,
-                      oldValue: null, type: integer, value: 0}
-                    - choices: [fixed, expanding, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: vsizepolicy
-                      oldValue: null
-                      type: combo
-                      value: default
-                    type: vbox
-                  - children:
-                    - brick: {class: Qt4_MotorSpinBoxBrick, name: kappa_brick}
-                      children: []
-                      connections: []
-                      name: kappa_brick
-                      properties:
-                      - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                        oldValue: 2, type: integer, value: 2}
-                      - {comment: '', defaultValue: !!python/unicode '180 90 45 30
-                          10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                          90 45 30 10', type: string, value: !!python/unicode '180
-                          90 45 30 10'}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: delta, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '1'}
-                      - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                        name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                      - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                        name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                      - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                        name: fontSize, oldValue: !!python/unicode '11', type: string,
-                        value: !!python/unicode '9'}
-                      - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                        formatStringLength: 5, hidden: false, name: formatString,
-                        oldValue: +##.##, type: formatString, value: +##.##}
-                      - {comment: Draw a frame around the widget, defaultValue: 0,
-                        hidden: false, name: frame, oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: icons, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Allow to control brick in all modes, defaultValue: 0,
-                        hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                        value: 0}
-                      - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                        hidden: false, name: instanceAllowConnected, oldValue: 0,
-                        type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                        oldValue: 0, type: boolean, value: 1}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: label, oldValue: !!python/unicode '', type: string,
-                        value: "\u03BA"}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: mnemonic, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '/diffractometer/kappa'}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                        oldValue: 1, type: boolean, value: 0}
-                      type: Qt4_MotorSpinBoxBrick
-                    - brick: {class: Qt4_MotorSpinBoxBrick, name: kappa_phi_brick}
-                      children: []
-                      connections: []
-                      name: kappa_phi_brick
-                      properties:
-                      - {comment: '', defaultValue: 2, hidden: false, name: decimals,
-                        oldValue: 2, type: integer, value: 2}
-                      - {comment: '', defaultValue: !!python/unicode '180 90 45 30
-                          10', hidden: false, name: defaultSteps, oldValue: !!python/unicode '180
-                          90 45 30 10', type: string, value: !!python/unicode '180
-                          90 45 30 10'}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: delta, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '1'}
-                      - {comment: '', defaultValue: 0, hidden: false, name: enableSliderTracking,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                        name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                      - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                        name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                      - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                        name: fontSize, oldValue: !!python/unicode '11', type: string,
-                        value: !!python/unicode '9'}
-                      - {comment: '', defaultValue: +##.##, formatString: '%+2.2f',
-                        formatStringLength: 5, hidden: false, name: formatString,
-                        oldValue: +##.##, type: formatString, value: +##.##}
-                      - {comment: Draw a frame around the widget, defaultValue: 0,
-                        hidden: false, name: frame, oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpDecrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: helpIncrease, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: hideInUser,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: icons, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode ''}
-                      - {comment: Allow to control brick in all modes, defaultValue: 0,
-                        hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                        value: 0}
-                      - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                        hidden: false, name: instanceAllowConnected, oldValue: 0,
-                        type: boolean, value: 0}
-                      - {comment: '', defaultValue: 0, hidden: false, name: invertButtons,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: label, oldValue: !!python/unicode '', type: string,
-                        value: "\u03C6"}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: mnemonic, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '/diffractometer/phi'}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showLabel,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showPosition,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showSlider,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStep,
-                        oldValue: 1, type: boolean, value: 1}
-                      - {comment: '', defaultValue: 0, hidden: false, name: showStepList,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: '', defaultValue: 1, hidden: false, name: showStop,
-                        oldValue: 1, type: boolean, value: 0}
-                      type: Qt4_MotorSpinBoxBrick
-                    connections: []
-                    name: minikappa
-                    properties:
-                    - choices: [none, top center, top left, top right, bottom center,
-                        bottom left, bottom right, center, hcenter, vcenter, left,
-                        right]
-                      comment: ''
-                      defaultValue: none
-                      hidden: false
-                      name: alignment
-                      oldValue: null
-                      type: combo
-                      value: none
-                    - {comment: '', defaultValue: null, hidden: false, name: color,
-                      oldValue: null, type: color, value: null}
-                    - {comment: '', defaultValue: -1, hidden: false, name: fixedheight,
-                      oldValue: null, type: integer, value: -1}
-                    - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth,
-                      oldValue: null, type: integer, value: -1}
-                    - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: frameshape
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - choices: [fixed, expanding, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: hsizepolicy
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                      name: icon, oldValue: null, type: string, value: !!python/unicode ''}
-                    - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                      name: label, oldValue: null, type: string, value: !!python/unicode ''}
-                    - {comment: '', defaultValue: 0, hidden: false, name: margin,
-                      oldValue: null, type: integer, value: 0}
-                    - choices: [plain, raised, sunken, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: shadowstyle
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - {comment: '', defaultValue: 0, hidden: false, name: spacing,
-                      oldValue: null, type: integer, value: 0}
-                    - choices: [fixed, expanding, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: vsizepolicy
-                      oldValue: null
-                      type: combo
-                      value: default
-                    type: vbox
                   - children: []
                     connections: []
                     name: hspacer3
@@ -1514,119 +990,6 @@
                     - {comment: '', defaultValue: 100, hidden: false, name: size,
                       oldValue: null, type: integer, value: 100}
                     type: hspacer
-                  - children:
-                    - brick: {class: Qt4_MDApertureBrick, name: aperture_brick}
-                      children: []
-                      connections: []
-                      name: aperture_brick
-                      properties:
-                      - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                        name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                      - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                        name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                      - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                        name: fontSize, oldValue: !!python/unicode '11', type: string,
-                        value: !!python/unicode '9'}
-                      - {comment: Draw a frame around the widget, defaultValue: 0,
-                        hidden: false, name: frame, oldValue: 0, type: boolean, value: 0}
-                      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: Allow to control brick in all modes, defaultValue: 0,
-                        hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                        value: 0}
-                      - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                        hidden: false, name: instanceAllowConnected, oldValue: 0,
-                        type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: mnemonic, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '/diffractometer/aperture'}
-                      type: Qt4_MDApertureBrick
-                    - brick: {class: Qt4_MDPhaseBrick, name: phase_brick}
-                      children: []
-                      connections: []
-                      name: phase_brick
-                      properties:
-                      - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                        name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                      - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                        name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                      - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                        name: fontSize, oldValue: !!python/unicode '11', type: string,
-                        value: !!python/unicode '9'}
-                      - {comment: Draw a frame around the widget, defaultValue: 0,
-                        hidden: false, name: frame, oldValue: 0, type: boolean, value: 0}
-                      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                        oldValue: 0, type: boolean, value: 0}
-                      - {comment: Allow to control brick in all modes, defaultValue: 0,
-                        hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                        value: 0}
-                      - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                        hidden: false, name: instanceAllowConnected, oldValue: 0,
-                        type: boolean, value: 0}
-                      - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                        name: mnemonic, oldValue: !!python/unicode '', type: string,
-                        value: !!python/unicode '/diffractometer/diffractometer'}
-                      type: Qt4_MDPhaseBrick
-                    connections: []
-                    name: vbox13
-                    properties:
-                    - choices: [none, top center, top left, top right, bottom center,
-                        bottom left, bottom right, center, hcenter, vcenter, left,
-                        right]
-                      comment: ''
-                      defaultValue: none
-                      hidden: false
-                      name: alignment
-                      oldValue: null
-                      type: combo
-                      value: none
-                    - {comment: '', defaultValue: null, hidden: false, name: color,
-                      oldValue: null, type: color, value: null}
-                    - {comment: '', defaultValue: -1, hidden: false, name: fixedheight,
-                      oldValue: null, type: integer, value: -1}
-                    - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth,
-                      oldValue: null, type: integer, value: -1}
-                    - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: frameshape
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - choices: [fixed, expanding, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: hsizepolicy
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                      name: icon, oldValue: null, type: string, value: !!python/unicode ''}
-                    - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                      name: label, oldValue: null, type: string, value: !!python/unicode ''}
-                    - {comment: '', defaultValue: 0, hidden: false, name: margin,
-                      oldValue: null, type: integer, value: 0}
-                    - choices: [plain, raised, sunken, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: shadowstyle
-                      oldValue: null
-                      type: combo
-                      value: default
-                    - {comment: '', defaultValue: 0, hidden: false, name: spacing,
-                      oldValue: null, type: integer, value: 0}
-                    - choices: [fixed, expanding, default]
-                      comment: ''
-                      defaultValue: default
-                      hidden: false
-                      name: vsizepolicy
-                      oldValue: null
-                      type: combo
-                      value: default
-                    type: vbox
                   connections: []
                   name: hbox2
                   properties:
@@ -2006,6 +1369,43 @@
                           - {comment: '', defaultValue: 1, hidden: false, name: showStop,
                             oldValue: 1, type: boolean, value: 0}
                           type: Qt4_LightControlBrick
+                        - brick: {class: Qt4_MotorPredefPosBrick, name: zoom_brick}
+                          children: []
+                          connections: []
+                          name: zoom_brick
+                          properties:
+                          - {comment: Set fixed height in pixels, defaultValue: -1,
+                            hidden: false, name: fixedHeight, oldValue: -1, type: integer,
+                            value: -1}
+                          - {comment: Set fixed width in pixels, defaultValue: -1,
+                            hidden: false, name: fixedWidth, oldValue: -1, type: integer,
+                            value: -1}
+                          - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
+                            name: fontSize, oldValue: !!python/unicode '11', type: string,
+                            value: !!python/unicode '9'}
+                          - {comment: Draw a frame around the widget, defaultValue: 0,
+                            hidden: false, name: frame, oldValue: 0, type: boolean,
+                            value: 0}
+                          - {comment: Hide widget, defaultValue: 0, hidden: false,
+                            name: hide, oldValue: 0, type: boolean, value: 0}
+                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                            name: icons, oldValue: !!python/unicode '', type: string,
+                            value: !!python/unicode ''}
+                          - {comment: Allow to control brick in all modes, defaultValue: 0,
+                            hidden: false, name: instanceAllowAlways, oldValue: 0,
+                            type: boolean, value: 0}
+                          - {comment: Allow to control brick in slave mode, defaultValue: 0,
+                            hidden: false, name: instanceAllowConnected, oldValue: 0,
+                            type: boolean, value: 0}
+                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                            name: label, oldValue: !!python/unicode '', type: string,
+                            value: !!python/unicode 'Zoom'}
+                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                            name: mnemonic, oldValue: !!python/unicode '', type: string,
+                            value: !!python/unicode '/diffractometer/predefined-zoom'}
+                          - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
+                            oldValue: 1, type: boolean, value: 0}
+                          type: Qt4_MotorPredefPosBrick
                         connections: []
                         name: hbox9
                         properties:
@@ -2066,42 +1466,6 @@
                           type: combo
                           value: default
                         type: hbox
-                      - brick: {class: Qt4_MotorPredefPosBrick, name: zoom_brick}
-                        children: []
-                        connections: []
-                        name: zoom_brick
-                        properties:
-                        - {comment: Set fixed height in pixels, defaultValue: -1,
-                          hidden: false, name: fixedHeight, oldValue: -1, type: integer,
-                          value: -1}
-                        - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                          name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                        - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                          name: fontSize, oldValue: !!python/unicode '11', type: string,
-                          value: !!python/unicode '9'}
-                        - {comment: Draw a frame around the widget, defaultValue: 0,
-                          hidden: false, name: frame, oldValue: 0, type: boolean,
-                          value: 0}
-                        - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                          oldValue: 0, type: boolean, value: 0}
-                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                          name: icons, oldValue: !!python/unicode '', type: string,
-                          value: !!python/unicode ''}
-                        - {comment: Allow to control brick in all modes, defaultValue: 0,
-                          hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                          value: 0}
-                        - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                          hidden: false, name: instanceAllowConnected, oldValue: 0,
-                          type: boolean, value: 0}
-                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                          name: label, oldValue: !!python/unicode '', type: string,
-                          value: !!python/unicode 'Zoom'}
-                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                          name: mnemonic, oldValue: !!python/unicode '', type: string,
-                          value: !!python/unicode '/diffractometer/predefined-zoom'}
-                        - {comment: '', defaultValue: 1, hidden: false, name: showMoveButtons,
-                          oldValue: 1, type: boolean, value: 0}
-                        type: Qt4_MotorPredefPosBrick
                       - brick: {class: Qt4_SOLEILHutchMenuBrick, name: hutchmenu_brick}
                         children: []
                         connections: []
@@ -2140,6 +1504,125 @@
                           hidden: false, name: instanceAllowConnected, oldValue: 0,
                           type: boolean, value: 0}
                         type: Qt4_SOLEILHutchMenuBrick
+                      - children:
+                        - brick: {class: Qt4_MDApertureBrick, name: aperture_brick}
+                          children: []
+                          connections: []
+                          name: aperture_brick
+                          properties:
+                          - {comment: Set fixed height in pixels, defaultValue: -1,
+                            hidden: false, name: fixedHeight, oldValue: -1, type: integer,
+                            value: -1}
+                          - {comment: Set fixed width in pixels, defaultValue: -1,
+                            hidden: false, name: fixedWidth, oldValue: -1, type: integer,
+                            value: -1}
+                          - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
+                            name: fontSize, oldValue: !!python/unicode '11', type: string,
+                            value: !!python/unicode '9'}
+                          - {comment: Draw a frame around the widget, defaultValue: 0,
+                            hidden: false, name: frame, oldValue: 0, type: boolean,
+                            value: 0}
+                          - {comment: Hide widget, defaultValue: 0, hidden: false,
+                            name: hide, oldValue: 0, type: boolean, value: 0}
+                          - {comment: Allow to control brick in all modes, defaultValue: 0,
+                            hidden: false, name: instanceAllowAlways, oldValue: 0,
+                            type: boolean, value: 0}
+                          - {comment: Allow to control brick in slave mode, defaultValue: 0,
+                            hidden: false, name: instanceAllowConnected, oldValue: 0,
+                            type: boolean, value: 0}
+                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                            name: mnemonic, oldValue: !!python/unicode '', type: string,
+                            value: !!python/unicode '/diffractometer/aperture'}
+                          type: Qt4_MDApertureBrick
+                        - brick: {class: Qt4_MDPhaseBrick, name: phase_brick}
+                          children: []
+                          connections: []
+                          name: phase_brick
+                          properties:
+                          - {comment: Set fixed height in pixels, defaultValue: -1,
+                            hidden: false, name: fixedHeight, oldValue: -1, type: integer,
+                            value: -1}
+                          - {comment: Set fixed width in pixels, defaultValue: -1,
+                            hidden: false, name: fixedWidth, oldValue: -1, type: integer,
+                            value: -1}
+                          - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
+                            name: fontSize, oldValue: !!python/unicode '11', type: string,
+                            value: !!python/unicode '9'}
+                          - {comment: Draw a frame around the widget, defaultValue: 0,
+                            hidden: false, name: frame, oldValue: 0, type: boolean,
+                            value: 0}
+                          - {comment: Hide widget, defaultValue: 0, hidden: false,
+                            name: hide, oldValue: 0, type: boolean, value: 0}
+                          - {comment: Allow to control brick in all modes, defaultValue: 0,
+                            hidden: false, name: instanceAllowAlways, oldValue: 0,
+                            type: boolean, value: 0}
+                          - {comment: Allow to control brick in slave mode, defaultValue: 0,
+                            hidden: false, name: instanceAllowConnected, oldValue: 0,
+                            type: boolean, value: 0}
+                          - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                            name: mnemonic, oldValue: !!python/unicode '', type: string,
+                            value: !!python/unicode '/diffractometer/diffractometer'}
+                          type: Qt4_MDPhaseBrick
+                        connections: []
+                        name: hbox10
+                        properties:
+                        - choices: [none, top center, top left, top right, bottom
+                              center, bottom left, bottom right, center, hcenter,
+                            vcenter, left, right]
+                          comment: ''
+                          defaultValue: none
+                          hidden: false
+                          name: alignment
+                          oldValue: null
+                          type: combo
+                          value: none
+                        - {comment: '', defaultValue: null, hidden: false, name: color,
+                          oldValue: null, type: color, value: null}
+                        - {comment: '', defaultValue: -1, hidden: false, name: fixedheight,
+                          oldValue: null, type: integer, value: -1}
+                        - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth,
+                          oldValue: null, type: integer, value: -1}
+                        - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
+                          comment: ''
+                          defaultValue: default
+                          hidden: false
+                          name: frameshape
+                          oldValue: null
+                          type: combo
+                          value: default
+                        - choices: [fixed, expanding, default]
+                          comment: ''
+                          defaultValue: default
+                          hidden: false
+                          name: hsizepolicy
+                          oldValue: null
+                          type: combo
+                          value: default
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: icon, oldValue: null, type: string, value: !!python/unicode ''}
+                        - {comment: '', defaultValue: !!python/unicode '', hidden: false,
+                          name: label, oldValue: null, type: string, value: !!python/unicode ''}
+                        - {comment: '', defaultValue: 2, hidden: false, name: margin,
+                          oldValue: null, type: integer, value: 2}
+                        - choices: [plain, raised, sunken, default]
+                          comment: ''
+                          defaultValue: default
+                          hidden: false
+                          name: shadowstyle
+                          oldValue: null
+                          type: combo
+                          value: default
+                        - {comment: '', defaultValue: 2, hidden: false, name: spacing,
+                          oldValue: null, type: integer, value: 2}
+                        - choices: [fixed, expanding, default]
+                          comment: ''
+                          defaultValue: default
+                          hidden: false
+                          name: vsizepolicy
+                          oldValue: null
+                          type: combo
+                          value: default
+                        type: hbox
                       connections: []
                       name: hbox7
                       properties:
@@ -4177,172 +3660,6 @@
               type: vbox
             connections: []
             name: vgroupbox2
-            properties:
-            - choices: [none, top center, top left, top right, bottom center, bottom
-                  left, bottom right, center, hcenter, vcenter, left, right]
-              comment: ''
-              defaultValue: none
-              hidden: false
-              name: alignment
-              oldValue: null
-              type: combo
-              value: none
-            - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
-              type: color, value: null}
-            - {comment: '', defaultValue: -1, hidden: false, name: fixedheight, oldValue: null,
-              type: integer, value: -1}
-            - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
-              type: integer, value: -1}
-            - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-              comment: ''
-              defaultValue: default
-              hidden: false
-              name: frameshape
-              oldValue: null
-              type: combo
-              value: default
-            - choices: [fixed, expanding, default]
-              comment: ''
-              defaultValue: default
-              hidden: false
-              name: hsizepolicy
-              oldValue: null
-              type: combo
-              value: default
-            - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: icon,
-              oldValue: null, type: string, value: !!python/unicode ''}
-            - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: label,
-              oldValue: null, type: string, value: !!python/unicode ''}
-            - {comment: '', defaultValue: 2, hidden: false, name: margin, oldValue: null,
-              type: integer, value: 2}
-            - choices: [plain, raised, sunken, default]
-              comment: ''
-              defaultValue: default
-              hidden: false
-              name: shadowstyle
-              oldValue: null
-              type: combo
-              value: default
-            - {comment: '', defaultValue: 2, hidden: false, name: spacing, oldValue: null,
-              type: integer, value: 2}
-            - choices: [fixed, expanding, default]
-              comment: ''
-              defaultValue: default
-              hidden: false
-              name: vsizepolicy
-              oldValue: null
-              type: combo
-              value: default
-            type: vgroupbox
-          - children:
-            - children:
-              - children: []
-                connections: []
-                name: label5
-                properties:
-                - choices: [none, top center, top left, top right, bottom center,
-                    bottom left, bottom right, center, hcenter, vcenter, left, right]
-                  comment: ''
-                  defaultValue: none
-                  hidden: false
-                  name: alignment
-                  oldValue: null
-                  type: combo
-                  value: none
-                - {comment: '', defaultValue: 9, hidden: false, name: fontSize, oldValue: null,
-                  type: integer, value: 9}
-                - {comment: '', defaultValue: !!python/unicode 'Chat', hidden: false,
-                  name: text, oldValue: null, type: string, value: !!python/unicode 'Chat'}
-                type: label
-              - brick: {class: Qt4_ChatBrick, name: chat_brick}
-                children: []
-                connections: []
-                name: chat_brick
-                properties:
-                - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false,
-                  name: fixedHeight, oldValue: -1, type: integer, value: -1}
-                - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false,
-                  name: fixedWidth, oldValue: -1, type: integer, value: -1}
-                - {comment: '', defaultValue: !!python/unicode '11', hidden: false,
-                  name: fontSize, oldValue: !!python/unicode '11', type: string, value: !!python/unicode '9'}
-                - {comment: Draw a frame around the widget, defaultValue: 0, hidden: false,
-                  name: frame, oldValue: 0, type: boolean, value: 0}
-                - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide,
-                  oldValue: 0, type: boolean, value: 0}
-                - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                  name: icons, oldValue: !!python/unicode '', type: string, value: !!python/unicode ''}
-                - {comment: Allow to control brick in all modes, defaultValue: 0,
-                  hidden: false, name: instanceAllowAlways, oldValue: 0, type: boolean,
-                  value: 0}
-                - {comment: Allow to control brick in slave mode, defaultValue: 0,
-                  hidden: false, name: instanceAllowConnected, oldValue: 0, type: boolean,
-                  value: 0}
-                - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                  name: mnemonic, oldValue: !!python/unicode '', type: string, value: !!python/unicode '/singleton_objects/instanceconnection'}
-                - {comment: '', defaultValue: !!python/unicode '', hidden: false,
-                  name: myTabLabel, oldValue: !!python/unicode '', type: string, value: !!python/unicode ''}
-                type: Qt4_ChatBrick
-              connections: []
-              name: vbox9
-              properties:
-              - choices: [none, top center, top left, top right, bottom center, bottom
-                    left, bottom right, center, hcenter, vcenter, left, right]
-                comment: ''
-                defaultValue: none
-                hidden: false
-                name: alignment
-                oldValue: null
-                type: combo
-                value: none
-              - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
-                type: color, value: null}
-              - {comment: '', defaultValue: -1, hidden: false, name: fixedheight,
-                oldValue: null, type: integer, value: -1}
-              - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
-                type: integer, value: -1}
-              - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: frameshape
-                oldValue: null
-                type: combo
-                value: default
-              - choices: [fixed, expanding, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: hsizepolicy
-                oldValue: null
-                type: combo
-                value: default
-              - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: icon,
-                oldValue: null, type: string, value: !!python/unicode ''}
-              - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: label,
-                oldValue: null, type: string, value: !!python/unicode ''}
-              - {comment: '', defaultValue: 2, hidden: false, name: margin, oldValue: null,
-                type: integer, value: 2}
-              - choices: [plain, raised, sunken, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: shadowstyle
-                oldValue: null
-                type: combo
-                value: default
-              - {comment: '', defaultValue: 2, hidden: false, name: spacing, oldValue: null,
-                type: integer, value: 2}
-              - choices: [fixed, expanding, default]
-                comment: ''
-                defaultValue: default
-                hidden: false
-                name: vsizepolicy
-                oldValue: null
-                type: combo
-                value: default
-              type: vbox
-            connections: []
-            name: vgroupbox3
             properties:
             - choices: [none, top center, top left, top right, bottom center, bottom
                   left, bottom right, center, hcenter, vcenter, left, right]

@@ -1,0 +1,307 @@
+- children:
+  - children:
+    - children:
+      - brick: {class: Qt4_TaskToolBoxBrick, name: Qt4_TaskToolBoxBrick0}
+        children: []
+        connections: []
+        name: Qt4_TaskToolBoxBrick0
+        properties:
+        - {comment: '', defaultValue: !!python/unicode '/beamline-setup', hidden: false,
+          name: beamline_setup, oldValue: null, type: string, value: !!python/unicode '/beamline-setup'}
+        - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false, name: fixedHeight,
+          oldValue: null, type: integer, value: -1}
+        - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false, name: fixedWidth,
+          oldValue: null, type: integer, value: -1}
+        - {comment: '', defaultValue: !!python/unicode '11', hidden: false, name: fontSize,
+          oldValue: null, type: string, value: !!python/unicode '11'}
+        - {comment: Draw a frame around the widget, defaultValue: 0, hidden: false,
+          name: frame, oldValue: null, type: boolean, value: 0}
+        - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide, oldValue: null,
+          type: boolean, value: 0}
+        - {comment: Allow to control brick in all modes, defaultValue: 0, hidden: false,
+          name: instanceAllowAlways, oldValue: null, type: boolean, value: 0}
+        - {comment: Allow to control brick in slave mode, defaultValue: 0, hidden: false,
+          name: instanceAllowConnected, oldValue: null, type: boolean, value: 0}
+        - {comment: '', defaultValue: !!python/unicode '/queue-model', hidden: false,
+          name: queue_model, oldValue: null, type: string, value: !!python/unicode '/queue-model'}
+        - {comment: '', defaultValue: 0, hidden: false, name: useCompression, oldValue: null,
+          type: boolean, value: 0}
+        - {comment: '', defaultValue: 0, hidden: false, name: useOscStartCbox, oldValue: null,
+          type: boolean, value: 0}
+        type: Qt4_TaskToolBoxBrick
+      connections: []
+      name: vgroupbox0
+      properties:
+      - choices: [none, top center, top left, top right, bottom center, bottom left,
+          bottom right, center, hcenter, vcenter, left, right]
+        comment: ''
+        defaultValue: none
+        hidden: false
+        name: alignment
+        oldValue: null
+        type: combo
+        value: none
+      - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
+        type: color, value: null}
+      - {comment: '', defaultValue: -1, hidden: false, name: fixedheight, oldValue: null,
+        type: integer, value: -1}
+      - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
+        type: integer, value: -1}
+      - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: frameshape
+        oldValue: null
+        type: combo
+        value: default
+      - choices: [fixed, expanding, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: hsizepolicy
+        oldValue: null
+        type: combo
+        value: default
+      - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: icon,
+        oldValue: null, type: string, value: !!python/unicode ''}
+      - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: label,
+        oldValue: null, type: string, value: !!python/unicode ''}
+      - {comment: '', defaultValue: 2, hidden: false, name: margin, oldValue: null,
+        type: integer, value: 2}
+      - choices: [plain, raised, sunken, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: shadowstyle
+        oldValue: null
+        type: combo
+        value: default
+      - {comment: '', defaultValue: 2, hidden: false, name: spacing, oldValue: null,
+        type: integer, value: 2}
+      - choices: [fixed, expanding, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: vsizepolicy
+        oldValue: null
+        type: combo
+        value: default
+      type: vgroupbox
+    - children:
+      - brick: {class: Qt4_TreeBrick, name: Qt4_TreeBrick0}
+        children: []
+        connections: []
+        name: Qt4_TreeBrick0
+        properties:
+        - {comment: '', defaultValue: !!python/unicode '/beamline-setup', hidden: false,
+          name: beamline_setup, oldValue: null, type: string, value: !!python/unicode '/beamline-setup'}
+        - {comment: '', defaultValue: 1, hidden: false, name: enableQueueAutoSave,
+          oldValue: null, type: boolean, value: 1}
+        - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false, name: fixedHeight,
+          oldValue: null, type: integer, value: -1}
+        - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false, name: fixedWidth,
+          oldValue: null, type: integer, value: -1}
+        - {comment: '', defaultValue: !!python/unicode '11', hidden: false, name: fontSize,
+          oldValue: null, type: string, value: !!python/unicode '11'}
+        - {comment: Draw a frame around the widget, defaultValue: 0, hidden: false,
+          name: frame, oldValue: null, type: boolean, value: 0}
+        - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide, oldValue: null,
+          type: boolean, value: 0}
+        - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: hwobj_state_machine,
+          oldValue: null, type: string, value: !!python/unicode ''}
+        - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: hwobj_unittest,
+          oldValue: null, type: string, value: !!python/unicode ''}
+        - {comment: Allow to control brick in all modes, defaultValue: 0, hidden: false,
+          name: instanceAllowAlways, oldValue: null, type: boolean, value: 0}
+        - {comment: Allow to control brick in slave mode, defaultValue: 0, hidden: false,
+          name: instanceAllowConnected, oldValue: null, type: boolean, value: 0}
+        - {comment: '', defaultValue: !!python/unicode '/queue', hidden: false, name: queue,
+          oldValue: null, type: string, value: !!python/unicode '/queue'}
+        - {comment: '', defaultValue: !!python/unicode '/queue-model', hidden: false,
+          name: queue_model, oldValue: null, type: string, value: !!python/unicode '/queue-model'}
+        - {comment: '', defaultValue: !!python/unicode '/redis', hidden: false, name: redis_client,
+          oldValue: null, type: string, value: !!python/unicode '/redis'}
+        - {comment: '', defaultValue: !!python/unicode 'Sample changer', hidden: false,
+          name: scOneName, oldValue: null, type: string, value: !!python/unicode 'Sample
+            changer'}
+        - {comment: '', defaultValue: !!python/unicode 'Plate', hidden: false, name: scTwoName,
+          oldValue: null, type: string, value: !!python/unicode 'Plate'}
+        - {comment: '', defaultValue: 1, hidden: false, name: useCentringMethods,
+          oldValue: null, type: boolean, value: 1}
+        - {comment: '', defaultValue: 1, hidden: false, name: useFilterWidget, oldValue: null,
+          type: boolean, value: 1}
+        - {comment: '', defaultValue: 1, hidden: false, name: useHistoryView, oldValue: null,
+          type: boolean, value: 1}
+        - {comment: '', defaultValue: 0, hidden: false, name: usePlateNavigator, oldValue: null,
+          type: boolean, value: 0}
+        - {comment: '', defaultValue: 1, hidden: false, name: useSampleWidget, oldValue: null,
+          type: boolean, value: 1}
+        - {comment: '', defaultValue: !!python/unicode '/xml_rpc_server', hidden: false,
+          name: xml_rpc_server, oldValue: null, type: string, value: !!python/unicode '/xml_rpc_server'}
+        type: Qt4_TreeBrick
+      connections: []
+      name: vgroupbox1
+      properties:
+      - choices: [none, top center, top left, top right, bottom center, bottom left,
+          bottom right, center, hcenter, vcenter, left, right]
+        comment: ''
+        defaultValue: none
+        hidden: false
+        name: alignment
+        oldValue: null
+        type: combo
+        value: none
+      - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
+        type: color, value: null}
+      - {comment: '', defaultValue: -1, hidden: false, name: fixedheight, oldValue: null,
+        type: integer, value: -1}
+      - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
+        type: integer, value: -1}
+      - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: frameshape
+        oldValue: null
+        type: combo
+        value: default
+      - choices: [fixed, expanding, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: hsizepolicy
+        oldValue: null
+        type: combo
+        value: default
+      - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: icon,
+        oldValue: null, type: string, value: !!python/unicode ''}
+      - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: label,
+        oldValue: null, type: string, value: !!python/unicode ''}
+      - {comment: '', defaultValue: 2, hidden: false, name: margin, oldValue: null,
+        type: integer, value: 2}
+      - choices: [plain, raised, sunken, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: shadowstyle
+        oldValue: null
+        type: combo
+        value: default
+      - {comment: '', defaultValue: 2, hidden: false, name: spacing, oldValue: null,
+        type: integer, value: 2}
+      - choices: [fixed, expanding, default]
+        comment: ''
+        defaultValue: default
+        hidden: false
+        name: vsizepolicy
+        oldValue: null
+        type: combo
+        value: default
+      type: vgroupbox
+    connections: []
+    name: vsplitter0
+    properties:
+    - choices: [none, top center, top left, top right, bottom center, bottom left,
+        bottom right, center, hcenter, vcenter, left, right]
+      comment: ''
+      defaultValue: none
+      hidden: false
+      name: alignment
+      oldValue: null
+      type: combo
+      value: none
+    - {comment: '', defaultValue: null, hidden: false, name: color, oldValue: null,
+      type: color, value: null}
+    - {comment: '', defaultValue: -1, hidden: false, name: fixedheight, oldValue: null,
+      type: integer, value: -1}
+    - {comment: '', defaultValue: -1, hidden: false, name: fixedwidth, oldValue: null,
+      type: integer, value: -1}
+    - choices: [Box, Panel, StyledPanel, HLine, VLine, default]
+      comment: ''
+      defaultValue: default
+      hidden: false
+      name: frameshape
+      oldValue: null
+      type: combo
+      value: default
+    - choices: [fixed, expanding, default]
+      comment: ''
+      defaultValue: default
+      hidden: false
+      name: hsizepolicy
+      oldValue: null
+      type: combo
+      value: default
+    - {comment: '', defaultValue: !!python/unicode '', hidden: false, name: icon,
+      oldValue: null, type: string, value: !!python/unicode ''}
+    - {comment: '', defaultValue: !!python/unicode 'test44', hidden: false, name: label,
+      oldValue: null, type: string, value: !!python/unicode 'test44'}
+    - {comment: '', defaultValue: 2, hidden: false, name: margin, oldValue: null,
+      type: integer, value: 2}
+    - choices: [plain, raised, sunken, default]
+      comment: ''
+      defaultValue: default
+      hidden: false
+      name: shadowstyle
+      oldValue: null
+      type: combo
+      value: default
+    - {comment: '', defaultValue: !!python/unicode '[]', hidden: true, name: sizes,
+      oldValue: null, type: string, value: !!python/unicode '[]'}
+    - {comment: '', defaultValue: !!python/unicode '[]', hidden: true, name: sizes_16777272,
+      oldValue: null, type: string, value: !!python/unicode '[]'}
+    - {comment: '', defaultValue: !!python/unicode '[]', hidden: true, name: sizes_16777273,
+      oldValue: null, type: string, value: !!python/unicode '[]'}
+    - {comment: '', defaultValue: !!python/unicode '[]', hidden: true, name: sizes_16777274,
+      oldValue: null, type: string, value: !!python/unicode '[]'}
+    - {comment: '', defaultValue: !!python/unicode '[]', hidden: true, name: sizes_16777275,
+      oldValue: null, type: string, value: !!python/unicode '[]'}
+    - {comment: '', defaultValue: 2, hidden: false, name: spacing, oldValue: null,
+      type: integer, value: 2}
+    - choices: [fixed, expanding, default]
+      comment: ''
+      defaultValue: default
+      hidden: false
+      name: vsizepolicy
+      oldValue: null
+      type: combo
+      value: default
+    type: vsplitter
+  connections: []
+  name: window0
+  properties:
+  - choices: [none, top center, top left, top right, bottom center, bottom left, bottom
+        right, center, hcenter, vcenter, left, right]
+    comment: ''
+    defaultValue: none
+    hidden: false
+    name: alignment
+    oldValue: null
+    type: combo
+    value: none
+  - {comment: '', defaultValue: !!python/unicode 'test43', hidden: false, name: caption,
+    oldValue: null, type: string, value: !!python/unicode 'test43'}
+  - {comment: '', defaultValue: 1, hidden: false, name: closeOnExit, oldValue: null,
+    type: boolean, value: 1}
+  - {comment: '', defaultValue: !!python/unicode 'tonic', hidden: false, name: expertPwd,
+    oldValue: null, type: string, value: !!python/unicode 'tonic'}
+  - {comment: '', defaultValue: 1, hidden: false, name: menubar, oldValue: null, type: boolean,
+    value: 1}
+  - comment: ''
+    defaultValue: &id001 {}
+    hidden: true
+    name: menudata
+    oldValue: null
+    type: undefined
+    value: *id001
+  - {comment: '', defaultValue: 1, hidden: false, name: show, oldValue: null, type: boolean,
+    value: 1}
+  - {comment: '', defaultValue: 1, hidden: false, name: statusbar, oldValue: null,
+    type: boolean, value: 1}
+  signals:
+    enableExpertMode: !!python/tuple []
+    isHidden: !!python/tuple []
+    isShown: !!python/tuple []
+    quit: !!python/tuple []
+  type: window

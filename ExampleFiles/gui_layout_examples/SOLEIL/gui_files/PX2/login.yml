@@ -5,41 +5,82 @@
       connections: []
       name: Qt4_ProposalBrick20
       properties:
-      - {comment: '', defaultValue: '', hidden: false, name: autoSessionUsers, oldValue: com-proxima2,
+      - {comment: '', defaultValue: '', hidden: false, name: autoSessionUsers, oldValue: '',
         type: string, value: com-proxima2a}
       - {comment: '', defaultValue: fx ifx ih im ix ls mx opid, hidden: false, name: codes,
-        oldValue: null, type: string, value: fx ifx ih im ix ls mx opid}
-      - {comment: '', defaultValue: '', hidden: false, name: dbConnection, oldValue: /dbconnection,
+        oldValue: fx ifx ih im ix ls mx opid, type: string, value: fx ifx ih im ix
+          ls mx opid}
+      - {comment: '', defaultValue: '', hidden: false, name: dbConnection, oldValue: '',
         type: string, value: /singleton_objects/dbconnection}
       - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false, name: fixedHeight,
-        oldValue: null, type: integer, value: -1}
+        oldValue: -1, type: integer, value: -1}
       - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false, name: fixedWidth,
-        oldValue: null, type: integer, value: -1}
-      - {comment: '', defaultValue: '11', hidden: false, name: fontSize, oldValue: null,
+        oldValue: 500, type: integer, value: -1}
+      - {comment: '', defaultValue: '11', hidden: false, name: fontSize, oldValue: '11',
         type: string, value: '11'}
       - {comment: Draw a frame around the widget, defaultValue: 0, hidden: false,
-        name: frame, oldValue: null, type: boolean, value: 0}
-      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide, oldValue: null,
+        name: frame, oldValue: 0, type: boolean, value: 0}
+      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide, oldValue: 0,
         type: boolean, value: 0}
-      - {comment: '', defaultValue: '', hidden: false, name: icons, oldValue: null,
+      - {comment: '', defaultValue: '', hidden: false, name: icons, oldValue: '',
         type: string, value: ''}
       - {comment: Allow to control brick in all modes, defaultValue: 0, hidden: false,
         name: instanceAllowAlways, oldValue: 0, type: boolean, value: 1}
       - {comment: Allow to control brick in slave mode, defaultValue: 0, hidden: false,
         name: instanceAllowConnected, oldValue: 0, type: boolean, value: 1}
-      - {comment: '', defaultValue: '', hidden: false, name: instanceServer, oldValue: /instanceconnection,
+      - {comment: '', defaultValue: '', hidden: false, name: instanceServer, oldValue: '',
         type: string, value: /singleton_objects/instanceconnection}
       - {comment: '', defaultValue: '', hidden: false, name: localLogin, oldValue: '',
         type: string, value: /singleton_objects/locallogin}
-      - {comment: '', defaultValue: '', hidden: false, name: secondaryProposals, oldValue: null,
+      - {comment: '', defaultValue: '', hidden: false, name: secondaryProposals, oldValue: '',
         type: string, value: ''}
-      - {comment: '', defaultValue: 500, hidden: false, name: serverStartDelay, oldValue: null,
+      - {comment: '', defaultValue: 500, hidden: false, name: serverStartDelay, oldValue: 500,
         type: integer, value: 500}
       - {comment: '', defaultValue: /session, hidden: false, name: session, oldValue: /session,
         type: string, value: /singleton_objects/session}
-      - {comment: '', defaultValue: '', hidden: false, name: titlePrefix, oldValue: null,
+      - {comment: '', defaultValue: '', hidden: false, name: titlePrefix, oldValue: '',
         type: string, value: ''}
       type: Qt4_ProposalBrick2
+    - brick: {class: Qt4_SoleilLoginBrick, name: Qt4_SoleilLoginBrick0}
+      children: []
+      connections: []
+      name: Qt4_SoleilLoginBrick0
+      properties:
+      - {comment: '', defaultValue: '', hidden: false, name: autoSessionUsers, oldValue: '',
+        type: string, value: com-proxima2a}
+      - {comment: '', defaultValue: fx ifx ih im ix ls mx opid, hidden: false, name: codes,
+        oldValue: fx ifx ih im ix ls mx opid, type: string, value: mx}
+      - {comment: '', defaultValue: '', hidden: false, name: dbConnection, oldValue: '',
+        type: string, value: /singleton_objects/dbconnection}
+      - {comment: Set fixed height in pixels, defaultValue: -1, hidden: false, name: fixedHeight,
+        oldValue: -1, type: integer, value: -1}
+      - {comment: Set fixed width in pixels, defaultValue: -1, hidden: false, name: fixedWidth,
+        oldValue: 500, type: integer, value: -1}
+      - {comment: '', defaultValue: '11', hidden: false, name: fontSize, oldValue: '11',
+        type: string, value: '11'}
+      - {comment: Draw a frame around the widget, defaultValue: 0, hidden: false,
+        name: frame, oldValue: 0, type: boolean, value: 0}
+      - {comment: Hide widget, defaultValue: 0, hidden: false, name: hide, oldValue: 0,
+        type: boolean, value: 0}
+      - {comment: '', defaultValue: '', hidden: false, name: icons, oldValue: '',
+        type: string, value: ''}
+      - {comment: Allow to control brick in all modes, defaultValue: 0, hidden: false,
+        name: instanceAllowAlways, oldValue: 0, type: boolean, value: 0}
+      - {comment: Allow to control brick in slave mode, defaultValue: 0, hidden: false,
+        name: instanceAllowConnected, oldValue: 0, type: boolean, value: 0}
+      - {comment: '', defaultValue: '', hidden: false, name: instanceServer, oldValue: '',
+        type: string, value: /singleton_objects/instanceconnection}
+      - {comment: '', defaultValue: '', hidden: false, name: localLogin, oldValue: '',
+        type: string, value: /singleton_objects/locallogin}
+      - {comment: '', defaultValue: '', hidden: false, name: secondaryProposals, oldValue: '',
+        type: string, value: ''}
+      - {comment: '', defaultValue: 500, hidden: false, name: serverStartDelay, oldValue: 500,
+        type: integer, value: 500}
+      - {comment: '', defaultValue: /session, hidden: false, name: session, oldValue: /session,
+        type: string, value: /singleton_objects/session}
+      - {comment: '', defaultValue: '', hidden: false, name: titlePrefix, oldValue: '',
+        type: string, value: ''}
+      type: Qt4_SoleilLoginBrick
     connections: []
     name: vbox0
     properties:
