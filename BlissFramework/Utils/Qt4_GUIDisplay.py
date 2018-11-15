@@ -510,8 +510,12 @@ class WindowDisplayWidget(QScrollArea):
 
     def verticalSplitter(*args, **kwargs):
         """Vertical splitter"""
-
-        return QSplitter(Qt.Vertical, *args)
+        #return QSplitter(Qt.Vertical, *args)
+        #TypeError: arguments did not match any overloaded call:
+        #QSplitter(QWidget parent=None): argument 1 has unexpected type 'Orientation'
+        #QSplitter(Qt.Orientation, QWidget parent=None): too many arguments
+        splitter = QSplitter(Qt.Vertical) 
+        return splitter
 
     def verticalBox(*args, **kwargs):
         """Vertical box"""
@@ -1195,14 +1199,14 @@ class WindowDisplayWidget(QScrollArea):
 
     def make_item(self, item_cfg, parent):
         """Make item"""
-
+        
         if isinstance(item_cfg, ContainerCfg):
             self.container_num += 1
         for child in item_cfg["children"]:
             try:
                 new_item = self.add_item(child, parent)
             except:
-                logging.getLogger().exception("Cannot add item %s" % \
+                logging.getLogger().exception("Cannot add item %s" % 
                                               child["name"])
             else:
                 if not self.execution_mode:
@@ -1214,7 +1218,7 @@ class WindowDisplayWidget(QScrollArea):
                 self.preview_items.append(new_item)
             else:
                 if isinstance(child, ContainerCfg):
-                    new_item.setSizePolicy(self.getSizePolicy(\
+                    new_item.setSizePolicy(self.getSizePolicy(
                         child["properties"]["hsizepolicy"],
                         child["properties"]["vsizepolicy"]))
                 if not isinstance(child, BrickCfg):
