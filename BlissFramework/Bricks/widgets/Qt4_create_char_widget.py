@@ -190,18 +190,20 @@ class CreateCharWidget(CreateTaskBase):
 
             self._char_params = self._beamline_setup_hwobj.\
                                 get_default_characterisation_parameters()
+            
         else:
             self._acquisition_parameters = queue_model_objects.AcquisitionParameters()
         
         self._path_template.reference_image_prefix = 'ref'
         # The num images drop down default value is 1
-        # we would like it to be 2
-        self._acquisition_parameters.num_images = 2
+        # we would like it to be 4
+        self._acquisition_parameters.num_images = 4
         self._char.characterisation_software =\
             queue_model_enumerables.COLLECTION_ORIGIN.EDNA
-        self._path_template.num_files = 2
+        self._path_template.num_files = 4
         self._path_template.compression = False
         self._acquisition_parameters.shutterless = False
+        
 
     def single_item_selection(self, tree_item):
         """
