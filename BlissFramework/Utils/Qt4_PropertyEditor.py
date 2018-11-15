@@ -182,7 +182,7 @@ class Qt4_ConfigurationTable(QTableWidget):
            property table
         """
         col += 1
-        prop_name = str(self.item(row, 0).text())
+        prop_name = unicode(self.item(row, 0).text())
         if self.display_hwobj:
             prop_name = "hwobj_" + prop_name
 
@@ -199,15 +199,15 @@ class Qt4_ConfigurationTable(QTableWidget):
             item_property.setValue(self.cellWidget(row, 1).color)
         else: 
             try:
-                item_property.setValue(str(self.item(row, 1).text()))
+                item_property.setValue(unicode(self.item(row, 1).text()))
             except:
                 logging.getLogger().error('Cannot assign value %s to property %s' % \
-                        (str(self.item(row, 1).text()), prop_name))
+                        (unicode(self.item(row, 1).text()), prop_name))
 
             if item_property.getUserValue() is None:
                 self.item(row, 1).setText('')
             else:
-                self.item(row, 1).setText(str(item_property.getUserValue()))
+                self.item(row, 1).setText(unicode(item_property.getUserValue()))
 
         if not old_value == item_property.getUserValue():
             self.propertyChangedSignal.emit(prop_name, old_value, item_property.getUserValue())
