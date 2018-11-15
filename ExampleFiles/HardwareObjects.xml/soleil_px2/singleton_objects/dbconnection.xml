@@ -13,13 +13,17 @@
     <object role="ldapServer" href="/singleton_objects/ldapconnection"/>
        
     <authServerType>ldap</authServerType>
+    <loginType>username</loginType>
+    <!--session-->
+    <!--loginTranslate>True</loginTranslate-->
+</object>
 
     <!-- all this should be removed from here (information
         is in session now), but we need it as long as
         mxCuBE 1.0 is running - or we need to make sure
         mxCuBE 1.0 works with the new xml files (ie. cherry picking
         commits from master to 1.0 or merging)
-    -->
+
     
 
     <beamline_name>PROXIMA2A</beamline_name>
@@ -38,5 +42,5 @@
             <number>291</number>
         </proposal>
     </inhouse>
+    -->
 
-</object>

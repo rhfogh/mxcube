@@ -13,4 +13,5 @@
     <fileSuffix>h5</fileSuffix>
     <default_exposure_time>0.025</default_exposure_time>
     <minimum_exposure_time>0.0043</minimum_exposure_time>
+    <object href="/tango_motors/detector_distance" role="distance_motor"/>
 </equipment>

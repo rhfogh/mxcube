@@ -3,4 +3,6 @@
   <object hwrid="/singleton_motors/photon_energy" role="energy"/>
   <object hwrid="/singleton_objects/beaminfo" role="beam_info"/>
   <object hwrid="/singleton_objects/dbconnection" role="dbserver"/>
+  <config_filename>/home/experiences/proxima2a/com-proxima2a/mxcube_local/HardwareRepository/HardwareObjects/SOLEIL/PX2/experimental_methods/fit_configuration.cfg</config_filename>
+
 </object>

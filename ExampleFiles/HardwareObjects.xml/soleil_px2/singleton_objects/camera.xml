@@ -1,4 +1,3 @@
-<device class="PX2Video">
-   <poll_interval>50</poll_interval>
-   <interval>50</interval>
+<device class="Qt4_RedisCamera">
+   <poll_interval>0.02</poll_interval>
 </device>

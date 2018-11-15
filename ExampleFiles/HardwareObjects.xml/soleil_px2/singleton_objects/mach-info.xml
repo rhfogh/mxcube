@@ -14,8 +14,8 @@
     <channel type="tango" tangoname="i11-ma-cx1/ex/md2" polling="1000" name="cryojetIn">cryoIsBack</channel>
     
     <channel type="tango" tangoname="i11-ma-cx1/ex/cats" polling="1000" name="scAutoRefill">LN2Regulating</channel>
-    <channel type="tango" tangoname="i11-ma-cx1/ex/cats" polling="1000" name="scOverflowAlarm">di_CryoHighLevel</channel>
-    <channel type="tango" tangoname="i11-ma-cx1/ex/cats" polling="1000" name="scLowLevelAlarm">di_CryoLowLevel</channel>
+    <channel type="tango" tangoname="i11-ma-cx1/ex/cats" polling="1000" name="scOverflowAlarm">di_CryoHighLevelAlarm</channel>
+    <channel type="tango" tangoname="i11-ma-cx1/ex/cats" polling="1000" name="scLowLevelAlarm">di_CryoLowLevelAlarm</channel>
     
     <defaultFlux>1e+12</defaultFlux>
     <updateIntervalS>60</updateIntervalS>		

@@ -1,4 +1,4 @@
-<equipment class = "PX2BeamInfo">
+<equipment class="PX2BeamInfo">
     <exporter_address>172.19.10.119:9001</exporter_address>    
     <username>Beam Info</username>
     <channel type="exporter" name="beamsizex">BeamSizeHorizontal</channel>

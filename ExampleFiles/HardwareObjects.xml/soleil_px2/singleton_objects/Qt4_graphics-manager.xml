@@ -3,6 +3,7 @@
     <object href="/singleton_objects/beaminfo" role="beam_info"/>
     <object href="/singleton_objects/camera" role="camera"/>
 
+    <omega_move_delta>30</omega_move_delta>
     <!-- Use magnification tool -->
     <magnification_tool>{"scale": 4, "area_size": 50}</magnification_tool>
 
