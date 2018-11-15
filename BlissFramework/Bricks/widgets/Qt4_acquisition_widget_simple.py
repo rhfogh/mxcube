@@ -18,7 +18,7 @@
 #  along with MXCuBE.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-
+import logging
 from QtImport import *
 
 import queue_model_objects_v1 as queue_model_objects
@@ -118,6 +118,9 @@ class AcquisitionWidgetSimple(QWidget):
         if not self.acq_widget_layout.osc_start_cbox.hasFocus():
             self.acq_widget_layout.osc_start_ledit.setText(str(new_value))
 
+    def update_osc_per_frame(self, new_value):
+        self.acq_widget_layout.angle_per_frame.setText(str(new_value))
+        
     def update_kappa(self, new_value):
         """
         Descript. :
@@ -147,6 +150,9 @@ class AcquisitionWidgetSimple(QWidget):
     def use_max_osc_range(self, state):
         pass
 
+    def update_angle_per_frame(self, angle_per_frame):
+        self.acq_widget_layout.angle_per_frame.setText("%s" % angle_per_frame)
+        
     def update_num_images(self, index = None, num_images = None):
         """
         Descript. :
@@ -416,13 +422,15 @@ class AcquisitionWidgetSimple(QWidget):
         self._acquisition_mib.set_model(acquisition_parameters)
         self._path_template = path_template
         self.update_num_images(None, acquisition_parameters.num_images)
-
+        self.update_angle_per_frame(acquisition_parameters.osc_per_frame)
+        
     def set_tunable_energy(self, state):
         """
         Descript. :
         """
         self.acq_widget_layout.energy_ledit.setEnabled(state)
-
+        self.acq_widget_layout.energy_label.setEnabled(state)
+        
     def use_osc_start(self, state):
         """
         Descript. :
