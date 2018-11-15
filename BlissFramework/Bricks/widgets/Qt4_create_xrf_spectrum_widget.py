@@ -12,6 +12,7 @@
 import sys
 import copy
 import logging
+import os
 
 from QtImport import *
 
@@ -45,27 +46,20 @@ class CreateXRFSpectrumWidget(CreateTaskBase):
         self._data_path_widget = DataPathWidget(self, 
              data_model = self._path_template, layout = 'vertical')
 
-        _parameters_gbox = QGroupBox('Parameters', self)
-        _count_time_label = QLabel("Count time (sec.):", _parameters_gbox)
-        self.count_time_ledit = QLineEdit("1", _parameters_gbox)
-        #self.count_time_ledit.setMaximumWidth(75)
-        self.adjust_transmission_cbox = QCheckBox(\
-             "Adjust transmission", _parameters_gbox)
-        self.adjust_transmission_cbox.setChecked(True)
+        self._parameters_widget = loadUi(os.path.join(os.path.dirname(__file__),
+                        "ui_files/Qt4_xrf_parameters_widget_layout.ui"))
         
-
+        self.adjust_transmission_cbox = self._parameters_widget.adjust_transmission_cbox
+        self.excitation_energy_ledit = self._parameters_widget.excitation_energy_ledit
+        self.excitation_energy_ledit.setText("15.00")
+        self.count_time_ledit = self._parameters_widget.count_time_ledit
+        self.count_time_ledit.setText("10")
+        
         # Layout --------------------------------------------------------------
-        _parameters_gbox_hlayout = QHBoxLayout(_parameters_gbox)
-        _parameters_gbox_hlayout.addWidget(_count_time_label)
-        _parameters_gbox_hlayout.addWidget(self.count_time_ledit) 
-        _parameters_gbox_hlayout.addWidget(self.adjust_transmission_cbox)
-        _parameters_gbox_hlayout.addStretch(0)
-        _parameters_gbox_hlayout.setSpacing(2)
-        _parameters_gbox_hlayout.setContentsMargins(0, 0, 0, 0)
-
+        
         _main_vlayout = QVBoxLayout(self)
         _main_vlayout.addWidget(self._data_path_widget)
-        _main_vlayout.addWidget(_parameters_gbox)
+        _main_vlayout.addWidget(self._parameters_widget)
         _main_vlayout.setSpacing(6)
         _main_vlayout.setContentsMargins(2, 2, 2, 2)
         _main_vlayout.addStretch(0)
@@ -93,7 +87,7 @@ class CreateXRFSpectrumWidget(CreateTaskBase):
         self._path_template.num_files = 1
         self._path_template.suffix = 'raw'
         self._path_template.compression = False
-
+        
     def single_item_selection(self, tree_item):
         CreateTaskBase.single_item_selection(self, tree_item)
         self.xrf_spectrum_model = tree_item.get_model()
@@ -116,14 +110,20 @@ class CreateXRFSpectrumWidget(CreateTaskBase):
         #base_result = CreateTaskBase.approve_creation(self)
         base_result = True
         self.count_time = None
-
+        self.excitation_energy = None
         try:
            self.count_time = float(str(self.count_time_ledit.text()))
         except:
            logging.getLogger("GUI").\
                 error("Incorrect count time value.")
 
-        return base_result and self.count_time
+        try:
+           self.excitation_energy = float(str(self.excitation_energy_ledit.text()))
+        except:
+           logging.getLogger("GUI").\
+                error("Incorrect excitation energy value.")
+            
+        return base_result and self.count_time and self.excitation_energy
 
 
     # Called by the owning widget (task_toolbox_widget) to create
@@ -149,7 +149,8 @@ class CreateXRFSpectrumWidget(CreateTaskBase):
             xrf_spectrum = queue_model_objects.XRFSpectrum(sample, path_template, cpos)
             xrf_spectrum.set_name(path_template.get_prefix())
             xrf_spectrum.set_number(path_template.run_number)
-            xrf_spectrum.count_time = self.count_time  
+            xrf_spectrum.count_time = self.count_time
+            xrf_spectrum.excitation_energy = self.excitation_energy
             xrf_spectrum.adjust_transmission = self.adjust_transmission_cbox.isChecked()
             
             data_collections.append(xrf_spectrum)
