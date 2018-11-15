@@ -19,6 +19,7 @@
 
 import os
 from QtImport import *
+import logging
 
 PYMCA_IMPORTED = False
 try:
@@ -52,7 +53,7 @@ class PeriodicTableWidget(QWidget):
         # Graphic elements ----------------------------------------------------
         if PYMCA_IMPORTED:
             self.periodic_table = CustomPeriodicTable(self)
-            self.periodic_table.setFixedSize(470, 230)
+            self.periodic_table.setFixedSize(570, 260)
         else:
             self.periodic_elements_combo = QComboBox(self)
             self.periodic_elements_combo.setFixedWidth(100)
@@ -113,6 +114,7 @@ class PeriodicTableWidget(QWidget):
             self.edge_combo.addItem(item)
         self.edge_combo.setCurrentIndex(edge_list.index(item))
         self.edge_combo.setEnabled(self.edge_combo.count() > 1)
+        self.selected_edge = str(self.edge_combo.currentText())
         self.elementEdgeSelectedSignal.emit(self.selected_element, 
                                             self.selected_edge)
         
@@ -169,9 +171,10 @@ if PYMCA_IMPORTED:
                 b.setCurrent(False)
 
         def table_element_clicked(self, symbol, energy=None):
+            
             if type(symbol) is tuple and len(symbol) > 0:
                 symbol = symbol[0]
-
+            
             if energy is None:
                 energy = self.energies_dict[symbol]
             self.setSelection((symbol,))
@@ -180,9 +183,9 @@ if PYMCA_IMPORTED:
             else:
                 index = self.elements_dict[symbol][1]
                 name = self.elements_dict[symbol][4]
-                txt = "%s - %s (%s,%s)" % (symbol, energy, index, name)
+                txt = "%s - %s (%s, %s)" % (symbol, energy, index, name.capitalize())
                 self.eltLabel.setText(txt)
-                self.edgeSelectedSignal.emit(symbol ,energy)
+                self.edgeSelectedSignal.emit(symbol, energy)
                 #self.widgetSynchronizeSignal([symbol, energy])
 
         def setElements(self,elements):
