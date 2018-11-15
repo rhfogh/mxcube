@@ -53,8 +53,7 @@ class DataModelInputBinder(object):
                 try:
                     new_value = pattern % float(new_value)
                 except:
-                    logging.getLogger().exception(traceback.format_exc())
-                    logging.getLogger().info('__line_update_value field_name %s new_value %s type_fn %s' % (field_name, new_value, type_fn))
+                    logging.getLogger().debug('__line_update_value field_name %s new_value %s type_fn %s' % (field_name, new_value, type_fn))
                     
 
             # fix validation if PyQt4 and sipapi 1 is used
@@ -73,13 +72,13 @@ class DataModelInputBinder(object):
                             widget.setText('{:g}'.format(round(float(origin_value), \
                                         validator.decimals())))
                 except:
-                    logging.getLogger().exception(traceback.format_exc())
-                    logging.getLogger().info('__line_update_value field_name %s origin_value %s type_fn %s' % (field_name, origin_value, type_fn))
+                    logging.getLogger().debug('__line_update_value field_name %s origin_value %s type_fn %s' % (field_name, origin_value, type_fn))
                 try:
                     setattr(self.__model, field_name, type_fn(origin_value)) 
                 except ValueError:
                     if origin_value != '':
-                        raise
+                        pass
+                        #raise
                 else:
                     dispatcher.send("model_update", self.__model, field_name, self)
 
@@ -192,7 +191,6 @@ class DataModelInputBinder(object):
                                                             type_fn, 
                                                             validator))
             except:
-                logging.getLogger().exception(traceback.format_exc())
                 lgoging.getLogger().info('bind_value_update field_name %s, widget %s, type_fn %s' % (field_name, widget, type_fn))
                 
             widget.textEdited.connect(\
