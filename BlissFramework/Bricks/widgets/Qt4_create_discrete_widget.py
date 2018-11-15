@@ -107,7 +107,7 @@ class CreateDiscreteWidget(CreateTaskBase):
 
             self._acquisition_parameters = self._beamline_setup_hwobj.\
                 get_default_acquisition_parameters("default_acquisition_values")
-            self._acquisition_parameters.compression = True
+            self._acquisition_parameters.compression = False
             
     def set_tunable_energy(self, state):
         """
