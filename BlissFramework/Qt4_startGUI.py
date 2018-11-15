@@ -55,7 +55,7 @@ def do_gevent():
 
     if QEventLoop():
         try:
-            gevent.wait(timeout=0.01)
+            gevent.wait(timeout=0.0001)
         except AssertionError:
             pass
     else:
