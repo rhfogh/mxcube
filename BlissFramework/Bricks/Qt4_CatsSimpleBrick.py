@@ -48,7 +48,6 @@ class CatsStatusView(QGroupBox, BlissWidget):
         QGroupBox.__init__(self, "State", parent)
         BlissWidget.__init__(self, parent)
         # Graphic elements ----------------------------------------------------
-        #self.contents_widget = QGroupBox("Sample Changer State", self)
 
         self._parent = brick
         self.status_label = QLabel("")
@@ -113,22 +112,22 @@ class Qt4_CatsSimpleBrick(Qt4_SampleChangerBrick3):
     def propertyChanged(self, property_name, oldValue, newValue):
         if property_name == 'mnemonic':
             if self.sample_changer_hwobj is not None:
-                self.disconnect(self.device, 'runningStateChanged', \
+                self.disconnect(self.device, 'runningStateChanged',
                          self._updatePathRunning)
-                self.disconnect(self.device, 'powerStateChanged', \
+                self.disconnect(self.device, 'powerStateChanged',
                          self._updatePowerState)
 
-        Qt4_SampleChangerBrick3.propertyChanged(self, property_name, \
+        Qt4_SampleChangerBrick3.propertyChanged(self, property_name,
                          oldValue, newValue)
 
         if property_name == 'mnemonic':
             # load the new hardware object
       
             if self.sample_changer_hwobj is not None:
-                self.connect(self.sample_changer_hwobj, 'runningStateChanged',\
-                               self._updatePathRunning)
-                self.connect(self.sample_changer_hwobj, 'powerStateChanged', \
-                               self._updatePowerState)
+                self.connect(self.sample_changer_hwobj, 'runningStateChanged',
+                             self._updatePathRunning)
+                self.connect(self.sample_changer_hwobj, 'powerStateChanged',
+                             self._updatePowerState)
            
                 self._poweredOn = self.sample_changer_hwobj.isPowered()
                 self._pathRunning = self.sample_changer_hwobj.isPathRunning()
@@ -247,17 +246,23 @@ class Qt4_CatsSimpleBrick(Qt4_SampleChangerBrick3):
 
         #Qt4_widget_colors.set_widget_color(self.abort_button, abort_color)
 
+    def load_this_sample(self, basket_index, vial_index):
+        logging.getLogger('HWR').debug("load_this_sample %s %s %s %s" % (basket_index, type(basket_index), vial_index, type(vial_index)))
+        if self.double_click_loads_cbox.isChecked():
+            #holder_len = self.current_sample_view.getHolderLength()
+            self.sample_changer_hwobj.load((basket_index+1, vial_index), wait=False)
+
     def load_selected_sample(self):
 
         basket, vial = self.user_selected_sample
-        logging.getLogger("GUI").info("Loading sample: %s / %s" % (basket, vial))
+        logging.getLogger("HWR").debug("load_selected_sample  %s %s %s %s" % (basket, type(basket), vial, type(vial)))
 
         if basket is not None and vial is not None:
             if basket != 100:
-                sample_loc="%d:%02d" % (basket+1,vial)
-                self.sample_changer_hwobj.load(sample_loc,wait=False)
+                sample_loc= (basket+1, vial)
+                self.sample_changer_hwobj.load(sample_loc, wait=False)
             else:
-                self.sample_changer_hwobj.load_ht(vial,wait=False)
+                self.sample_changer_hwobj.load_ht(vial, wait=False)
                 logging.getLogger("GUI").info("Is an HT sample: idx=%s (not implemented yet)" % (vial))
 
     def unload_selected_sample(self):
