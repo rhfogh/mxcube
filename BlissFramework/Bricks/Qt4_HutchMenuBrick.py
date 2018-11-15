@@ -88,7 +88,7 @@ class Qt4_HutchMenuBrick(BlissWidget):
         self.clear_all_button = MonoStateButton(self, "Clear all", "Delete")
         self.auto_center_button = MonoStateButton(self, "Auto", "VCRPlay2")
         self.auto_center_button.setText("Auto")
-        self.realign_button = MonoStateButton(self, "Realign beam", "QuickRealign")
+        self.realign_button = MonoStateButton(self, "Beam check", "QuickRealign")
 
         # Layout --------------------------------------------------------------
         _main_layout = self.create_layout()
@@ -106,7 +106,8 @@ class Qt4_HutchMenuBrick(BlissWidget):
         self.select_all_button.clicked.connect(self.select_all_clicked)
         self.clear_all_button.clicked.connect(self.clear_all_clicked)
         self.auto_center_button.clicked.connect(self.auto_center_clicked)
-
+        self.realign_button.clicked.connect(self.realign_beam_clicked)
+        
         # Other ---------------------------------------------------------------
         self.centre_button.setToolTip("3 click centring (Ctrl+1)")
         self.accept_button.setToolTip("Accept 3 click centring or " \
@@ -372,6 +373,9 @@ class Qt4_HutchMenuBrick(BlissWidget):
     def auto_center_clicked(self):
         self.graphics_manager_hwobj.start_auto_centring()
 
+    def realign_beam_clicked(self):
+        self.graphics_manager_hwobj.realign_beam()
+        
 class MonoStateButton(QToolButton):
     def __init__(self, parent, caption=None, icon=None, fixed_size=(70, 40)):
         QToolButton.__init__(self, parent)
