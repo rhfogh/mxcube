@@ -77,6 +77,9 @@ class Qt4_MDPhaseBrick(BlissWidget):
                                            Qt4_widget_colors.LIGHT_GREEN,
                                            QPalette.Button)
  
+        self.phase_combobox.setMinimumWidth(50)
+        self.phase_combobox.setMaximumWidth(120)
+        
     def propertyChanged(self, property_name, old_value, new_value):
         """
         Descript. :

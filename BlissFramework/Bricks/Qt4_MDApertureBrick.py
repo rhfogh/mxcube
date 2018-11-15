@@ -84,9 +84,7 @@ class Qt4_MDApertureBrick(BlissWidget):
         # Graphic elements ----------------------------------------------------
         self.main_gbox = QGroupBox("Aperture", self)
         self.aperture_diameter_combo = QComboBox(self.main_gbox)
-        self.aperture_diameter_combo.setMinimumWidth(100)
         self.aperture_position_combo = QComboBox(self.main_gbox)
-        self.aperture_position_combo.setMinimumWidth(100)
 
         # Layout --------------------------------------------------------------
         _main_gbox_vlayout = QVBoxLayout(self.main_gbox)
@@ -117,8 +115,8 @@ class Qt4_MDApertureBrick(BlissWidget):
         Qt4_widget_colors.set_widget_color(self.aperture_position_combo,
              Qt4_widget_colors.LIGHT_GREEN, QPalette.Button)
 
-        self.aperture_diameter_combo.setMinimumWidth(100)
-        self.aperture_position_combo.setMinimumWidth(100)
+        self.aperture_diameter_combo.setMinimumWidth(75)
+        self.aperture_position_combo.setMinimumWidth(75)
 
     def propertyChanged(self, property_name, old_value, new_value):
         """
