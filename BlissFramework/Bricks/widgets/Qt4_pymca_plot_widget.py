@@ -144,5 +144,5 @@ class PymcaPlotWidget(QWidget):
         """
         """
         if signal_info['event'] == 'MouseAt':
-            self.info_label.setText("(X: %0.2f, Y: %0.2f)" % \
+            self.info_label.setText("(X: %0.4f, Y: %0.4f)" % \
                  (signal_info['x'], signal_info['y']))
