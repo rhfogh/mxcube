@@ -69,7 +69,7 @@ class Qt4_CatsMaintBrick(BlissWidget):
         self.widget.btMagnetOn.clicked.connect(self.magnet_on)                     
         self.widget.btMagnetOff.clicked.connect(self.magnet_off)                     
                 
-        # self.widget.btSoak.clicked.connect(self.soak)                     
+        #self.widget.btSoak.clicked.connect(self.soak)                     
         self.widget.btBack.clicked.connect(self.back_traj)                     
         self.widget.btSafe.clicked.connect(self.safe_traj)                     
         self.widget.btDry.clicked.connect(self.dry)                     
@@ -87,7 +87,8 @@ class Qt4_CatsMaintBrick(BlissWidget):
 
         self.device = None
         self.state = None
-
+        self.status = None
+        
         self.path_running = None
         self.powered = None
         self.regulation_on = None
@@ -139,7 +140,8 @@ class Qt4_CatsMaintBrick(BlissWidget):
                 self.connect(self.device,
                              SampleChanger.STATE_CHANGED_EVENT,
                              self.update_state)
-
+            
+            self.update_buttons()
 
     def setExpertMode(self, mode):
         if mode:
@@ -149,14 +151,14 @@ class Qt4_CatsMaintBrick(BlissWidget):
 
         self.update_buttons()
 
-    def update_state(self, state):
-        logging.getLogger().debug("CATS update state : " + str(state))
+    def update_state(self, state, third=None):
+        logging.getLogger().debug("CATS update state: %s , possible third argument %s "  % (str(state), str(third)))
         if state != self.state:
             self.state  = state
-            self.update_buttons()
+        self.update_buttons()
 
-    def update_status(self, status):
-        logging.getLogger().debug("CATS update status : " + str(status))
+    def update_status(self, status, third=None):
+        logging.getLogger().debug("CATS update status: %s , possible third argument %s " % (str(status), str(third)))
         if status != self.status:
             self.status  = status
 
@@ -250,6 +252,7 @@ class Qt4_CatsMaintBrick(BlissWidget):
 
             ready = not self.path_running
             powered = self.powered and True or False # handles init state None as False
+            logging.getLogger('HWR').info('Qt4_CatsMaintBrick in update_buttons powered %s, state %s, ready %s' % (powered, self.state, ready))
             state = self.state
 
             if not self.expert_mode:
@@ -257,9 +260,9 @@ class Qt4_CatsMaintBrick(BlissWidget):
                 self.widget.btMore.hide()
                 self.widget.btBarcodeRead.hide()
                 self.widget.btBack.hide()
-                self.widget.btSafe.hide()
-                self.widget.btSafe.hide()
+                self.widget.btSafe.show()
                 self.widget.btClear.hide()
+                
             else:
                 self.widget.boxTools.show()
                 self.widget.btMore.show()
@@ -268,7 +271,10 @@ class Qt4_CatsMaintBrick(BlissWidget):
                 self.widget.btSafe.show()
                 self.widget.btClear.show()
                 self.widget.btMemClear.show()
-
+            
+            self.widget.btHome.show()
+            #self.widget.btSoak.show()
+            
             # Open for users
             self.widget.btPowerOn.setEnabled(ready and not powered)
             self.widget.btPowerOff.setEnabled(ready and powered)
