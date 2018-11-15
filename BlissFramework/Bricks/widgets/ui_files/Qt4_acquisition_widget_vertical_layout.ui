@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>458</width>
-    <height>312</height>
+    <width>533</width>
+    <height>350</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -206,7 +206,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Osc. range per frame:</string>
+           <string>Range per frame:</string>
           </property>
           <property name="wordWrap">
            <bool>false</bool>
@@ -332,7 +332,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Total osc. range:</string>
+           <string>Total range:</string>
           </property>
          </widget>
         </item>
@@ -598,6 +598,16 @@
           <property name="toolTip">
            <string>Select necesaary detector mode</string>
           </property>
+          <item>
+           <property name="text">
+            <string>9M</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>4M</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="4" column="3">
