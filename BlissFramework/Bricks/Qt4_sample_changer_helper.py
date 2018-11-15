@@ -18,16 +18,16 @@ SC_STATE_COLOR = { SampleChangerState.Fault: Qt4_widget_colors.LIGHT_RED,
                    SampleChangerState.Disabled: Qt4_widget_colors.LIGHT_RED,
                    SampleChangerState.Unknown: Qt4_widget_colors.LIGHT_GRAY}
 
-SC_STATE_GENERAL = { SampleChangerState.Ready: True,
-                     SampleChangerState.Alarm: True }
+SC_STATE_GENERAL = {SampleChangerState.Ready: True,
+                    SampleChangerState.Alarm: True}
 
-SC_SAMPLE_COLOR = { "LOADED": Qt4_widget_colors.LIGHT_GREEN,
-                    "UNLOADED": Qt4_widget_colors.DARK_GRAY,
-                    "LOADING": Qt4_widget_colors.LIGHT_YELLOW,
-                    "UNLOADING": Qt4_widget_colors.LIGHT_YELLOW,
-                    "UNKNOWN": None }
+SC_SAMPLE_COLOR = {"LOADED": Qt4_widget_colors.LIGHT_GREEN,
+                   "UNLOADED": Qt4_widget_colors.DARK_GRAY,
+                   "LOADING": Qt4_widget_colors.LIGHT_YELLOW,
+                   "UNLOADING": Qt4_widget_colors.LIGHT_YELLOW,
+                   "UNKNOWN": None}
 
-SC_LOADED_COLOR = { -1: None,
-                     0: Qt4_widget_colors.WHITE,
-                     1: Qt4_widget_colors.GREEN}
+SC_LOADED_COLOR = {-1: None,
+                    0: Qt4_widget_colors.WHITE,
+                    1: Qt4_widget_colors.GREEN}
 
