@@ -311,6 +311,9 @@ class GUISupervisor(QWidget):
         self.splash_screen.set_message("Executing configuration...")
         self.display()
 
+        log = logging.getLogger()
+        log.info('execute')
+        
         main_window = None
 
         if len(self.windows) > 0:
@@ -327,7 +330,6 @@ class GUISupervisor(QWidget):
             widgets_dict = dict([(isinstance(w.objectName, \
                 collections.Callable) and str(w.objectName()) or None, w) \
                 for w in QApplication.allWidgets()])
-
             def make_connections(items_list):
                 """Creates connections"""
 
@@ -336,7 +338,7 @@ class GUISupervisor(QWidget):
                         sender = widgets_dict[item["name"]]
                     except KeyError:
                         logging.getLogger().error(\
-                            "Could not find receiver widget %s" % \
+                            "Could not find sender widget %s" % \
                             item["name"])
                     else:
                         for connection in item["connections"]:
@@ -362,10 +364,12 @@ class GUISupervisor(QWidget):
                                     #    slot)
                     make_connections(item["children"])
 
+            log.info('Connecting bricks...')
             self.splash_screen.set_message("Connecting bricks...")
             make_connections(config.windows_list)
 
             # set run mode for every brick
+            log.info('Setting run mode ...')
             self.splash_screen.set_message("Setting run mode...")
             BlissWidget.setRunMode(True)
 
