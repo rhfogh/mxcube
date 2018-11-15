@@ -1,0 +1,8 @@
+export http_proxy=http://172.19.43.1:8080
+export MXCUBE_ROOT=$HOME/mxcube_local
+export PYTHONPATH=$PYTHONPATH:$MXCUBE_ROOT:$MXCUBE_ROOT/HardwareRepository/HardwareObjects:$MXCUBE_ROOT/HardwareRepository/HardwareObjects/SOLEIL:$MXCUBE_ROOT/HardwareRepository/HardwareObjects/sample_changer:$MXCUBE_ROOT/HardwareRepository/HardwareObjects/SOLEIL/PX2
+export PYTHONPATH=/home/experiences/proxima2a/com-proxima2a/python_modules/lib/python2.6/site-packages:/home/experiences/proxima2a/com-proxima2a/MxCuBE/libs/lib/python2.6/site-packages:/home/experiences/proxima2a/com-proxima2a/bin:$MXCUBE_ROOT/BlissFramework:$PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:/opt
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/Lima/lib
+export XML_FILES_PATH=$MXCUBE_ROOT/ExampleFiles/HardwareObjects.xml/soleil_px2
+
