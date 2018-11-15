@@ -65,6 +65,7 @@ if not pymca_imported:
 
 from BlissFramework.Qt4_BaseComponents import BlissWidget
 
+import traceback
 
 class McaSpectrumWidget(BlissWidget):
     def __init__(self, *args):
@@ -84,6 +85,8 @@ class McaSpectrumWidget(BlissWidget):
         _main_vlayout.setContentsMargins(0, 0, 0, 0)
 
     def set_data(self, data, calib, config):
+        logging.getLogger().info('McaSpectrumWidget set_data calib %s, config %s' % (str(calib), str(config)))
+        
         try:
             configured = False
             if os.path.exists(config.get("file", "")) and \
@@ -128,13 +131,14 @@ class McaSpectrumWidget(BlissWidget):
                     report.writeReport(text=text)
   
         except:
+            logging.getLogger().info('traceback %s' % traceback.format_exc())
             logging.getLogger().exception("McaSpectrumWidget: problem fitting %s %s %s" % \
                                           (str(data), str(calib), str(config)))
 
     def _fit(self):
         return self.mcafit_widget.fit()
 
-    def _configure(self,config):
+    def _configure(self, config):
         d = ConfigDict.ConfigDict()
         d.read(config["file"])
         if not d.has_key('concentrations'):
