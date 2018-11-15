@@ -17,6 +17,8 @@
 #  You should have received a copy of the GNU General Public License
 #  along with MXCuBE.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
 from QtImport import *
 
 import queue_model_objects_v1 as queue_model_objects
@@ -45,26 +47,17 @@ class XRFSpectrumParametersWidget(QWidget):
         _top_widget = QWidget(self)
         _parameters_widget = QWidget(_top_widget)
         self.data_path_widget = DataPathWidget(_parameters_widget)
-        self.other_parameters_gbox = QGroupBox("Other parameters", _parameters_widget) 
-        self.count_time_label = QLabel("Count time:", 
-                                       self.other_parameters_gbox)
-        self.count_time_ledit = QLineEdit(self.other_parameters_gbox)
-        self.count_time_ledit.setFixedWidth(50)
-        self.adjust_transmission_cbox = QCheckBox("Adjust transmission", \
-             self.other_parameters_gbox)
-        self.adjust_transmission_cbox.hide()
+        self.other_parameters_gbox = loadUi(os.path.join(os.path.dirname(__file__),
+                                     "ui_files/Qt4_xrf_parameters_widget_layout.ui"))
+        
+        self.excitation_energy_ledit = self.other_parameters_gbox.excitation_energy_ledit
+        self.count_time_ledit = self.other_parameters_gbox.count_time_ledit
+        self.adjust_transmission_cbox = self.other_parameters_gbox.adjust_transmission_cbox
+        
         self.mca_spectrum_widget = McaSpectrumWidget(self)
         self.snapshot_widget = SnapshotWidget(self)
  
         # Layout -------------------------------------------------------------
-        _other_parameters_gbox_hlayout = QHBoxLayout(self.other_parameters_gbox)
-        _other_parameters_gbox_hlayout.addWidget(self.count_time_label)  
-        _other_parameters_gbox_hlayout.addWidget(self.count_time_ledit)
-        _other_parameters_gbox_hlayout.addWidget(self.adjust_transmission_cbox)
-        _other_parameters_gbox_hlayout.addStretch(0)
-        _other_parameters_gbox_hlayout.setSpacing(2)
-        _other_parameters_gbox_hlayout.setContentsMargins(0, 0, 0, 0)
-
         _parameters_widget_layout = QVBoxLayout(_parameters_widget)
         _parameters_widget_layout.addWidget(self.data_path_widget)
         _parameters_widget_layout.addWidget(self.other_parameters_gbox)
@@ -98,7 +91,8 @@ class XRFSpectrumParametersWidget(QWidget):
              connect(self._run_number_ledit_change)
         self.count_time_ledit.textChanged.connect(\
              self._count_time_ledit_change)
-        
+        self.excitation_energy_ledit.textChanged.connect(\
+             self._excitation_energy_ledit_change)
         # Other ---------------------------------------------------------------
 
 
@@ -116,7 +110,11 @@ class XRFSpectrumParametersWidget(QWidget):
     def _count_time_ledit_change(self, new_value):
         if str(new_value).isdigit():
             self.xrf_spectrum_model.set_count_time(float(new_value))
-        
+    
+    def _excitation_energy_ledit_change(self, new_value):
+        if str(new_value).isdigit():
+            self.xrf_spectrum_model.set_excitation_energy(float(new_value))
+            
     def tab_changed(self):
         if self._tree_view_item:
             self.populate_widget(self._tree_view_item)
@@ -142,6 +140,8 @@ class XRFSpectrumParametersWidget(QWidget):
         self.count_time_ledit.setText(\
              str(self.xrf_spectrum_model.count_time)) 
 
+        self.excitation_energy_ledit.setText(\
+             str(self.xrf_spectrum_model.excitation_energy)) 
         image = self.xrf_spectrum_model.centred_position.snapshot_image
         self.snapshot_widget.display_snapshot(image, width=400)
 
