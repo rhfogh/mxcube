@@ -122,6 +122,8 @@ class CreateTaskBase(QWidget):
                 self._path_template.base_prefix = self.get_default_prefix()
                 self._path_template.run_number = bl_setup.queue_model_hwobj.\
                     get_next_run_number(self._path_template)
+                offer_compression_choice = self._beamline_setup_hwobj.offer_compression_choice()
+                self._data_path_widget.data_path_layout.compression_cbox.setVisible(offer_compression_choice)
         else:
             self._path_template = queue_model_objects.PathTemplate()
 
@@ -140,11 +142,11 @@ class CreateTaskBase(QWidget):
 
             bl_setup_hwobj.energy_hwobj.connect('energyChanged', self.set_energy)
             bl_setup_hwobj.energy_hwobj.connect('energyLimitsChanged', self.set_energy_limits)
-            bl_setup_hwobj.transmission_hwobj.connect('attFactorChanged', self.set_transmission)
-            bl_setup_hwobj.transmission_hwobj.connect('attLimitsChanged', self.set_transmission_limits)
+            #bl_setup_hwobj.transmission_hwobj.connect('attFactorChanged', self.set_transmission)
+            #bl_setup_hwobj.transmission_hwobj.connect('attLimitsChanged', self.set_transmission_limits)
             bl_setup_hwobj.resolution_hwobj.connect('positionChanged', self.set_resolution)
             bl_setup_hwobj.resolution_hwobj.connect('limitsChanged', self.set_resolution_limits)
-            bl_setup_hwobj.omega_axis_hwobj.connect('positionChanged', self.set_osc_start)
+            #bl_setup_hwobj.omega_axis_hwobj.connect('positionChanged', self.set_osc_start)
             bl_setup_hwobj.kappa_axis_hwobj.connect('positionChanged', self.set_kappa)
             bl_setup_hwobj.kappa_phi_axis_hwobj.connect('positionChanged', self.set_kappa_phi)
             bl_setup_hwobj.detector_hwobj.connect('detectorRoiModeChanged', self.set_detector_roi_mode)
@@ -465,18 +467,18 @@ class CreateTaskBase(QWidget):
         #         not isinstance(tree_item, Qt4_queue_item.TaskQueueItem)) 
 
     def _update_etr(self):
-        omega = self._beamline_setup_hwobj._get_omega_axis_position()
+        #omega = self._beamline_setup_hwobj._get_omega_axis_position()
         kappa = self._beamline_setup_hwobj._get_kappa_axis_position()
         kappa_phi = self._beamline_setup_hwobj._get_kappa_phi_axis_position()
         energy = self._beamline_setup_hwobj._get_energy()
-        transmission = self._beamline_setup_hwobj._get_transmission()
+        #transmission = self._beamline_setup_hwobj._get_transmission()
         resolution = self._beamline_setup_hwobj._get_resolution()
     
-        self._acquisition_parameters.osc_start = omega            
+        #self._acquisition_parameters.osc_start = omega            
         self._acquisition_parameters.kappa = kappa
         self._acquisition_parameters.kappa_phi = kappa_phi
         self._acquisition_parameters.energy = energy
-        self._acquisition_parameters.transmission = transmission
+        #self._acquisition_parameters.transmission = transmission
         self._acquisition_parameters.resolution = resolution
 
         self._acq_widget.value_changed_list = []
