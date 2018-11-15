@@ -34,26 +34,45 @@ __category__ = 'Motor'
 
 class Qt4_MotorSpinBoxBrick(BlissWidget):
     """STATE COLORS are based on the motor states:
+                                                                    MotorStates in   MotorStates 
+    """                                              # description  AbstractMotor   constants in AM 
+    #STATE_COLORS = (Qt4_widget_colors.LIGHT_YELLOW,  # INITIALIZING      0           INITIALIZING
+                    #Qt4_widget_colors.LIGHT_GREEN,   # ON                1           ON 
+                    #Qt4_widget_colors.DARK_GRAY,     # OFF               2           OFF 
+                    #Qt4_widget_colors.LIGHT_GREEN,   # READY             3           READY
+                    #Qt4_widget_colors.LIGHT_YELLOW,  # MOVING            4           BUSY
+                    #Qt4_widget_colors.LIGHT_YELLOW,  # BUSY              5           MOVING
+                    #Qt4_widget_colors.LIGHT_YELLOW,  # MOVESTARTED       6           STANDBY
+                    #Qt4_widget_colors.LIGHT_GREEN,   # STANDBY           7           DISABLED
+                    #Qt4_widget_colors.DARK_GRAY,     # DISABLED          8           UNKNOWN
+                    #Qt4_widget_colors.DARK_GRAY,     # UNKNOWN           9           ALARM
+                    #Qt4_widget_colors.LIGHT_RED,     # ALARM            10           FAULT
+                    #Qt4_widget_colors.LIGHT_RED,     # FAULT            11           INVALID
+                    #Qt4_widget_colors.LIGHT_RED,     # INVALID          12           OFFLINE
+                    #Qt4_widget_colors.DARK_GRAY,     # OFFLINE          13           LOWLIMIT
+                    #Qt4_widget_colors.LIGHT_RED,     # LOWLIMIT         14           HIGHLIMIT
+                    #Qt4_widget_colors.LIGHT_RED,     # HIGHLIMIT        15           NOTINITIALIZED
+                    #Qt4_widget_colors.DARK_GRAY)     # NOTINITIALIZED   16           MOVESTARTED
 
-    """
-    STATE_COLORS = (Qt4_widget_colors.LIGHT_YELLOW,  # INITIALIZING
-                    Qt4_widget_colors.LIGHT_GREEN,   # ON
-                    Qt4_widget_colors.DARK_GRAY,     # OFF
-                    Qt4_widget_colors.LIGHT_GREEN,   # READY
-                    Qt4_widget_colors.LIGHT_YELLOW,  # MOVING
-                    Qt4_widget_colors.LIGHT_YELLOW,  # BUSY
-                    Qt4_widget_colors.LIGHT_YELLOW,  # MOVING
-                    Qt4_widget_colors.LIGHT_GREEN,   # STANDBY
-                    Qt4_widget_colors.DARK_GRAY,     # DISABLED
-                    Qt4_widget_colors.DARK_GRAY,     # UNKNOWN
-                    Qt4_widget_colors.LIGHT_RED,     # ALARM
-                    Qt4_widget_colors.LIGHT_RED,     # FAULT
-                    Qt4_widget_colors.LIGHT_RED,     # INVALID
-                    Qt4_widget_colors.DARK_GRAY,     # OFFLINE
-                    Qt4_widget_colors.LIGHT_RED,     # LOWLIMIT
-                    Qt4_widget_colors.LIGHT_RED,     # HIGHLIMIT
-                    Qt4_widget_colors.DARK_GRAY)     # NOTINITIALIZED
-
+    # Corrected STATE_COLORS
+    STATE_COLORS = (Qt4_widget_colors.LIGHT_YELLOW,  # INITIALIZING      0           INITIALIZING
+                    Qt4_widget_colors.LIGHT_GREEN,   # ON                1           ON 
+                    Qt4_widget_colors.DARK_GRAY,     # OFF               2           OFF 
+                    Qt4_widget_colors.LIGHT_GREEN,   # READY             3           READY
+                    Qt4_widget_colors.LIGHT_YELLOW,  # BUSY              4           BUSY
+                    Qt4_widget_colors.LIGHT_YELLOW,  # MOVING            5           MOVING
+                    Qt4_widget_colors.LIGHT_GREEN,   # STANDBY           6           STANDBY
+                    Qt4_widget_colors.DARK_GRAY,     # DISABLED          7           DISABLED
+                    Qt4_widget_colors.DARK_GRAY,     # UNKNOWN           8           UNKNOWN
+                    Qt4_widget_colors.LIGHT_RED,     # ALARM             9           ALARM
+                    Qt4_widget_colors.LIGHT_RED,     # FAULT            10           FAULT
+                    Qt4_widget_colors.LIGHT_RED,     # INVALID          11           INVALID
+                    Qt4_widget_colors.DARK_GRAY,     # OFFLINE          12           OFFLINE
+                    Qt4_widget_colors.LIGHT_RED,     # LOWLIMIT         13           LOWLIMIT
+                    Qt4_widget_colors.LIGHT_RED,     # HIGHLIMIT        14           HIGHLIMIT
+                    Qt4_widget_colors.DARK_GRAY,     # NOTINITIALIZED   15           NOTINITIALIZED
+                    Qt4_widget_colors.LIGHT_YELLOW)  # MOVESTARTED      16           MOVESTARTED
+                    
     MAX_HISTORY = 20
 
     def __init__(self, *args):
@@ -187,7 +206,8 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
 
         # Other ---------------------------------------------------------------
         self.instance_synchronize("position_spinbox", "step_combo")
- 
+        self.update_gui()
+        
     def setExpertMode(self, mode):
         """
         Descript. :
@@ -311,6 +331,7 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
         Return.   : 
         """
         self.demand_move = 0
+        self.motor_hwobj.stop()
 
     def move_up(self):
         """
@@ -319,13 +340,15 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
         Return.   : 
         """
         #self.demand_move = 1
+        
         self.update_gui()
         state = self.motor_hwobj.get_state()
+        
         if state == self.motor_hwobj.motor_states.READY:
             if self['invertButtons']:
-                self.really_move_down()
+                self.motor_hwobj.move_to_high_limit()
             else:
-                self.really_move_up()
+                self.motor_hwobj.move_to_low_limit()
 
     def move_down(self):
         """
@@ -336,11 +359,12 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
         #self.demand_move = -1
         self.update_gui()
         state = self.motor_hwobj.get_state()
+        
         if state == self.motor_hwobj.motor_states.READY:
             if self['invertButtons']:
-                self.really_move_up()
+                self.motor_hwobj.move_to_low_limit()
             else:
-                self.really_move_down()
+                self.motor_hwobj.move_to_high_limit()
 
     def really_move_up(self):
         """
@@ -367,6 +391,7 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
         Args.     :
         Return.   : 
         """
+        
         step = 1.0
         if self.move_step is not None:
             step = self.move_step
@@ -387,8 +412,16 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
         """
         if self.motor_hwobj is not None: 
             self.main_gbox.setEnabled(True)
-            if self.motor_hwobj.is_ready():
+            if hasattr(self.motor_hwobj, 'updateState'):
+                self.motor_hwobj.updateState()
+            #if self.motor_hwobj.is_ready():
+            if hasattr(self.motor_hwobj, 'get_position') and hasattr(self.motor_hwobj, 'get_state') and hasattr(self.motor_hwobj, 'get_limits'):
+                self.position_changed(self.motor_hwobj.get_position())
+                self.state_changed(self.motor_hwobj.get_state())
+                self.limits_changed(self.motor_hwobj.get_limits())
+            else:
                 self.motor_hwobj.update_values()
+                    
         else:
             self.main_gbox.setEnabled(False)
 
@@ -398,7 +431,10 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
         Args.     :
         Return.   : 
         """
-        
+        #if abs(limits[0])>1000:
+            #limits = [0, 360]
+            #self.position_spinbox.setWrapping(True)
+        #self.log.info('limits_changed %s' % str(limits))
         if limits and not None in limits:
             self.position_spinbox.blockSignals(True)
             self.position_spinbox.setMinimum(limits[0])
@@ -406,12 +442,13 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
             self.position_spinbox.blockSignals(False)
 
             self.position_slider.blockSignals(True)
-            self.position_slider.setMaximum(limits[1])
             self.position_slider.setMinimum(limits[0])
+            self.position_slider.setMaximum(limits[1])
+            self.position_slider.setRange(limits[0], limits[1])
             self.position_slider.blockSignals(False)
 
             self.set_tool_tip(limits=limits)
-
+        
     def open_history_menu(self):
         """
         Descript. :
@@ -490,7 +527,9 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
     def state_changed(self, state):
         """Enables/disables controls based on the state
         """
+        
         self.set_position_spinbox_color(state)
+        
         if state == self.motor_hwobj.motor_states.READY:
             if self.demand_move == 1:
                 if self['invertButtons']:
@@ -528,8 +567,9 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
             self.stop_button.setEnabled(False)
             self.move_left_button.setEnabled(True)
             self.move_right_button.setEnabled(True)
+        
         self.set_tool_tip(state=state)
-
+        
     def change_position(self):
         """
         Descript. :
@@ -551,9 +591,10 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
         Args.     :
         Return.   : 
         """
-        states = ("NOTINITIALIZED", "MOVESTARTED", 
-                  "READY", "MOVING", 
-                  "HIGHLIMIT", "LOWLIMIT")
+        states = self.motor_hwobj.motor_states.STATE_DESC
+        #states = ("NOTINITIALIZED", "ON", "OFF",
+                  #"READY", "MOVING", 
+                  #"HIGHLIMIT", "LOWLIMIT")
         if name is None:
             try:
                 name = self.motor_hwobj.motor_name
@@ -567,15 +608,12 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
                 if state is None:
                     state = self.motor_hwobj.get_state()
             except:
-                logging.getLogger('user_level_log').exception("%s: could not get motor state", self.objectName())
-                
                 state = self.motor_hwobj.motor_states.INVALID
                 
             try:
                 if limits is None and self.motor_hwobj.is_ready():
                     limits = self.motor_hwobj.get_limits()
             except:
-                logging.getLogger('user_level_log').exception("%s: could not get motor limits", self.objectName())
                 limits = None
             try:
                 state_str = states[state]
@@ -588,7 +626,6 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
                 l_top = self['formatString'] % float(limits[1])
                 limits_str = " Limits:%s,%s" % (l_bot, l_top)
             tip = name + " State: " + state_str + limits_str
-
         self.motor_label.setToolTip(tip)
         if not self['showBox']:
             tip = ""
@@ -665,11 +702,8 @@ class Qt4_MotorSpinBoxBrick(BlissWidget):
                          'stateChanged',
                          self.state_changed,
                          instanceFilter=True)
-
         self.pos_history = []
         self.update_gui()
-        #self['label'] = self['label']
-        #self['defaultStep']=self['defaultStep']
 
     def position_slider_double_value_changed(self, value):
         """Sets motor postion based on the slider value"""
