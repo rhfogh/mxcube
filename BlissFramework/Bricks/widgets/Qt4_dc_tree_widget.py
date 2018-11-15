@@ -259,6 +259,20 @@ class DataCollectTree(QWidget):
         if item:
             add_remove = True
             add_details = False
+            
+            if isinstance(item, Qt4_queue_item.SampleQueueItem):
+                if not item.get_model().free_pin_mode:
+                    if self.beamline_setup_hwobj.diffractometer_hwobj.in_plate_mode():
+                        self.plate_sample_to_mount = item
+                        self.item_menu.addAction("Move", self.mount_sample)
+                    else:
+                        if self.is_mounted_sample_item(item):
+                            self.item_menu.addAction("Un-Mount", self.unmount_sample)
+                            self.item_menu.addAction("Wash", self.mount_sample)
+                        else:
+                            self.item_menu.addAction("Mount", self.mount_sample)
+                self.item_menu.addSeparator()
+                
             self.item_menu.addAction("Rename", self.rename_treewidget_item)
             if item.has_star():
                 self.item_menu.addAction("Remove star", self.remove_star_treewidget_item)
@@ -289,16 +303,6 @@ class DataCollectTree(QWidget):
             elif isinstance(item, Qt4_queue_item.SampleQueueItem):
                 paste_action = self.item_menu.addAction("Paste", self.paste_item)
                 paste_action.setEnabled(self.item_copy is not None)
-                self.item_menu.addSeparator()
-                if not item.get_model().free_pin_mode:
-                    if self.beamline_setup_hwobj.diffractometer_hwobj.in_plate_mode():
-                        self.plate_sample_to_mount = item
-                        self.item_menu.addAction("Move", self.mount_sample)
-                    else:
-                        if self.is_mounted_sample_item(item):
-                            self.item_menu.addAction("Un-Mount", self.unmount_sample)
-                        else:
-                            self.item_menu.addAction("Mount", self.mount_sample)
                 self.item_menu.addSeparator()
 
                 sync_action = self.item_menu.addAction("Add diffraction plan from ISPyB",
@@ -496,6 +500,9 @@ class DataCollectTree(QWidget):
 
     def unmount_sample_task(self):
         """Sample unmount"""
+        
+        logging.getLogger("GUI").warning('unmount_sample_task')
+        
         items = self.get_selected_items()
 
         if len(items) == 1:
@@ -863,6 +870,7 @@ class DataCollectTree(QWidget):
 
     def is_mounted_sample_item(self, item):
         """Checks if item is mounted"""
+        
         result = False
 
         if isinstance(item, Qt4_queue_item.SampleQueueItem):
@@ -877,11 +885,21 @@ class DataCollectTree(QWidget):
                              plate_manipulator_hwobj.getLoadedSample().getCoords():
                        result = True
             elif self.beamline_setup_hwobj.sample_changer_hwobj is not None:
-                if not self.beamline_setup_hwobj.sample_changer_hwobj.hasLoadedSample():
-                    result = False
-                elif item.get_model().location == self.beamline_setup_hwobj.\
-                        sample_changer_hwobj.getLoadedSample().getCoords():
-                    result = True
+                try:
+                    if not self.beamline_setup_hwobj.sample_changer_hwobj.hasLoadedSample():
+                        result = False
+                    elif item.get_model().location == self.beamline_setup_hwobj.\
+                            sample_changer_hwobj.getLoadedSample().getCoords():
+                        result = True
+                except:
+                    log = logging.getLogger('GUI')
+                    sch = self.beamline_setup_hwobj.sample_changer_hwobj
+                    log.info('exception in is_mounted_sample_item')
+                    log.info('sch.getLoadedSample() %s' % self.beamline_setup_hwobj.sample_changer_hwobj.hasLoadedSample())
+                    log.info('sch.cats_api.get_mounted_sample_id() %s' % str(sch.cats_api.get_mounted_sample_id()))
+                    if item.get_model().location == sch.cats_api.get_mounted_sample_id():
+                        result = True
+                    
         return result
 
     def collect_items(self, items=[], checked_items=[]):
@@ -1309,6 +1327,7 @@ class DataCollectTree(QWidget):
 
     def set_sample_pin_icon(self):
         """Updates sample icon"""
+        
         it = QTreeWidgetItemIterator(self.sample_tree_widget)
         item = it.value()
 
