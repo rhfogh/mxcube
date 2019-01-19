@@ -103,7 +103,6 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         xx.setCurrentIndex(xx.findText(name))
 
         parameters = self._workflow_hwobj.get_available_workflows()[name]
-        beam_energies = parameters.get('beam_energies', {})
         strategy_type = parameters.get('strategy_type')
         if strategy_type == 'transcal':
             self._gphl_acq_widget.hide()
@@ -115,9 +114,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
             self._gphl_acq_param_widget.hide()
         else:
             # acquisition type strategy
-            self._gphl_acq_param_widget.populate_widget(
-                beam_energies=beam_energies,
-            )
+            self._gphl_acq_param_widget.populate_widget()
             self._gphl_acq_widget.show()
             self._gphl_diffractcal_widget.hide()
             self._gphl_acq_param_widget.show()
@@ -177,6 +174,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
 
         path_template = self._create_path_template(sample, self._path_template)
         path_template.num_files = 0
+        path_template.compression = False
 
         ho = self._workflow_hwobj
         if ho.get_state() == States.OFF:
@@ -202,13 +200,25 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
         wf_parameters = ho.get_available_workflows()[wf_type]
         strategy_type = wf_parameters.get('strategy_type')
         wf.set_interleave_order(wf_parameters.get('interleaveOrder', ''))
-        if strategy_type == 'acquisition':
+        if strategy_type.startswith('transcal'):
+            expected_resolution = None
+
+        elif strategy_type.startswith('diffractcal'):
+            expected_resolution = self._gphl_diffractcal_widget.get_parameter_value(
+                'expected_resolution'
+            )
+            ss = self._gphl_diffractcal_widget.get_parameter_value('test_crystal')
+            crystal_data = self._gphl_diffractcal_widget.test_crystals.get(ss)
+            wf.set_space_group(crystal_data.space_group)
+            wf.set_cell_parameters(
+                tuple(getattr(crystal_data, tag)
+                      for tag in ('a', 'b', 'c', 'alpha', 'beta', 'gamma'))
+            )
+        else:
+            # Coulds be native_... phasing_... etc.
             expected_resolution = self._gphl_acq_param_widget.get_parameter_value(
                 'expected_resolution'
             )
-
-            dd = self._gphl_acq_param_widget.get_energy_dict()
-            wf.set_beam_energies(dd)
 
             wf.set_space_group(
                 self._gphl_acq_param_widget.get_parameter_value('space_group')
@@ -224,20 +234,7 @@ class CreateGphlWorkflowWidget(CreateTaskBase):
                     point_group = point_groups[0]
             wf.set_point_group(point_group)
             wf.set_crystal_system(crystal_system)
-
-        elif strategy_type == 'diffractcal':
-            expected_resolution = self._gphl_diffractcal_widget.get_parameter_value(
-                'expected_resolution'
-            )
-            ss = self._gphl_diffractcal_widget.get_parameter_value('test_crystal')
-            crystal_data = self._gphl_diffractcal_widget.test_crystals.get(ss)
-            wf.set_space_group(crystal_data.space_group)
-            wf.set_cell_parameters(
-                tuple(getattr(crystal_data, tag)
-                      for tag in ('a', 'b', 'c', 'alpha', 'beta', 'gamma'))
-            )
-        else:
-            expected_resolution = None
+            wf.set_beam_energies(wf_parameters['beam_energies'])
         wf.set_expected_resolution(expected_resolution)
         
         tasks.append(wf)
