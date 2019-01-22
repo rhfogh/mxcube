@@ -73,13 +73,13 @@ class TaskToolBoxWidget(QWidget):
         self.helical_page = CreateHelicalWidget(self.tool_box, "helical_page")
         self.energy_scan_page = CreateEnergyScanWidget(self.tool_box, "energy_scan")
         self.xrf_spectrum_page = CreateXRFSpectrumWidget(self.tool_box, "xrf_spectrum")
-        if hasattr(parent.getHardwareObject('beamline-setup'),
-                   'gphl_workflow_hwobj'):
+        gphl_connection_hwobj = parent.getHardwareObject('gphl-setup')
+        if gphl_connection_hwobj is None:
+            self.gphl_workflow_page = None
+            logging.getLogger("HWR").info("GPhL workflow is not available")
+        else:
             self.gphl_workflow_page = CreateGphlWorkflowWidget(self.tool_box,
                                                                "gphl_workflow")
-        else:
-            self.gphl_workflow_page = None
-            logging.getLogger("GUI").debug("GPhL workflow is not available")
         self.advanced_page = CreateAdvancedWidget(self.tool_box, "advanced_scan")
         #self.xray_imaging_page = CreateXrayImagingWidget(self.tool_box, "xray_imaging")
 
@@ -201,8 +201,8 @@ class TaskToolBoxWidget(QWidget):
             #logging.getLogger("GUI").warning("Xray Imaging task not available")
 
         has_gphl_workflow = False
-        if hasattr(beamline_setup_hwobj, 'gphl_workflow_hwobj'):
-            if beamline_setup_hwobj.gphl_workflow_hwobj:
+        if hasattr(beamline_setup_hwobj, 'gphl_connection_hwobj'):
+            if beamline_setup_hwobj.gphl_connection_hwobj:
                 has_gphl_workflow = True
 
         if has_gphl_workflow:
@@ -210,7 +210,7 @@ class TaskToolBoxWidget(QWidget):
                 beamline_setup_hwobj.gphl_workflow_hwobj
             )
         else:
-            logging.getLogger("GUI").debug("GPhL workflow task not available")
+            logging.getLogger("HWR").info("GPhL workflow task not available")
 
 
     def update_data_path_model(self):

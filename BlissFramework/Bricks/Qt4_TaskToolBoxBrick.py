@@ -60,7 +60,8 @@ class Qt4_TaskToolBoxBrick(BlissWidget):
         self.tree_brick = None
 
         # Properties ---------------------------------------------------------- 
-        self.addProperty("beamline_setup", "string", "/beamline-setup")
+        # self.addProperty("beamline_setup", "string", "/beamline-setup")
+        self.addProperty("beamline_setup", "string", "/singleton_objects/beamline-setup")
         self.addProperty("queue_model", "string", "/queue-model")
         self.addProperty("useOscStartCbox", "boolean", False)
         self.addProperty("useCompression", "boolean", False)

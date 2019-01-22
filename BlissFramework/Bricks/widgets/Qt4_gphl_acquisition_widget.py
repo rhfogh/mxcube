@@ -162,11 +162,11 @@ class GphlDiffractcalWidget(GphlSetupWidget):
 
         # Get test crystal data
         self.test_crystals = OrderedDict()
-        bl_setup_hwobj = HardwareRepository.HardwareRepository().getHardwareObject(
-            'beamline-setup'
+        gphl_workflow_hwobj = HardwareRepository.HardwareRepository().getHardwareObject(
+            'gphl-workflow'
         )
         xx = next(
-            bl_setup_hwobj.gphl_workflow_hwobj.getObjects("test_crystals")
+            gphl_workflow_hwobj.getObjects("test_crystals")
         )
         for test_crystal in xx.getObjects("test_crystal"):
             dd = test_crystal.getProperties()
